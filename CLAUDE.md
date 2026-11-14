@@ -15,7 +15,7 @@ The repository contains only a placeholder `README.md`. No code exists yet. Ever
 
 There are three sample municipalities: **Guimba** (irrigated rice–rice), **Bongabon** (rice–onion) and **Science City of Muñoz** (PhilRice/CLSU station, used for ground validation).
 
-Users are farmers who may have little formal education. UI text is plain Tagalog/Taglish with pictures and traffic-light colors, and it is read aloud with `flutter_tts` (`fil-PH`, English fallback). Every result must carry a disclaimer to consult the MAO (Municipal Agriculture Office) or PhilRice.
+Users are farmers who may have little formal education. **English is the base language of the UI; Filipino is a translation** (`app_en.arb` is the source, `app_fil.arb` the translation), written in plain farmer vocabulary with pictures and traffic-light colors. **Voice is optional** and set in Settings (Off / On tap / Automatic) through `flutter_tts` (`fil-PH` or English, English fallback); every page must work with voice off. Scope today is Nueva Ecija only, but the UI must not hard-code places, crops, seasons, advisor names or currency, so it can grow to other regions later. Every result must carry a disclaimer to consult the MAO (Municipal Agriculture Office) or PhilRice.
 
 ## Baseline period
 
@@ -65,5 +65,7 @@ cd flutter_app && flutter test test/harvest_test.dart   # single file
 - MODIS/GPM/SMAP/SRTM come through NASA AppEEARS, which needs an Earthdata login. Requests take hours, so submit them early.
 
 ## Planning reference
+
+The UI/UX design (17 pages with contents and wireframes, navigation, localization, voice, uncertainty display) is in `docs/ui_ux_plan.md`. It is newer than the "Flutter app screens" section of `docs/plan.md` where the two differ.
 
 The full approved plan (data sources, JSON schema, screens, 48-hour schedule, tests, fallbacks) was written outside the repo during the planning session. If a `docs/` copy exists, treat it as the source of truth for scope.

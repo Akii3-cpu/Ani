@@ -9,7 +9,8 @@ NASA Space Apps-style challenge: build a decision-support tool that uses NASA Ea
 - **Flutter** app; results **pre-computed in Python and bundled as JSON** (offline, no server)
 - Sites: **Guimba** (irrigated rice–rice), **Bongabon** (rice–onion), **Science City of Muñoz** (PhilRice/CLSU, used for ground validation)
 - **Baseline period: 2015–2025 (11 years).** The full 2001–2025 downloads were too large, and SMAP only starts on 2015-03-31, so every layer uses the same period. Consequences: z-scores and SPI rest on 11 years; only about 3–4 El Niño dry seasons fall in this window (e.g., 2015–16, 2018–19, 2023–24), so El Niño counts such as "2 of 3 years" come with very wide intervals; and the sample-size confidence factor can reach Medium at best (High needs 20 or more years). The app must show these limits instead of hiding them.
-- Voice: **flutter_tts (fil-PH)** now; recorded Tagalog clips later if time allows
+- **Language: English is the base; Filipino is a translation** shown to Filipino farmers. Scope now is Nueva Ecija only, but the UI is designed so it can grow to other regions and languages (see [`ui_ux_plan.md`](ui_ux_plan.md))
+- Voice: **optional**, set in Settings (Off / On tap / Automatic). **flutter_tts** (fil-PH or English) now; recorded Tagalog clips later if time allows
 - Methods: monthly **z-scores** → **finite-state-machine (FSM) season simulation** over 2015–2025 → **ENSO analog years** → **weighted-sum/TOPSIS ranking** by farmer priorities (computed on-device in Dart, since it depends on user input)
 - **Two features:** (1) crop tracker: farmer enters crop + planting date, app shows growth stage, alerts and a predicted harvest window; (2) rotation advice for the next crop. The tracker feeds the advice at harvest.
 - Rotations compared: **Rice–Rice (baseline)**, **Rice–Onion**, **Rice–Mungbean** (+ Rice–Corn if time)
@@ -26,7 +27,7 @@ NASA Space Apps-style challenge: build a decision-support tool that uses NASA Ea
 
 [Flutter app, offline]
  Farmer inputs → constraint filter → priority weights → TOPSIS ranking
-   → picture cards + Filipino sentences → flutter_tts
+   → picture cards + localized sentences (English base, Filipino translation) → optional flutter_tts
 ```
 
 ## Repo layout
@@ -59,8 +60,8 @@ ani/
       services/harvest.dart        # GDD harvest window + current stage
       services/alerts.dart         # stage × z-score rules, notifications
       services/planting_store.dart # saved plantings (on-device)
-      services/speech.dart         # flutter_tts wrapper (fil-PH, slow rate)
-      l10n/phrases_fil.dart        # Filipino sentence templates
+      services/speech.dart         # flutter_tts wrapper (optional voice; fil-PH or English, slow rate)
+      l10n/app_en.arb  app_fil.arb # gen_l10n strings: English is the source, Filipino the translation
       screens/  (welcome, location, rotation, water, priorities, results, detail, elnino)
     assets/data/  assets/img/
     test/                   # unit + widget tests
@@ -207,6 +208,8 @@ Farmers record what is already planted and when; the app follows the crop and pr
 - Not in scope: per-field satellite monitoring. MODIS at 250 m and cloudy wet-season images can't follow one small field reliably; NDVI stress is shown at municipality level only.
 
 ## Flutter app screens
+**The page-by-page design (contents, wireframes, navigation, language and voice rules) is in [`ui_ux_plan.md`](ui_ux_plan.md).** Where it differs from the list below (location asked at first run, voice toggle in Settings, a "Not for me" button instead of a "won't plant" page, English base text), `ui_ux_plan.md` is the newer one.
+
 0. **Home**: two big buttons, "Aking Tanim" (track my crop) and "Payo sa Susunod na Tanim" (advice for next crop), plus the El Niño banner
 0a. **Add planting**: crop, planting date, method, maturity class
 0b. **Crop monitor**: stage timeline, harvest window, alerts, tip, check-in, 🔊
