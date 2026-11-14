@@ -41,6 +41,10 @@ Key design points that span files:
 - **NASA data is municipality-scale, not field-scale.** Don't present POWER/GPM/SMAP/GRACE values as per-field measurements.
 - `crops.csv` is the hand-built crop trait table that drives the simulation, ranking and tracker. Every row needs a source column.
 
+## Workflow rule: test gates
+
+The team requires every task to pass its test gate before the next task starts. The gates are listed in `docs/plan.md` under "Testing and task gates". Don't begin a task while an earlier task's gate is failing. The JSON contract (`schema/muni.schema.json`) and the Python/Dart parity fixtures (`fixtures/alert_cases.json`) must stay passing on both sides.
+
 ## Commands (planned; verify once code exists)
 
 ```bash

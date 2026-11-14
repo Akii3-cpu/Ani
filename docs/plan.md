@@ -48,7 +48,7 @@ ani/
     uncertainty.py          # bootstrap, Wilson intervals, Monte Carlo ranges
     export_json.py          # → flutter_app/assets/data/<muni>.json
     crops.csv               # hand-built crop trait table (see below)
-    tests/                  # pytest for zscores + fsm
+    tests/                  # pytest: unit, known-answer, property (hypothesis), contract
   flutter_app/
     lib/
       main.dart
@@ -62,7 +62,12 @@ ani/
       l10n/phrases_fil.dart        # Filipino sentence templates
       screens/  (welcome, location, rotation, water, priorities, results, detail, elnino)
     assets/data/  assets/img/
-  docs/ data_sources.md  method.md  pitch.md
+    test/                   # unit + widget tests
+    integration_test/       # end-to-end farmer flows
+  schema/muni.schema.json   # JSON contract shared by pipeline and app
+  fixtures/                 # shared known-answer cases (e.g., alert_cases.json for Python/Dart parity)
+  .github/workflows/ci.yml  # pytest + flutter test on every push/PR
+  docs/ data_sources.md  method.md  pitch.md  manual_checklist.md
 ```
 
 ## Data (fetch BEFORE the hackathon if allowed; AppEEARS jobs take hours)
@@ -227,6 +232,47 @@ Packages: `flutter_tts`, `fl_chart`, `shared_preferences`. `flutter_map` is opti
 
 ## Demo script (2–3 min)
 A farmer in Guimba who grows rice–rice with NIA irrigation picks the priorities "tipid-tubig + ligtas". El Niño is on. The app says (and reads aloud) that dry-season rice struggled in X of Y El Niño years and recommends Rice–Mungbean, with Rice–Onion as the second choice if the farmer has a well. Then switch to Bongabon to show onion. End with "Kumonsulta sa MAO."
+
+## Testing and task gates
+**Rule:** every task has a gate. All of its checks must pass, and CI must be green, before the next task starts.
+
+**Test types**
+| Type | Checks | Tool |
+|---|---|---|
+| Unit | One function gives the right answer | `pytest`, `flutter_test` |
+| Known-answer | Synthetic input with a known result (constant 25 °C → exact harvest day) | Fixture files |
+| Property | Invariants: soil water never < 0, stages never go backwards | `hypothesis`; random-input loops in Dart |
+| Contract | Pipeline JSON matches what the app expects | `schema/muni.schema.json`, validated in Python (`jsonschema`) and in a Dart test |
+| Parity | `fsm.py` and `alerts.dart` give the same alerts | `fixtures/alert_cases.json`, used by both test suites |
+| Widget | Screens show the right content (badge color, "X sa Y taon") | `flutter_test` |
+| End-to-end | Full farmer flows | `integration_test` on an emulator or phone |
+| Manual | Filipino voice, offline mode, comprehension | `docs/manual_checklist.md`, signed off by a teammate |
+
+**Task order and gates**
+| # | Task | Gate |
+|---|---|---|
+| 0 | Repo setup (folders, pytest, Flutter project, CI) | CI runs on push; one placeholder test passes on each side |
+| 1 | JSON contract + mock JSON | Mock validates against the schema; the app loads it in a test |
+| 2 | `crops.csv` | Every row has a source; no missing values; durations and water needs in plausible ranges |
+| 3 | Fetch scripts | One file per municipality; continuous dates; correct units; no impossible values |
+| 4 | Harmonize + ET₀ | ET₀ matches the FAO-56 worked example; interpolation of a known grid is exact; gaps > 3 days flagged, not filled |
+| 5 | Z-scores | Per month mean ≈ 0, SD ≈ 1; SPI matches a reference value; 2019 DS gives z < −1 |
+| 6 | Soil-water model | Water balance closes (< 0.1 mm); dry spell → falls, never < 0; halving Δt changes results < 2% |
+| 7 | FSM + simulate | Stages follow crop durations; never go backwards; rainfed DS rice in El Niño years flagged; outputs for every rotation × water source × year |
+| 8 | Uncertainty | Wilson known values (5 of 7 → 36–92%); bootstrap range contains the estimate; confidence drops when any factor is low |
+| 9 | Export real JSON | Passes the contract test; app tests pass with real JSON instead of mock |
+| 10 | `ranking.dart` | No DS water → DS rice removed; "save water" at 100% → lowest-water rotation #1; same seed → same Monte Carlo result |
+| 11 | `harvest.dart` | Constant temperature → exact day; warmer → earlier; window contains planting date + guide duration |
+| 12 | `alerts.dart` | Parity with `fsm.py` on all shared cases |
+| 13 | Screens | Widget test per screen; full input → results flow passes in `integration_test` |
+| 14 | TTS + offline | Manual: airplane mode on, fil-PH voice reads every result card, English fallback when the voice is missing |
+| 15 | Usability | A non-technical person (ideally a farmer) completes the flow unaided and explains the result back |
+
+**Enforcement**
+- GitHub Actions runs `pytest pipeline/tests` and `flutter test` on every push and PR; a red CI blocks the merge.
+- One branch per task. The PR description lists that task's gate as checkboxes.
+- Write the known-answer fixture before the code (test-first).
+- If time runs short, never skip the soil-water, harvest-date, contract and parity tests. Widget tests can be trimmed.
 
 ## Verification
 - `pytest pipeline/tests`: z-scores have mean≈0 and sd≈1 per month; FSM transitions follow the crop durations; known drought years (e.g., 2015–16, 2019, 2024 DS) show water_stress z<−1.
