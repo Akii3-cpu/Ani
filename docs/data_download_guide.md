@@ -6,6 +6,8 @@ A step-by-step guide for the data team. Follow the steps in order. No coding is 
 
 **Time needed:** about 1–2 hours of clicking. AppEEARS jobs then run on NASA's side for several hours, so start steps 1–4 first.
 
+> **Baseline period: 2015–2025 (11 years).** The full 2001–2025 downloads were too large, and SMAP only starts on 2015-03-31, so every layer uses the same period. Consequences: z-scores and SPI rest on 11 years; only about 3–4 El Niño dry seasons fall in this window (e.g., 2015–16, 2018–19, 2023–24), so El Niño counts such as "2 of 3 years" come with very wide intervals; and the sample-size confidence factor can reach Medium at best (High needs 20 or more years). The app must show these limits instead of hiding them.
+
 ---
 
 ## Before you start: rules
@@ -97,7 +99,7 @@ We want the **average over each municipality**, so this is an **Area Sample**.
 1. In AppEEARS: **Extract → Area Samples → Start a new request.**
 2. **Sample name:** `ani_modis`
 3. **Upload** `ani_3_municipalities.geojson` from step 2.
-4. **Start date:** 01-01-2001. **End date:** 12-31-2025.
+4. **Start date:** 01-01-2015. **End date:** 12-31-2025.
 5. **Layers:**
    - Search `MOD13Q1` → pick **MOD13Q1.061** (250 m, 16-day) → add **`_250m_16_days_NDVI`**, **`_250m_16_days_EVI`** and **`_250m_16_days_pixel_reliability`**.
    - Search `MOD16A2` → pick **MOD16A2GF.061** (gap-filled, preferred) or **MOD16A2.061** → add **`ET_500m`**.
@@ -135,7 +137,7 @@ POWER gives daily temperature, rain, humidity, wind and sunlight. It is the most
 1. Go to **https://power.larc.nasa.gov/data-access-viewer/**
 2. **User community:** *Agroclimatology*. **Temporal average:** *Daily*.
 3. Click the map or type the latitude/longitude of **Guimba** (from step 2).
-4. **Dates:** 01/01/2001 → 12/31/2025. **Output format:** CSV.
+4. **Dates:** 01/01/2015 → 12/31/2025. **Output format:** CSV.
 5. **Parameters** (use the search box): 
    - Temperature at 2 m: **Maximum** (`T2M_MAX`) and **Minimum** (`T2M_MIN`)
    - **Precipitation Corrected** (`PRECTOTCORR`)
@@ -147,7 +149,7 @@ POWER gives daily temperature, rain, humidity, wind and sunlight. It is the most
 
 **Option B (one link per municipality):** paste this into your browser (change the latitude/longitude), and save the result as CSV:
 ```
-https://power.larc.nasa.gov/api/temporal/daily/point?parameters=T2M_MAX,T2M_MIN,PRECTOTCORR,RH2M,WS2M,ALLSKY_SFC_SW_DWN&community=AG&latitude=15.66&longitude=120.77&start=20010101&end=20251231&format=CSV
+https://power.larc.nasa.gov/api/temporal/daily/point?parameters=T2M_MAX,T2M_MIN,PRECTOTCORR,RH2M,WS2M,ALLSKY_SFC_SW_DWN&community=AG&latitude=15.66&longitude=120.77&start=20150101&end=20251231&format=CSV
 ```
 
 **Expect:** about 9,130 rows (one per day). Tmax roughly 25–38 °C; rain 0 to a few hundred mm on typhoon days. **−999** means missing.
@@ -162,13 +164,13 @@ AppEEARS may not have GPM, so we use NASA **Giovanni**, which makes an area-aver
 
 1. Go to **https://giovanni.gsfc.nasa.gov** → sign in with Earthdata.
 2. **Select plot:** *Time Series, Area-Averaged*.
-3. **Dates:** 2001-01-01 to 2025-12-31.
+3. **Dates:** 2015-01-01 to 2025-12-31.
 4. **Region:** draw a small box around **one** municipality, or type its bounding box (west, south, east, north). For Guimba, for example, about `120.70,15.60,120.85,15.72`. Get the real boxes from step 2.
 5. **Variables:** search **IMERG** → pick **"Daily precipitation (IMERG Final run, version 07)"** (product `GPM_3IMERGDF`, the *Final* run, not Early or Late).
 6. **Plot data** → when the chart appears, click **Downloads → CSV**.
 7. Save as `pipeline/data/raw/gpm/gpm_<municipality>.csv`. Repeat for the other 2 municipalities.
 
-**If Giovanni limits the date range:** split it into two requests (2001–2012, 2013–2025).
+**If Giovanni limits the date range:** split it into two requests (2015–2020, 2021–2025).
 
 **Expect:** daily rain in mm/day, mostly 0 in January–April, high values in July–September.
 

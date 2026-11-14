@@ -9,6 +9,7 @@ The team asked for a robust, phased plan for the backend only. Decisions from th
 - **Claude writes and tests the code** in the cloud session on branch `claude/stoic-einstein-nzq7cm`. The team runs downloads on laptops (this session cannot reach NASA hosts).
 - **Real downloads are not ready**, so every phase is built and tested on **sample data** first; real files are swapped in later without changing the model code.
 - **Core first, extras later.** Core = weather, z-scores, soil-water simulation, El Niño year counts, confidence, JSON export.
+- **Baseline period: 2015–2025 (11 years).** The full 2001–2025 downloads were too large, and SMAP only starts on 2015-03-31, so every layer uses the same period. Consequences: z-scores and SPI rest on 11 years; only about 3–4 El Niño dry seasons fall in this window (e.g., 2015–16, 2018–19, 2023–24), so El Niño counts such as "2 of 3 years" come with very wide intervals; and the sample-size confidence factor can reach Medium at best (High needs 20 or more years). The app must show these limits instead of hiding them.
 
 The go-ahead covers **Phases 0–6**. Phase 7 waits for the team's downloads. Phase 8 items are built only on request. No Flutter code, no pull request.
 
@@ -54,7 +55,7 @@ schema/  fixtures/  .github/workflows/ci.yml  docs/json_contract.md
 **Phase 1: Contract, sample data, crop table.**
 - Both JSON schemas with `schema_version`, plus `docs/json_contract.md` explaining every field for the Flutter team.
 - Hand-written **mock JSON** for the 3 municipalities in `flutter_app/assets/data/` so app work can start immediately.
-- `make_sample.py`: 2001–2025 daily weather per municipality with a wet/dry seasonal cycle and **planted dry years** aligned to a sample ONI file, so later tests have known answers.
+- `make_sample.py`: 2015–2025 daily weather per municipality with a wet/dry seasonal cycle and **planted dry years** aligned to a sample ONI file, so later tests have known answers.
 - `crops.csv` (rice, onion, mungbean, corn) and `params.yaml`. Values I cannot verify from here are marked `needs_expert_review`.
 *Gate:* mock JSON validates against the schema; sample data is identical on two runs; every crop row has a source and plausible ranges.
 
@@ -67,7 +68,7 @@ schema/  fixtures/  .github/workflows/ci.yml  docs/json_contract.md
 **Phase 4: Soil water and crop stages.** `soil_water.py`, `fsm.py`, GDD trapezoid + root finding, stage risk rules read from `params.yaml`.
 *Gate:* water balance closes within 0.1 mm; soil water never leaves [0, S_max] (property test); halving the time step changes stress days by < 2%; constant temperature gives the exact analytical harvest day; stages never go backwards.
 
-**Phase 5: Simulation.** `simulate.py` for Rice–Rice, Rice–Onion, Rice–Mungbean (Rice–Corn if cheap) × {NIA, tube well, rainfed} × 2001–2025, then "X of Y years" by all / El Niño / La Niña years. Irrigation supply rules (e.g., reduced NIA supply in El Niño years) are parameters flagged for expert review.
+**Phase 5: Simulation.** `simulate.py` for Rice–Rice, Rice–Onion, Rice–Mungbean (Rice–Corn if cheap) × {NIA, tube well, rainfed} × 2015–2025, then "X of Y years" by all / El Niño / La Niña years. Irrigation supply rules (e.g., reduced NIA supply in El Niño years) are parameters flagged for expert review.
 *Gate:* an output row exists for every combination; rainfed dry-season rice is stressed in the planted dry years; mungbean uses less water than dry-season rice; results are identical on two runs.
 
 **Phase 6: Uncertainty, export, one-command run.** Wilson intervals on every frequency; the pipeline-side confidence factors (years of data, satellite-vs-ground; the app adds ranking stability and farmer inputs); `export.py`; `fixtures/alert_cases.json` for Python/Dart parity; `python -m ani.run --source sample`.
@@ -79,7 +80,7 @@ schema/  fixtures/  .github/workflows/ci.yml  docs/json_contract.md
 **Phase 8: Optional layers (independent; build in this order, each only on request).**
 | # | Layer | Adds | Gate |
 |---|---|---|---|
-| 8a | SMAP + GPM loaders (AppEEARS / Giovanni CSV) | Observed soil moisture and satellite rain in the z-scores | Run works with and without the layer; shorter SMAP baseline lowers confidence |
+| 8a | SMAP + GPM loaders (AppEEARS / Giovanni CSV) | Observed soil moisture and satellite rain in the z-scores | Run works with and without the layer; the first SMAP year starts 2015-03-31 and is handled as a partial year |
 | 8b | Monte Carlo + bootstrap | Ranges on income/water/risk; firm-or-not z labels | Error shrinks as 1/√N; ranges contain the point estimate |
 | 8c | Station validation (`validate.py`) | Bias, RMSE, r vs. PAGASA/PhilRice data | Known synthetic bias is recovered |
 | 8d | MODIS NDVI phenology | Bare-field windows, crop-stress z | Synthetic NDVI green-up recovered within one composite |

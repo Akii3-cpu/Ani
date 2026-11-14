@@ -17,6 +17,10 @@ There are three sample municipalities: **Guimba** (irrigated rice–rice), **Bon
 
 Users are farmers who may have little formal education. UI text is plain Tagalog/Taglish with pictures and traffic-light colors, and it is read aloud with `flutter_tts` (`fil-PH`, English fallback). Every result must carry a disclaimer to consult the MAO (Municipal Agriculture Office) or PhilRice.
 
+## Baseline period
+
+**Baseline period: 2015–2025 (11 years).** The full 2001–2025 downloads were too large, and SMAP only starts on 2015-03-31, so every layer uses the same period. Consequences: z-scores and SPI rest on 11 years; only about 3–4 El Niño dry seasons fall in this window (e.g., 2015–16, 2018–19, 2023–24), so El Niño counts such as "2 of 3 years" come with very wide intervals; and the sample-size confidence factor can reach Medium at best (High needs 20 or more years). The app must show these limits instead of hiding them.
+
 ## Architecture (planned)
 
 There are two halves, connected only through bundled JSON files. **There is no server.**
@@ -32,7 +36,7 @@ GRACE + SoilGrids, ONI, crops.csv    ──►   ranking.dart  (filter → weigh
 Key design points that span files:
 
 - **Ranking is computed on the device, not in Python**, because it depends on farmer inputs (priorities, water source, constraints). The pipeline exports per-rotation outcome statistics, and `ranking.dart` filters, weights (top-3 priorities → 50/30/20, with extra weight on water/risk in El Niño mode) and ranks them with TOPSIS.
-- **Season simulation runs on daily steps.** A finite-state machine (`fsm.py`) advances crop stages by accumulated growing degree days. `soil_water.py` updates a bucket model each day with Euler's method (`dS/dt = P_eff + I − Kc·ET₀ − D`, clamped to `[0, S_max]`). Water stress means days where `Ks < 1` at sensitive stages. Runs cover every municipality × rotation × irrigation type (`nia` / tube well / rainfed) × year, 2001–2025.
+- **Season simulation runs on daily steps.** A finite-state machine (`fsm.py`) advances crop stages by accumulated growing degree days. `soil_water.py` updates a bucket model each day with Euler's method (`dS/dt = P_eff + I − Kc·ET₀ − D`, clamped to `[0, S_max]`). Water stress means days where `Ks < 1` at sensitive stages. Runs cover every municipality × rotation × irrigation type (`nia` / tube well / rainfed) × year, 2015–2025.
 - **Z-scores are computed per calendar month** (never across months). Rain uses SPI (a maximum-likelihood gamma fit); other variables use robust z (median/MAD). The composites are `water_stress = mean(−z_rain, −z_sm, +z_et)`, `heat = z_tmax` and `crop_stress = −z_ndvi`.
 - **Stage risk rules exist in both Python (`fsm.py`) and Dart (`alerts.dart`)**. Keep them in sync.
 - **ENSO analogs**: outcomes are aggregated as "X of Y years" for all years, El Niño years and La Niña years (from the NOAA ONI). Every frequency carries a Wilson interval (`ci_low`, `ci_high`).

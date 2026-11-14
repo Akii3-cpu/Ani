@@ -8,8 +8,9 @@ NASA Space Apps-style challenge: build a decision-support tool that uses NASA Ea
 - Team of 4–6 with Python, JS/React and Flutter/Kotlin skills
 - **Flutter** app; results **pre-computed in Python and bundled as JSON** (offline, no server)
 - Sites: **Guimba** (irrigated rice–rice), **Bongabon** (rice–onion), **Science City of Muñoz** (PhilRice/CLSU, used for ground validation)
+- **Baseline period: 2015–2025 (11 years).** The full 2001–2025 downloads were too large, and SMAP only starts on 2015-03-31, so every layer uses the same period. Consequences: z-scores and SPI rest on 11 years; only about 3–4 El Niño dry seasons fall in this window (e.g., 2015–16, 2018–19, 2023–24), so El Niño counts such as "2 of 3 years" come with very wide intervals; and the sample-size confidence factor can reach Medium at best (High needs 20 or more years). The app must show these limits instead of hiding them.
 - Voice: **flutter_tts (fil-PH)** now; recorded Tagalog clips later if time allows
-- Methods: monthly **z-scores** → **finite-state-machine (FSM) season simulation** over 2001–2025 → **ENSO analog years** → **weighted-sum/TOPSIS ranking** by farmer priorities (computed on-device in Dart, since it depends on user input)
+- Methods: monthly **z-scores** → **finite-state-machine (FSM) season simulation** over 2015–2025 → **ENSO analog years** → **weighted-sum/TOPSIS ranking** by farmer priorities (computed on-device in Dart, since it depends on user input)
 - **Two features:** (1) crop tracker: farmer enters crop + planting date, app shows growth stage, alerts and a predicted harvest window; (2) rotation advice for the next crop. The tracker feeds the advice at harvest.
 - Rotations compared: **Rice–Rice (baseline)**, **Rice–Onion**, **Rice–Mungbean** (+ Rice–Corn if time)
 
@@ -32,7 +33,7 @@ NASA Space Apps-style challenge: build a decision-support tool that uses NASA Ea
 ```
 ani/
   pipeline/                 # Python
-    config.py               # municipalities (name, lat/lon, bbox), years 2001–2025
+    config.py               # municipalities (name, lat/lon, bbox), years 2015–2025
     fetch_power.py          # NASA POWER daily API → data/raw/power_<muni>.csv
     fetch_appeears.py       # GPM, SMAP L4, MODIS NDVI/ET, SRTM via AppEEARS area requests
     fetch_soilgrids.py      # ISRIC SoilGrids REST → texture, pH, SOC per muni
@@ -73,14 +74,14 @@ ani/
 ## Data (fetch BEFORE the hackathon if allowed; AppEEARS jobs take hours)
 | Source | Product | Variables | Period |
 |---|---|---|---|
-| NASA POWER API | daily, point per muni | T2M_MAX/MIN, PRECTOTCORR, RH2M, WS2M, ALLSKY_SFC_SW_DWN → FAO-56 ET₀ | 2001–2025 |
-| GPM | IMERG Final monthly/daily | precipitation, extreme-rain days | 2001–2025 |
-| SMAP | SPL4SMGP (root-zone) | soil moisture | 2015–2025 (shorter baseline, flag it) |
-| MODIS | MOD13Q1 NDVI, MOD16A2 ET | crop stress, bare-field detection, actual ET | 2001–2025 |
-| GRACE/GRACE-FO | JPL mascon | water storage anomaly (province-scale trend) | 2002–2025 |
+| NASA POWER API | daily, point per muni | T2M_MAX/MIN, PRECTOTCORR, RH2M, WS2M, ALLSKY_SFC_SW_DWN → FAO-56 ET₀ | 2015–2025 |
+| GPM | IMERG Final monthly/daily | precipitation, extreme-rain days | 2015–2025 |
+| SMAP | SPL4SMGP (root-zone) | soil moisture | 2015–2025 (starts 2015-03-31) |
+| MODIS | MOD13Q1 NDVI, MOD16A2 ET | crop stress, bare-field detection, actual ET | 2015–2025 |
+| GRACE/GRACE-FO | JPL mascon | water storage anomaly (province-scale trend) | 2015–2025 (data gap Jun 2017–May 2018) |
 | SRTM | GL1 30 m | slope, low-lying %, used for erosion and flood flags | static |
 | SoilGrids | 0–30 cm | clay/sand, pH, SOC | static |
-| NOAA CPC | ONI | El Niño / La Niña / neutral by DS | 2001–2025 |
+| NOAA CPC | ONI | El Niño / La Niña / neutral by DS | 2015–2025 |
 | PSA / PhilRice (manual) | yields, farmgate prices | rice, onion, mungbean ₱/kg & t/ha | latest |
 | Crop calendar (manual) | PhilRice/DA | WS/DS windows | — |
 
@@ -112,7 +113,7 @@ Share raw copies between teammates through a shared Drive folder, not git. ECOST
 
 **JSON shape (`<muni>.json`)**
 ```json
-{ "muni":"Guimba", "baseline":"2001–2025",
+{ "muni":"Guimba", "baseline":"2015–2025",
   "current_conditions": {"water_stress_z":-1.2,"label":"mag-ingat"},
   "rotations":[{"id":"rice_mungbean","crops":["rice","mungbean"],
     "by_irrigation":{"nia":{"all":{"stressed":3,"years":25},"elnino":{"stressed":1,"years":7},
@@ -154,7 +155,7 @@ Name these in the method doc and pitch. Each one has a test.
 Measure it at each step, combine it into one confidence level, and show farmers plain words.
 
 **Pipeline (`validate.py`, `uncertainty.py`)**
-1. **Data:** compare POWER/GPM with the PAGASA/PhilRice Muñoz station → bias, RMSE, correlation r. Flag pixel size, record length (SMAP 2015+), % missing/cloudy months, and SoilGrids vs. BSWM disagreement.
+1. **Data:** compare POWER/GPM with the PAGASA/PhilRice Muñoz station → bias, RMSE, correlation r. Flag pixel size, record length (11 years), % missing/cloudy months, and SoilGrids vs. BSWM disagreement.
 2. **Baseline:** bootstrap the baseline years (1,000×) and recompute the monthly mean/SD → a z-score range per month. A label is "firm" only if the whole range stays on one side of the threshold.
 3. **Frequencies:** a Wilson interval on every "X of Y years" (e.g., 5 of 7 → 71%, range 36–92%).
 4. **Model sensitivity:** Monte Carlo (~500 runs), drawing crop parameters from ranges (yield, price, duration, water need) and shifting rule thresholds ±20% → ranges for income, water use and risk.
@@ -188,7 +189,7 @@ Farmers record what is already planted and when; the app follows the crop and pr
 **Harvest prediction (`harvest.dart`, on-device):**
 - Method: **growing degree days (GDD)**. `GDD_day = max(0, (Tmax + Tmin)/2 − T_base)`, summed from the planting date until the crop's `gdd_to_maturity`.
 - New `crops.csv` columns: `t_base_c`, `gdd_to_maturity` per maturity class, and stage fractions (share of GDD at which vegetative / flowering / maturity begin). Derive `gdd_to_maturity` as typical days-to-maturity × the site's normal daily GDD, so it matches local guides; cite the source for each duration.
-- Temperatures: actual NASA POWER daily values up to the export date, then the day-of-year normals (2001–2025) for the rest of the season.
+- Temperatures: actual NASA POWER daily values up to the export date, then the day-of-year normals (2015–2025) for the rest of the season.
 - Output a **window, not one date**: "Inaasahang ani: Marso 10–20" (expected harvest), plus days remaining. Window = run with normal, warm (+1 sd) and cool (−1 sd) temperatures, with a minimum of ±5 days.
 - Limits to state in the app: lowland temperatures vary little, so the estimate stays close to the variety's usual duration; variety, transplant shock, water stress and photoperiod-sensitive traditional rice shift it. The farmer checks grain/bulb/pod maturity before harvesting.
 
