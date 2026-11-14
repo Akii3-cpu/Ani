@@ -84,6 +84,18 @@ ani/
 | PSA / PhilRice (manual) | yields, farmgate prices | rice, onion, mungbean ₱/kg & t/ha | latest |
 | Crop calendar (manual) | PhilRice/DA | WS/DS windows | — |
 
+**Data in the repo.** Raw satellite downloads are never committed (files are hundreds of MB to GB, GitHub rejects files over 100 MB, binary rasters can't be merged, and the fetch scripts can recreate them).
+
+| In the repo | Gitignored |
+|---|---|
+| Fetch scripts (`fetch_power.py`, `fetch_appeears.py`, …) | Raw GPM, SMAP, MODIS, SRTM, GRACE files (`pipeline/data/raw/`) |
+| `crops.csv`, `schema/`, `fixtures/` | AppEEARS download bundles (`pipeline/data/appeears/`) |
+| `pipeline/data/README.md`: for each dataset, the product ID, date range, bounding box and download date | Earthdata login/token, `.env` |
+| Exported `<muni>.json` and `<muni>_daily.json` in `flutter_app/assets/data/` (the app needs them) | Large intermediate files |
+| Small processed tables in `pipeline/data/processed/*.csv` (e.g., POWER daily weather for 3 municipalities, about 1 MB each), so teammates can run the pipeline, tests and app without waiting on NASA downloads | |
+
+Share raw copies between teammates through a shared Drive folder, not git. ECOSTRESS is not part of the final pipeline, so nothing needs downloading for it.
+
 **Prep tasks:** create an Earthdata login, submit AppEEARS area requests for 3 municipality bounding boxes, and download the HDX municipality boundaries.
 
 **`crops.csv` columns:** crop, season_ok, duration_days, water_need_mm, Kc_ini/mid/end, temp_max_ok, flood_tolerance, drought_tolerance, n_fixed_kg_ha, residue_t_ha, root_depth_m, pest_family, erosion_C, yield_t_ha, price_php_kg, cost_php_ha, labor_level, needs_cold_storage. Source values from FAO-56, ECOCROP, PhilRice/PCAARRD guides and PSA. Put a source column on each row.
@@ -251,7 +263,7 @@ A farmer in Guimba who grows rice–rice with NIA irrigation picks the prioritie
 **Task order and gates**
 | # | Task | Gate |
 |---|---|---|
-| 0 | Repo setup (folders, pytest, Flutter project, CI) | CI runs on push; one placeholder test passes on each side |
+| 0 | Repo setup (folders, pytest, Flutter project, CI, `.gitignore` for raw data and credentials) | CI runs on push; one placeholder test passes on each side; `git check-ignore pipeline/data/raw/x.nc` confirms raw files are ignored |
 | 1 | JSON contract + mock JSON | Mock validates against the schema; the app loads it in a test |
 | 2 | `crops.csv` | Every row has a source; no missing values; durations and water needs in plausible ranges |
 | 3 | Fetch scripts | One file per municipality; continuous dates; correct units; no impossible values |

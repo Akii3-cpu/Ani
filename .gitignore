@@ -1,0 +1,27 @@
+# Raw satellite downloads: large, reproducible from the fetch scripts. Never commit.
+pipeline/data/raw/
+pipeline/data/appeears/
+pipeline/data/**/*.nc
+pipeline/data/**/*.h5
+pipeline/data/**/*.hdf
+pipeline/data/**/*.tif
+pipeline/data/**/*.tiff
+
+# Credentials
+.env
+*.token
+
+# Python
+__pycache__/
+*.pyc
+.venv/
+.pytest_cache/
+.hypothesis/
+
+# Flutter / Dart
+.dart_tool/
+flutter_app/build/
+
+# Tracked on purpose (listed for clarity):
+#   pipeline/data/processed/*.csv   small processed tables
+#   flutter_app/assets/data/*.json  exported app data

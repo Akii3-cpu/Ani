@@ -38,6 +38,7 @@ Key design points that span files:
 - **ENSO analogs**: outcomes are aggregated as "X of Y years" for all years, El Niño years and La Niña years (from the NOAA ONI). Every frequency carries a Wilson interval (`ci_low`, `ci_high`).
 - **Confidence level** = the lowest of four factors: years of data, satellite-vs-station agreement, ranking stability (% of Monte Carlo runs ranked #1) and completeness of farmer inputs. It is shown as Sigurado / Medyo sigurado / Hindi pa sigurado.
 - **Harvest prediction**: trapezoidal GDD sum from the planting date, with the harvest date found as the root of `G(t) − G_target`. Actual POWER temperatures are used up to the export date, then day-of-year normals. Output is a window from normal/warm/cool runs, never a single date.
+- **Never commit raw satellite files** (POWER/GPM/SMAP/MODIS/SRTM/GRACE downloads). Commit only the fetch scripts, `pipeline/data/README.md`, small processed tables and the exported app JSON. `.gitignore` enforces this.
 - **NASA data is municipality-scale, not field-scale.** Don't present POWER/GPM/SMAP/GRACE values as per-field measurements.
 - `crops.csv` is the hand-built crop trait table that drives the simulation, ranking and tracker. Every row needs a source column.
 
