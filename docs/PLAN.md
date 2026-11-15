@@ -114,6 +114,8 @@ _Status: met on 2026-11-15. All six `lib/core` modules are pure Dart (no Flutter
 
 Done when: the doc's Chapter 5 results reproduce in the app (rainfed Guimba/Muñoz → Hold; ~2 irrigations → Munggo; ~4 → Kamote/Mais/Munggo; as needed → all five incl. Sibuyas).
 
+_Status: met on 2026-11-15. `test/features/recommend_chapter5_test.dart` drives the questionnaire answers through the planner for Guimba and Muñoz under several priority orders and reproduces every Chapter 5 result. Bongabon rainfed gives Munggo with Low confidence, so it shows the MAO referral. Home and the questionnaire render on Flutter web; 809 tests pass. The heat strip lists PAGASA bands and "Magtrabaho nang maaga" but shows no current heat index, because the bundle has none; the live value comes in Phase 5 from POWER. "Bakit?" reasons are the planner's Filipino sentences in both locales._
+
 ## Phase 4 — Track planted crop + alerts
 
 1. **My farm**: add planting (crop, planting date, method; irrigation level defaults from the profile), list row with stage + progress, expandable detail with stage timeline and expected harvest window.
