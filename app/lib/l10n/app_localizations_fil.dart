@@ -218,8 +218,15 @@ class AppLocalizationsFil extends AppLocalizations {
   String get ensoNeutral => 'Neutral';
 
   @override
-  String ensoJasValue(String value) {
-    return 'JAS $value';
+  String ensoStrength(String level) {
+    String _temp0 = intl.Intl.selectLogic(level, {
+      'weak': 'Mahina',
+      'moderate': 'Katamtaman',
+      'strong': 'Malakas',
+      'veryStrong': 'Napakalakas',
+      'other': '',
+    });
+    return '$_temp0';
   }
 
   @override
@@ -969,4 +976,38 @@ class AppLocalizationsFil extends AppLocalizations {
 
   @override
   String get heatDangerToday => 'Delikadong init. Mag-ingat.';
+
+  @override
+  String get todayConditionsTitle => 'Kalagayan ngayon';
+
+  @override
+  String get condClear => 'Maaliwalas';
+
+  @override
+  String get condPartly => 'Bahagyang maulap';
+
+  @override
+  String get condCloudy => 'Maulap';
+
+  @override
+  String get condRain => 'Umuulan';
+
+  @override
+  String get condHeavyRain => 'Malakas na ulan';
+
+  @override
+  String feelsLike(String v) {
+    return 'Pakiramdam: $v°';
+  }
+
+  @override
+  String get humidityLabel => 'Halumigmig';
+
+  @override
+  String get windLabel => 'Hangin';
+
+  @override
+  String windKmh(String v) {
+    return '$v km/h';
+  }
 }

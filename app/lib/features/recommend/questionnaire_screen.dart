@@ -114,18 +114,20 @@ class _QuestionnaireScreenState extends State<QuestionnaireScreen> {
                 ],
               ),
               AniProgressBar(value: (_step + 1) / RecommendAnswers.steps),
-              const SizedBox(height: AniSpacing.xxl),
-              Text(title, style: theme.textTheme.headlineMedium?.copyWith(color: AniColors.ink)),
-              if (hint != null) ...[
-                const SizedBox(height: AniSpacing.sm),
-                Text(hint, style: theme.textTheme.bodyLarge?.copyWith(color: AniColors.muted)),
-              ],
               const SizedBox(height: AniSpacing.lg),
               Expanded(
                 child: ListView(
                   key: ValueKey('question-step-$_step'),
                   padding: EdgeInsets.zero,
-                  children: _spaced(tiles),
+                  children: [
+                    Text(title, style: theme.textTheme.headlineMedium?.copyWith(color: AniColors.ink)),
+                    if (hint != null) ...[
+                      const SizedBox(height: AniSpacing.sm),
+                      Text(hint, style: theme.textTheme.bodyLarge?.copyWith(color: AniColors.muted)),
+                    ],
+                    const SizedBox(height: AniSpacing.lg),
+                    ..._spaced(tiles),
+                  ],
                 ),
               ),
               const SizedBox(height: AniSpacing.lg),

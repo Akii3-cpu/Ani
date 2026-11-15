@@ -35,6 +35,7 @@ class LiveOutlook {
     required this.heat,
     this.state,
     this.current,
+    this.latestWeather,
   });
 
   final Town town;
@@ -56,6 +57,9 @@ class LiveOutlook {
 
   /// True when a live D is available (otherwise show `dryness.latest`).
   bool get hasLiveD => current != null;
+
+  /// Latest cached day with a Tmax (for the Home conditions card), or null.
+  final DailyWeather? latestWeather;
 
   /// Latest day with a heat index, or null.
   HeatDay? get latestHeat => heat.isEmpty ? null : heat.last;
@@ -134,6 +138,8 @@ class LiveOutlook {
       heat: heat.length > heatDays ? heat.sublist(heat.length - heatDays) : heat,
       state: state,
       current: current,
+      latestWeather: days.where((d) => d.tmax != null).fold<DailyWeather?>(
+          null, (a, d) => a == null || d.date.isAfter(a.date) ? d : a),
     );
   }
 }

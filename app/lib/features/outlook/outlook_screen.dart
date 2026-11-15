@@ -70,10 +70,10 @@ class _OutlookScreenState extends State<OutlookScreen> {
 }
 
 Color _tagColor(String tag) => switch (tag) {
-      EnsoTag.elNino => AniColors.statusDelikado,
-      EnsoTag.laNina => AniColors.statusNormal,
-      _ => AniColors.muted,
-    };
+  EnsoTag.elNino => AniColors.statusDelikado,
+  EnsoTag.laNina => AniColors.statusNormal,
+  _ => AniColors.muted,
+};
 
 String _signed(double x, int digits) => '${x >= 0 ? '+' : ''}${x.toStringAsFixed(digits)}';
 
@@ -89,7 +89,7 @@ class _EnsoCard extends StatelessWidget {
     final l = AppLocalizations.of(context);
     final theme = Theme.of(context);
     final color = _tagColor(enso.tag);
-    final jas = enso.jas;
+    final strength = ensoStrengthKey(enso.jas);
     return AniCard(
       key: const ValueKey('outlook-enso'),
       child: Column(
@@ -108,7 +108,7 @@ class _EnsoCard extends StatelessWidget {
             runSpacing: AniSpacing.sm,
             children: [
               AniPill(l.ensoTagName(enso.tag), color: color),
-              if (jas != null) AniPill(l.ensoJasValue(_signed(jas, 1)), color: AniColors.muted),
+              if (strength != null) AniPill(l.ensoStrength(strength), color: AniColors.muted),
             ],
           ),
         ],
@@ -201,8 +201,11 @@ class LiveDrynessCard extends StatelessWidget {
             runSpacing: AniSpacing.xs,
             crossAxisAlignment: WrapCrossAlignment.center,
             children: [
-              Text(l.drynessLabelName(label),
-                  key: const ValueKey('outlook-live-label'), style: theme.textTheme.headlineSmall?.copyWith(color: fg)),
+              Text(
+                l.drynessLabelName(label),
+                key: const ValueKey('outlook-live-label'),
+                style: theme.textTheme.headlineSmall?.copyWith(color: fg),
+              ),
               AniPill(l.drynessDValue(_signed(d, 2)), key: const ValueKey('outlook-live-d'), color: fg),
             ],
           ),
@@ -240,20 +243,21 @@ class _DekadRow extends StatelessWidget {
       child: Row(
         children: [
           Expanded(
-            child: Text(
-              dekad.partial ? '$range · ${l.outlookDekadPartial}' : range,
-              style: theme.textTheme.bodyMedium,
-            ),
+            flex: 2,
+            child: Text(dekad.partial ? '$range · ${l.outlookDekadPartial}' : range, style: theme.textTheme.bodyMedium),
           ),
           if (d == null)
             Text(l.outlookDekadNoData, style: theme.textTheme.bodySmall?.copyWith(color: AniColors.muted))
           else ...[
             Text(_signed(d, 2), style: theme.textTheme.titleSmall?.copyWith(color: color)),
             const SizedBox(width: AniSpacing.sm),
-            SizedBox(
-              width: 64,
-              child: Text(l.drynessLabelName(level!.id),
-                  textAlign: TextAlign.end, style: theme.textTheme.bodySmall?.copyWith(color: color)),
+            ConstrainedBox(
+              constraints: const BoxConstraints(minWidth: 64, maxWidth: 96),
+              child: Text(
+                l.drynessLabelName(level!.id),
+                textAlign: TextAlign.end,
+                style: theme.textTheme.bodySmall?.copyWith(color: color),
+              ),
             ),
           ],
         ],
@@ -320,8 +324,10 @@ class DrynessChartCard extends StatelessWidget {
           Row(
             children: [
               Expanded(child: Eyebrow(l.drynessChartTitle)),
-              Text(l.outlookChartYears((pts.length / 12).round()),
-                  style: theme.textTheme.bodySmall?.copyWith(color: AniColors.muted)),
+              Text(
+                l.outlookChartYears((pts.length / 12).round()),
+                style: theme.textTheme.bodySmall?.copyWith(color: AniColors.muted),
+              ),
             ],
           ),
           const SizedBox(height: AniSpacing.md),
@@ -363,8 +369,10 @@ class DrynessChartCard extends StatelessWidget {
                               if (i < 0 || i >= pts.length || (v - i).abs() > 0.01) return const SizedBox.shrink();
                               final p = pts[i];
                               if (p.monthOfYear != 1 || p.year % 2 != 0) return const SizedBox.shrink();
-                              return Text('${p.year}',
-                                  style: theme.textTheme.bodySmall?.copyWith(color: AniColors.muted));
+                              return Text(
+                                '${p.year}',
+                                style: theme.textTheme.bodySmall?.copyWith(color: AniColors.muted),
+                              );
                             },
                           ),
                         ),
@@ -383,7 +391,11 @@ class DrynessChartCard extends StatelessWidget {
                         horizontalLines: [
                           HorizontalLine(y: t.bantay, color: AniColors.statusBantay, strokeWidth: 1, dashArray: [4, 4]),
                           HorizontalLine(
-                              y: t.delikado, color: AniColors.statusDelikado, strokeWidth: 1, dashArray: [4, 4]),
+                            y: t.delikado,
+                            color: AniColors.statusDelikado,
+                            strokeWidth: 1,
+                            dashArray: [4, 4],
+                          ),
                         ],
                       ),
                       lineBarsData: [
@@ -410,9 +422,13 @@ class DrynessChartCard extends StatelessWidget {
                 ),
               ),
               const SizedBox(width: AniSpacing.xs),
-              Text(l.drynessChartElNino,
+              Expanded(
+                child: Text(
+                  l.drynessChartElNino,
                   key: const ValueKey('outlook-chart-legend'),
-                  style: theme.textTheme.bodySmall?.copyWith(color: AniColors.muted)),
+                  style: theme.textTheme.bodySmall?.copyWith(color: AniColors.muted),
+                ),
+              ),
             ],
           ),
           const SizedBox(height: AniSpacing.xs),

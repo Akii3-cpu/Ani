@@ -71,7 +71,7 @@ void main() {
     final b = state.bundle!;
     expect(b.meta.muni, 'bongabon');
     expect(find.text('El Niño'), b.enso.isElNino ? findsOneWidget : findsNothing);
-    expect(find.text('JAS +${b.enso.jas!.toStringAsFixed(1)}'), findsOneWidget);
+    expect(find.text('Napakalakas'), findsOneWidget);
     expect(find.text('Inaasahan ang El Niño ngayong tag-araw'), b.enso.isElNino ? findsOneWidget : findsNothing);
     expect(find.byKey(const ValueKey('home-dryness')), findsOneWidget);
 

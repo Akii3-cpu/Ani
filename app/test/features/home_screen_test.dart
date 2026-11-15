@@ -116,7 +116,7 @@ void main() {
 
     // El Niño outlook card.
     expect(_inKey('home-enso', find.text('Inaasahan ang El Niño ngayong tag-araw')), findsOneWidget);
-    expect(_inKey('home-enso', find.text('JAS +2.2')), findsOneWidget);
+    expect(_inKey('home-enso', find.text('Very strong')), findsOneWidget);
     expect(_inKey('home-enso', find.text('El Niño')), findsOneWidget);
     expect(_inKey('home-enso', find.textContaining(b.enso.comingSeason.toUpperCase())), findsOneWidget);
 
@@ -200,7 +200,7 @@ void main() {
     await _start(tester, town: Town.munoz, bundleJson: j);
     expect(find.text('Inaasahan ang El Niño ngayong tag-araw'), findsNothing);
     expect(_inKey('home-enso', find.text('Neutral')), findsWidgets);
-    expect(_inKey('home-enso', find.text('JAS -0.3')), findsOneWidget);
+    expect(_inKey('home-enso', find.text('Weak')), findsNothing);
   });
 
   testWidgets('CTA opens the questionnaire', (tester) async {

@@ -149,10 +149,12 @@ class CropCardView extends StatelessWidget {
                 ),
               ),
               const SizedBox(width: AniSpacing.sm),
-              AniPill(
-                l.cardConfidence(l.confidenceName(conf)),
-                key: ValueKey('card-${card.crop}-confidence'),
-                color: confidenceColor(conf),
+              Flexible(
+                child: AniPill(
+                  l.cardConfidence(l.confidenceName(conf)),
+                  key: ValueKey('card-${card.crop}-confidence'),
+                  color: confidenceColor(conf),
+                ),
               ),
             ],
           ),

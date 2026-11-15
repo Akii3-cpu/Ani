@@ -145,6 +145,8 @@ _Status: met on 2026-11-15 (widget-tested only; not run in a browser or on a dev
 3. App icon/name "Ani", release APK build, short README at repo root (currently just `# Ani`) covering pipeline → JSON → app.
 4. Demo script: Guimba rainfed (Hold) → Guimba 2 irrigations (Munggo) → Bongabon as-needed (Sibuyas with warning) → track a planting via replay.
 
+_Status: mostly met on 2026-11-15. Offline widget tests for every screen (`offline_screens_test.dart`), overflow fixes at 360x640 / text scale 1.3 (en + fil), root README, `docs/DEMO.md`, app name "Ani" and generated icon are in; `flutter analyze` clean, 932 tests pass. Not done: release APK (no Android SDK on this machine, `flutter build apk --release` fails), and the visual pass was not compared against the Figma frames (tokens only)._
+
 ## Suggested order if time is short
 
 Phase 0 → 1 → 2 (planner only) → 3 is the minimum submission that demonstrates Objectives 1–4. Phase 4 delivers Objective 5; Phase 5 and 6 are polish.

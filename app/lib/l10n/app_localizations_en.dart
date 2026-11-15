@@ -217,8 +217,15 @@ class AppLocalizationsEn extends AppLocalizations {
   String get ensoNeutral => 'Neutral';
 
   @override
-  String ensoJasValue(String value) {
-    return 'JAS $value';
+  String ensoStrength(String level) {
+    String _temp0 = intl.Intl.selectLogic(level, {
+      'weak': 'Weak',
+      'moderate': 'Moderate',
+      'strong': 'Strong',
+      'veryStrong': 'Very strong',
+      'other': '',
+    });
+    return '$_temp0';
   }
 
   @override
@@ -1022,4 +1029,38 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get heatDangerToday => 'Danger-level heat. Stay safe.';
+
+  @override
+  String get todayConditionsTitle => 'Today\'s conditions';
+
+  @override
+  String get condClear => 'Clear skies';
+
+  @override
+  String get condPartly => 'Partly cloudy';
+
+  @override
+  String get condCloudy => 'Cloudy';
+
+  @override
+  String get condRain => 'Rain';
+
+  @override
+  String get condHeavyRain => 'Heavy rain';
+
+  @override
+  String feelsLike(String v) {
+    return 'Feels like $v°';
+  }
+
+  @override
+  String get humidityLabel => 'Humidity';
+
+  @override
+  String get windLabel => 'Wind';
+
+  @override
+  String windKmh(String v) {
+    return '$v km/h';
+  }
 }

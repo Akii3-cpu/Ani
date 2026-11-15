@@ -64,7 +64,7 @@
   "ensoElNino": "El Niño",
   "ensoLaNina": "La Niña",
   "ensoNeutral": "Neutral",
-  "ensoJasValue": "JAS {value}",
+  "ensoStrength": "{level, select, weak{Mahina} moderate{Katamtaman} strong{Malakas} veryStrong{Napakalakas} other{}}",
   "drynessTitle": "Pagkatuyo",
   "drynessRank": "Ika-{rank} sa pinakatuyo sa {n} na taon",
   "drynessChartTitle": "Buwanang sukat ng pagkatuyo",
@@ -164,7 +164,6 @@
   "cropRiskOtherSeasons": "Ibang mga panahon",
   "cropRiskIrrigationColumn": "Patubig",
   "cropRiskNote": "Binilang sa mga nakaraang tag-araw (2001 hanggang 2025) sa isang punto sa {town}. Gabay ito, hindi pangako.",
-  "aboutTitle": "Tungkol at mga limitasyon",
   "aboutAdvisory": "Payo lang ang Ani. Ang panahon ay mula sa iisang punto bawat bayan, at pinakamababang tantya ang tubig para sa palay. Hindi pa ito nasubok sa bukid.",
   "aboutSources": "Datos: NASA POWER, ISRIC SoilGrids, NOAA CPC, PSA.",
   "actionRetry": "Subukan muli",
@@ -271,5 +270,15 @@
   "heatNoLive": "Wala pang live na init. Mag-online nang isang beses para ma-load.",
   "heatDangerDays": "{count, plural, =1{1 araw} other{{count} araw}} na delikado nitong nakaraang linggo",
   "heatRecentTitle": "Mga nakaraang araw",
-  "heatDangerToday": "Delikadong init. Mag-ingat."
+  "heatDangerToday": "Delikadong init. Mag-ingat.",
+  "todayConditionsTitle": "Kalagayan ngayon",
+  "condClear": "Maaliwalas",
+  "condPartly": "Bahagyang maulap",
+  "condCloudy": "Maulap",
+  "condRain": "Umuulan",
+  "condHeavyRain": "Malakas na ulan",
+  "feelsLike": "Pakiramdam: {v}°",
+  "humidityLabel": "Halumigmig",
+  "windLabel": "Hangin",
+  "windKmh": "{v} km/h"
 }

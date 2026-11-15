@@ -482,11 +482,11 @@ abstract class AppLocalizations {
   /// **'Neutral'**
   String get ensoNeutral;
 
-  /// ENSO index for July-August-September, e.g. 'JAS +2.2'; value is preformatted
+  /// Plain-word strength of the El Niño / La Niña signal (replaces the raw JAS index)
   ///
   /// In en, this message translates to:
-  /// **'JAS {value}'**
-  String ensoJasValue(String value);
+  /// **'{level, select, weak{Weak} moderate{Moderate} strong{Strong} veryStrong{Very strong} other{}}'**
+  String ensoStrength(String level);
 
   /// Title of the dryness banner/chart
   ///
@@ -1723,6 +1723,66 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Danger-level heat. Stay safe.'**
   String get heatDangerToday;
+
+  /// Home 'Today's conditions' card
+  ///
+  /// In en, this message translates to:
+  /// **'Today\'s conditions'**
+  String get todayConditionsTitle;
+
+  /// Home 'Today's conditions' card
+  ///
+  /// In en, this message translates to:
+  /// **'Clear skies'**
+  String get condClear;
+
+  /// Home 'Today's conditions' card
+  ///
+  /// In en, this message translates to:
+  /// **'Partly cloudy'**
+  String get condPartly;
+
+  /// Home 'Today's conditions' card
+  ///
+  /// In en, this message translates to:
+  /// **'Cloudy'**
+  String get condCloudy;
+
+  /// Home 'Today's conditions' card
+  ///
+  /// In en, this message translates to:
+  /// **'Rain'**
+  String get condRain;
+
+  /// Home 'Today's conditions' card
+  ///
+  /// In en, this message translates to:
+  /// **'Heavy rain'**
+  String get condHeavyRain;
+
+  /// Home 'Today's conditions' card
+  ///
+  /// In en, this message translates to:
+  /// **'Feels like {v}°'**
+  String feelsLike(String v);
+
+  /// Home 'Today's conditions' card
+  ///
+  /// In en, this message translates to:
+  /// **'Humidity'**
+  String get humidityLabel;
+
+  /// Home 'Today's conditions' card
+  ///
+  /// In en, this message translates to:
+  /// **'Wind'**
+  String get windLabel;
+
+  /// Home 'Today's conditions' card
+  ///
+  /// In en, this message translates to:
+  /// **'{v} km/h'**
+  String windKmh(String v);
 }
 
 class _AppLocalizationsDelegate

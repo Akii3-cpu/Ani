@@ -17,6 +17,7 @@ import '../farm/planting_widgets.dart';
 import '../farm/tracker_builder.dart';
 import '../labels.dart';
 import '../outlook/heat_safety.dart';
+import 'conditions_card.dart';
 import '../recommend/recommend_flow.dart';
 import '../recommend/recommend_labels.dart';
 import 'settings_sheet.dart';
@@ -80,6 +81,10 @@ class HomeScreen extends StatelessWidget {
           ),
           const SizedBox(height: AniSpacing.lg),
           if (bundle != null) ...[
+            if (state.live?.latestWeather != null) ...[
+              ConditionsCard(weather: state.live!.latestWeather),
+              const SizedBox(height: AniSpacing.md),
+            ],
             _EnsoCard(enso: bundle.enso),
             const SizedBox(height: AniSpacing.md),
             _DrynessBanner(dryness: bundle.dryness),
@@ -144,7 +149,7 @@ class _EnsoCard extends StatelessWidget {
   Widget build(BuildContext context) {
     final l = AppLocalizations.of(context);
     final theme = Theme.of(context);
-    final jas = enso.jas;
+    final strength = ensoStrengthKey(enso.jas);
     final tagColor = enso.isElNino ? AniColors.statusDelikado : AniColors.olive;
     return AniCard(
       key: const ValueKey('home-enso'),
@@ -175,9 +180,9 @@ class _EnsoCard extends StatelessWidget {
                   runSpacing: AniSpacing.sm,
                   children: [
                     AniPill(l.ensoTagName(enso.tag), color: tagColor),
-                    if (jas != null)
+                    if (strength != null)
                       AniPill(
-                        l.ensoJasValue(_signed(jas, 1)),
+                        l.ensoStrength(strength),
                         key: const ValueKey('home-enso-jas'),
                         color: AniColors.muted,
                       ),

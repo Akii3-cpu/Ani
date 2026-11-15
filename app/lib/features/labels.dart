@@ -56,3 +56,16 @@ Color drynessColor(String label) => switch (label) {
       DrynessLabel.bantay => AniColors.statusBantay,
       _ => AniColors.statusNormal,
     };
+
+/// Plain-word strength of an El Niño / La Niña signal from its JAS value
+/// (RONI bands: 0.5 weak, 1.0 moderate, 1.5 strong, 2.0 very strong).
+/// Null for neutral conditions, where there is nothing to qualify.
+String? ensoStrengthKey(double? jas) {
+  if (jas == null) return null;
+  final a = jas.abs();
+  if (a < 0.5) return null;
+  if (a < 1.0) return 'weak';
+  if (a < 1.5) return 'moderate';
+  if (a < 2.0) return 'strong';
+  return 'veryStrong';
+}

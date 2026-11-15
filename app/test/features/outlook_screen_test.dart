@@ -28,7 +28,7 @@ void main() {
     final h = await _start(tester, const []);
     final b = h.state.bundle!;
     expect(_in('outlook-enso', find.text('Inaasahan ang El Niño ngayong tag-araw')), findsOneWidget);
-    expect(_in('outlook-enso', find.text('JAS +2.2')), findsOneWidget);
+    expect(_in('outlook-enso', find.text('Very strong')), findsOneWidget);
     // bundled fallback
     expect(_in('outlook-live', find.text('Normal')), findsOneWidget);
     expect(_in('outlook-live', find.text('D -1.45')), findsOneWidget);

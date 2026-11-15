@@ -264,11 +264,11 @@
   "@ensoNeutral": {
     "description": "ENSO phase tag"
   },
-  "ensoJasValue": "JAS {value}",
-  "@ensoJasValue": {
-    "description": "ENSO index for July-August-September, e.g. 'JAS +2.2'; value is preformatted",
+  "ensoStrength": "{level, select, weak{Weak} moderate{Moderate} strong{Strong} veryStrong{Very strong} other{}}",
+  "@ensoStrength": {
+    "description": "Plain-word strength of the El Niño / La Niña signal (replaces the raw JAS index)",
     "placeholders": {
-      "value": {
+      "level": {
         "type": "String"
       }
     }
@@ -698,44 +698,80 @@
   "cropLibrarySubtitle": "Five dry-season crops for {town}",
   "@cropLibrarySubtitle": {
     "description": "Library header under the title",
-    "placeholders": {"town": {"type": "String"}}
+    "placeholders": {
+      "town": {
+        "type": "String"
+      }
+    }
   },
   "cropSowWindowRange": "{start} to {end}",
   "@cropSowWindowRange": {
     "description": "Sowing window as two short dates",
-    "placeholders": {"start": {"type": "String"}, "end": {"type": "String"}}
+    "placeholders": {
+      "start": {
+        "type": "String"
+      },
+      "end": {
+        "type": "String"
+      }
+    }
   },
   "cropWaterNeedHigh": "High",
-  "@cropWaterNeedHigh": {"description": "Library water need level"},
+  "@cropWaterNeedHigh": {
+    "description": "Library water need level"
+  },
   "cropWaterNeedMedium": "Medium",
-  "@cropWaterNeedMedium": {"description": "Library water need level"},
+  "@cropWaterNeedMedium": {
+    "description": "Library water need level"
+  },
   "cropWaterNeedLow": "Low",
-  "@cropWaterNeedLow": {"description": "Library water need level"},
+  "@cropWaterNeedLow": {
+    "description": "Library water need level"
+  },
   "cropWaterNeedRiceNote": "For rice this is a lower bound; real need is higher.",
-  "@cropWaterNeedRiceNote": {"description": "Library detail note on rice water need"},
+  "@cropWaterNeedRiceNote": {
+    "description": "Library detail note on rice water need"
+  },
   "cropLegumeNote": "A legume: it adds nitrogen to the soil.",
-  "@cropLegumeNote": {"description": "Library detail chip"},
+  "@cropLegumeNote": {
+    "description": "Library detail chip"
+  },
   "cropSmallMarketNote": "Small local market: check buyers before planting.",
-  "@cropSmallMarketNote": {"description": "Library detail chip"},
+  "@cropSmallMarketNote": {
+    "description": "Library detail chip"
+  },
   "cropFailedOf": "Failed {x} of {n}",
   "@cropFailedOf": {
     "description": "Failed seasons out of the baseline seasons",
-    "placeholders": {"x": {"type": "int"}, "n": {"type": "int"}}
+    "placeholders": {
+      "x": {
+        "type": "int"
+      },
+      "n": {
+        "type": "int"
+      }
+    }
   },
   "cropRiskElNinoSeasons": "El Niño seasons",
-  "@cropRiskElNinoSeasons": {"description": "Library table column"},
+  "@cropRiskElNinoSeasons": {
+    "description": "Library table column"
+  },
   "cropRiskOtherSeasons": "Other seasons",
-  "@cropRiskOtherSeasons": {"description": "Library table column"},
+  "@cropRiskOtherSeasons": {
+    "description": "Library table column"
+  },
   "cropRiskIrrigationColumn": "Irrigation",
-  "@cropRiskIrrigationColumn": {"description": "Library table first column"},
+  "@cropRiskIrrigationColumn": {
+    "description": "Library table first column"
+  },
   "cropRiskNote": "Counted over past dry seasons (2001 to 2025) at one point in {town}. This is a guide, not a promise.",
   "@cropRiskNote": {
     "description": "Library table footnote",
-    "placeholders": {"town": {"type": "String"}}
-  },
-  "aboutTitle": "About and limits",
-  "@aboutTitle": {
-    "description": "About page title"
+    "placeholders": {
+      "town": {
+        "type": "String"
+      }
+    }
   },
   "aboutAdvisory": "Ani gives advice only. Weather is from one point per town, and rice water need is a lower bound. Results were not tested in the field.",
   "@aboutAdvisory": {
@@ -1336,5 +1372,55 @@
   "heatDangerToday": "Danger-level heat. Stay safe.",
   "@heatDangerToday": {
     "description": "Shown with the work-early advice when the latest reading is a danger day"
+  },
+  "todayConditionsTitle": "Today's conditions",
+  "@todayConditionsTitle": {
+    "description": "Home 'Today's conditions' card"
+  },
+  "condClear": "Clear skies",
+  "@condClear": {
+    "description": "Home 'Today's conditions' card"
+  },
+  "condPartly": "Partly cloudy",
+  "@condPartly": {
+    "description": "Home 'Today's conditions' card"
+  },
+  "condCloudy": "Cloudy",
+  "@condCloudy": {
+    "description": "Home 'Today's conditions' card"
+  },
+  "condRain": "Rain",
+  "@condRain": {
+    "description": "Home 'Today's conditions' card"
+  },
+  "condHeavyRain": "Heavy rain",
+  "@condHeavyRain": {
+    "description": "Home 'Today's conditions' card"
+  },
+  "feelsLike": "Feels like {v}°",
+  "@feelsLike": {
+    "description": "Home 'Today's conditions' card",
+    "placeholders": {
+      "v": {
+        "type": "String"
+      }
+    }
+  },
+  "humidityLabel": "Humidity",
+  "@humidityLabel": {
+    "description": "Home 'Today's conditions' card"
+  },
+  "windLabel": "Wind",
+  "@windLabel": {
+    "description": "Home 'Today's conditions' card"
+  },
+  "windKmh": "{v} km/h",
+  "@windKmh": {
+    "description": "Home 'Today's conditions' card",
+    "placeholders": {
+      "v": {
+        "type": "String"
+      }
+    }
   }
 }
