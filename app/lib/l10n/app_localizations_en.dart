@@ -224,7 +224,8 @@ class AppLocalizationsEn extends AppLocalizations {
   String get questionLastCropsTitle => 'What were your last two crops?';
 
   @override
-  String get questionLastCropsHint => 'Pick up to two.';
+  String get questionLastCropsHint =>
+      'Most recent first. Pick None if the field was empty.';
 
   @override
   String get questionWaterTitle => 'How much water can you give?';
@@ -300,7 +301,7 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String cardNetIncome(String low, String high) {
-    return 'Net income: ₱$low to ₱$high per hectare';
+    return 'Net income: $low to $high per hectare';
   }
 
   @override
@@ -514,4 +515,145 @@ class AppLocalizationsEn extends AppLocalizations {
     );
     return '$_temp0';
   }
+
+  @override
+  String get recommendTitle => 'What should I plant?';
+
+  @override
+  String get questionLastCropRecent => 'Most recent crop';
+
+  @override
+  String get questionLastCropBefore => 'The crop before that';
+
+  @override
+  String get questionWaterSourceLabel => 'Where does your water come from?';
+
+  @override
+  String get questionIrrigationsLabel =>
+      'How many times can you irrigate this dry season?';
+
+  @override
+  String get sourceRain => 'Rain only';
+
+  @override
+  String get sourcePump => 'Pump or shallow tube well';
+
+  @override
+  String get sourceCanal => 'Irrigation canal (NIA or communal)';
+
+  @override
+  String get sourceRiver => 'River, creek or pond';
+
+  @override
+  String get questionWontHint =>
+      'Tap any you will not plant. Leave all empty if none.';
+
+  @override
+  String get questionColdStorageLabel => 'Cold storage';
+
+  @override
+  String get questionColdStorageHint => 'Matters for onion (Sibuyas) prices.';
+
+  @override
+  String questionPrioritiesPicked(int count) {
+    return '$count of 3 picked';
+  }
+
+  @override
+  String cardFailedSeasonsElNino(int failed, int seasons) {
+    return 'Failed in $failed of $seasons El Niño years';
+  }
+
+  @override
+  String cardRank(int rank) {
+    return 'No. $rank';
+  }
+
+  @override
+  String cardConfidence(String level) {
+    return 'Confidence: $level';
+  }
+
+  @override
+  String get cardSmallMarket => 'Small local market: check with the MAO';
+
+  @override
+  String resultSubtitle(String town, String water) {
+    return '$town · $water';
+  }
+
+  @override
+  String get resultElNinoMode => 'El Niño year: water and risk count more';
+
+  @override
+  String get resultDone => 'Done';
+
+  @override
+  String get resultSaved => 'Your answers are saved on this phone.';
+
+  @override
+  String holdRemovedCrops(String crops) {
+    return 'Ruled out: $crops';
+  }
+
+  @override
+  String get holdTipLabel => 'What you can do';
+
+  @override
+  String get holdGuardWater =>
+      'The chance of crop failure is too high for your water supply this El Niño.';
+
+  @override
+  String get holdGuardFarmer =>
+      'No crop is left after removing the ones you won\'t plant.';
+
+  @override
+  String get holdGuardHeat => 'It is too hot at flowering time.';
+
+  @override
+  String get holdGuardProfit =>
+      'No crop is expected to make a profit this dry season with your water.';
+
+  @override
+  String get holdGuardSeason => 'No crop suits the dry season.';
+
+  @override
+  String get recommendNoSaved => 'No saved answers yet.';
+
+  @override
+  String get homeLastRecommendation => 'See last recommendation';
+
+  @override
+  String get homeLastRecommendationTitle => 'Last recommendation';
+
+  @override
+  String drynessRankWet(int rank, int n) {
+    String _temp0 = intl.Intl.pluralLogic(
+      rank,
+      locale: localeName,
+      other: 'No. $rank wettest',
+      one: 'Wettest',
+    );
+    String _temp1 = intl.Intl.pluralLogic(
+      n,
+      locale: localeName,
+      other: '$n years',
+      one: '1 year',
+    );
+    return '$_temp0 of $_temp1';
+  }
+
+  @override
+  String drynessDValue(String value) {
+    return 'D $value';
+  }
+
+  @override
+  String homeHeatDangerFrom(String category, String value) {
+    return 'On $category days (heat index $value°C and up):';
+  }
+
+  @override
+  String get homeTrackedHint =>
+      'Track a planting to see its stage and alerts here.';
 }

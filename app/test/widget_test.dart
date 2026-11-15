@@ -63,7 +63,7 @@ void main() {
     await tester.tap(find.byKey(const ValueKey('town-bongabon')));
     await tester.pumpAndSettle();
     await tester.tap(find.text('Magpatuloy'));
-    await pumpUntil(tester, find.byKey(const ValueKey('home-crops')));
+    await pumpUntil(tester, find.byKey(const ValueKey('home-enso')));
 
     expect(find.byKey(const ValueKey('home-town')), findsOneWidget);
     expect(find.text('Bongabon'), findsOneWidget);
@@ -72,8 +72,8 @@ void main() {
     expect(b.meta.muni, 'bongabon');
     expect(find.text('El Niño'), b.enso.isElNino ? findsOneWidget : findsNothing);
     expect(find.text('JAS +${b.enso.jas!.toStringAsFixed(1)}'), findsOneWidget);
-    expect(find.text('${b.crops.length} pananim sa datos ng bayang ito'), findsOneWidget);
-    expect(find.text('Palay'), findsOneWidget);
+    expect(find.text('Inaasahan ang El Niño ngayong tag-araw'), b.enso.isElNino ? findsOneWidget : findsNothing);
+    expect(find.byKey(const ValueKey('home-dryness')), findsOneWidget);
 
     final prefs = await SharedPreferences.getInstance();
     expect(prefs.getString(SettingsStore.keyLocale), 'fil');
@@ -88,11 +88,11 @@ void main() {
       SettingsStore.keyOnboardingComplete: true,
     });
     await tester.pumpWidget(AniApp(state: AppState()));
-    await pumpUntil(tester, find.byKey(const ValueKey('home-crops')));
+    await pumpUntil(tester, find.byKey(const ValueKey('home-enso')));
     expect(find.text('Choose your language'), findsNothing);
     expect(find.text('Guimba'), findsOneWidget);
     expect(find.text('Home'), findsOneWidget);
-    expect(find.text('5 crops in this town\'s data'), findsOneWidget);
+    expect(find.text('Dry-season outlook · 2026-27'.toUpperCase()), findsOneWidget);
   });
 
   testWidgets('tab switching shows placeholders and keeps home', (tester) async {
@@ -102,7 +102,7 @@ void main() {
       SettingsStore.keyOnboardingComplete: true,
     });
     await tester.pumpWidget(AniApp(state: AppState()));
-    await pumpUntil(tester, find.byKey(const ValueKey('home-crops')));
+    await pumpUntil(tester, find.byKey(const ValueKey('home-enso')));
 
     const soon = 'This screen is coming soon.';
     expect(find.text(soon), findsNothing);
@@ -128,7 +128,7 @@ void main() {
     });
     final state = AppState();
     await tester.pumpWidget(AniApp(state: state));
-    await pumpUntil(tester, find.byKey(const ValueKey('home-crops')));
+    await pumpUntil(tester, find.byKey(const ValueKey('home-enso')));
 
     await tester.tap(find.byKey(const ValueKey('home-settings')));
     await tester.pumpAndSettle();

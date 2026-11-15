@@ -286,9 +286,9 @@
   "@questionLastCropsTitle": {
     "description": "Questionnaire step 2"
   },
-  "questionLastCropsHint": "Pick up to two.",
+  "questionLastCropsHint": "Most recent first. Pick None if the field was empty.",
   "@questionLastCropsHint": {
-    "description": "Hint for step 2"
+    "description": "Hint for step 2 (two picks: most recent, then the one before)"
   },
   "questionWaterTitle": "How much water can you give?",
   "@questionWaterTitle": {
@@ -391,9 +391,9 @@
       }
     }
   },
-  "cardNetIncome": "Net income: ₱{low} to ₱{high} per hectare",
+  "cardNetIncome": "Net income: {low} to {high} per hectare",
   "@cardNetIncome": {
-    "description": "Net income p10-p90; values are preformatted",
+    "description": "Net income p10-p90; values are preformatted with the peso sign, e.g. '−₱12,300'",
     "placeholders": {
       "low": {
         "type": "String"
@@ -667,5 +667,202 @@
         "type": "int"
       }
     }
+  },
+  "recommendTitle": "What should I plant?",
+  "@recommendTitle": {
+    "description": "Questionnaire and result screen header"
+  },
+  "questionLastCropRecent": "Most recent crop",
+  "@questionLastCropRecent": {
+    "description": "Step 2 section: the most recent crop"
+  },
+  "questionLastCropBefore": "The crop before that",
+  "@questionLastCropBefore": {
+    "description": "Step 2 section: the crop before the most recent"
+  },
+  "questionWaterSourceLabel": "Where does your water come from?",
+  "@questionWaterSourceLabel": {
+    "description": "Step 3 section: water source"
+  },
+  "questionIrrigationsLabel": "How many times can you irrigate this dry season?",
+  "@questionIrrigationsLabel": {
+    "description": "Step 3 section: number of irrigations (planner water level)"
+  },
+  "sourceRain": "Rain only",
+  "@sourceRain": {
+    "description": "Water source option"
+  },
+  "sourcePump": "Pump or shallow tube well",
+  "@sourcePump": {
+    "description": "Water source option"
+  },
+  "sourceCanal": "Irrigation canal (NIA or communal)",
+  "@sourceCanal": {
+    "description": "Water source option"
+  },
+  "sourceRiver": "River, creek or pond",
+  "@sourceRiver": {
+    "description": "Water source option"
+  },
+  "questionWontHint": "Tap any you will not plant. Leave all empty if none.",
+  "@questionWontHint": {
+    "description": "Hint for step 4"
+  },
+  "questionColdStorageLabel": "Cold storage",
+  "@questionColdStorageLabel": {
+    "description": "Step 4 section heading"
+  },
+  "questionColdStorageHint": "Matters for onion (Sibuyas) prices.",
+  "@questionColdStorageHint": {
+    "description": "Subtitle of the cold storage choice"
+  },
+  "questionPrioritiesPicked": "{count} of 3 picked",
+  "@questionPrioritiesPicked": {
+    "description": "Step 5 counter",
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "cardFailedSeasonsElNino": "Failed in {failed} of {seasons} El Niño years",
+  "@cardFailedSeasonsElNino": {
+    "description": "Crop risk line in El Niño mode (failure counted over El Niño seasons)",
+    "placeholders": {
+      "failed": {
+        "type": "int"
+      },
+      "seasons": {
+        "type": "int"
+      }
+    }
+  },
+  "cardRank": "No. {rank}",
+  "@cardRank": {
+    "description": "Rank badge on a crop card",
+    "placeholders": {
+      "rank": {
+        "type": "int"
+      }
+    }
+  },
+  "cardConfidence": "Confidence: {level}",
+  "@cardConfidence": {
+    "description": "Confidence pill; level is confidenceHigh/Medium/Low",
+    "placeholders": {
+      "level": {
+        "type": "String"
+      }
+    }
+  },
+  "cardSmallMarket": "Small local market: check with the MAO",
+  "@cardSmallMarket": {
+    "description": "Flag for crops with a thin local market"
+  },
+  "resultSubtitle": "{town} · {water}",
+  "@resultSubtitle": {
+    "description": "Result screen subtitle: town and water answer",
+    "placeholders": {
+      "town": {
+        "type": "String"
+      },
+      "water": {
+        "type": "String"
+      }
+    }
+  },
+  "resultElNinoMode": "El Niño year: water and risk count more",
+  "@resultElNinoMode": {
+    "description": "Note that El Niño mode raised the water and risk weights"
+  },
+  "resultDone": "Done",
+  "@resultDone": {
+    "description": "Close the result screen"
+  },
+  "resultSaved": "Your answers are saved on this phone.",
+  "@resultSaved": {
+    "description": "Note under the result"
+  },
+  "holdRemovedCrops": "Ruled out: {crops}",
+  "@holdRemovedCrops": {
+    "description": "Crops removed by the blocking guard; crops is a comma-separated list",
+    "placeholders": {
+      "crops": {
+        "type": "String"
+      }
+    }
+  },
+  "holdTipLabel": "What you can do",
+  "@holdTipLabel": {
+    "description": "Hold screen label before the tip"
+  },
+  "holdGuardWater": "The chance of crop failure is too high for your water supply this El Niño.",
+  "@holdGuardWater": {
+    "description": "Hold reason for guard g2 (English locale; Filipino shows planner text)"
+  },
+  "holdGuardFarmer": "No crop is left after removing the ones you won't plant.",
+  "@holdGuardFarmer": {
+    "description": "Hold reason for guard g4"
+  },
+  "holdGuardHeat": "It is too hot at flowering time.",
+  "@holdGuardHeat": {
+    "description": "Hold reason for guard g5"
+  },
+  "holdGuardProfit": "No crop is expected to make a profit this dry season with your water.",
+  "@holdGuardProfit": {
+    "description": "Hold reason for guard g6"
+  },
+  "holdGuardSeason": "No crop suits the dry season.",
+  "@holdGuardSeason": {
+    "description": "Hold reason for guard g1"
+  },
+  "recommendNoSaved": "No saved answers yet.",
+  "@recommendNoSaved": {
+    "description": "Shown when reopening a recommendation with nothing saved"
+  },
+  "homeLastRecommendation": "See last recommendation",
+  "@homeLastRecommendation": {
+    "description": "Home secondary button that reopens the last saved recommendation"
+  },
+  "homeLastRecommendationTitle": "Last recommendation",
+  "@homeLastRecommendationTitle": {
+    "description": "Eyebrow above the saved recommendation summary on Home"
+  },
+  "drynessRankWet": "{rank, plural, =1{Wettest} other{No. {rank} wettest}} of {n, plural, =1{1 year} other{{n} years}}",
+  "@drynessRankWet": {
+    "description": "Rank sentence when the dryness index is below zero: this month is the rank-th wettest of n years on record",
+    "placeholders": {
+      "rank": {
+        "type": "int"
+      },
+      "n": {
+        "type": "int"
+      }
+    }
+  },
+  "drynessDValue": "D {value}",
+  "@drynessDValue": {
+    "description": "Dryness index value on the Home banner; value is preformatted, e.g. 'D -1.45'",
+    "placeholders": {
+      "value": {
+        "type": "String"
+      }
+    }
+  },
+  "homeHeatDangerFrom": "On {category} days (heat index {value}°C and up):",
+  "@homeHeatDangerFrom": {
+    "description": "Heat-safety strip lead-in before 'Magtrabaho nang maaga'; category is the PAGASA danger category name, value its lower bound",
+    "placeholders": {
+      "category": {
+        "type": "String"
+      },
+      "value": {
+        "type": "String"
+      }
+    }
+  },
+  "homeTrackedHint": "Track a planting to see its stage and alerts here.",
+  "@homeTrackedHint": {
+    "description": "Hint under the empty tracked-crop state on Home"
   }
 }

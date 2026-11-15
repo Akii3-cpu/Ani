@@ -213,7 +213,8 @@ class AppLocalizationsFil extends AppLocalizations {
       'Ano ang huling dalawang itinanim ninyo?';
 
   @override
-  String get questionLastCropsHint => 'Pumili ng hanggang dalawa.';
+  String get questionLastCropsHint =>
+      'Ang pinakahuli muna. Piliin ang Wala kung walang tanim.';
 
   @override
   String get questionWaterTitle => 'Gaano karaming patubig ang kaya ninyo?';
@@ -284,7 +285,7 @@ class AppLocalizationsFil extends AppLocalizations {
 
   @override
   String cardNetIncome(String low, String high) {
-    return 'Netong kita: ₱$low hanggang ₱$high bawat ektarya';
+    return 'Netong kita: $low hanggang $high bawat ektarya';
   }
 
   @override
@@ -481,4 +482,135 @@ class AppLocalizationsFil extends AppLocalizations {
   String homeCropCount(int count) {
     return '$count pananim sa datos ng bayang ito';
   }
+
+  @override
+  String get recommendTitle => 'Ano ang dapat kong itanim?';
+
+  @override
+  String get questionLastCropRecent => 'Pinakahuling tanim';
+
+  @override
+  String get questionLastCropBefore => 'Ang tanim bago noon';
+
+  @override
+  String get questionWaterSourceLabel => 'Saan galing ang inyong tubig?';
+
+  @override
+  String get questionIrrigationsLabel =>
+      'Ilang beses kayong makapagpapatubig ngayong tag-araw?';
+
+  @override
+  String get sourceRain => 'Ulan lang';
+
+  @override
+  String get sourcePump => 'Bomba o mababaw na balon';
+
+  @override
+  String get sourceCanal => 'Kanal ng patubig (NIA o komunal)';
+
+  @override
+  String get sourceRiver => 'Ilog, sapa o lawa';
+
+  @override
+  String get questionWontHint =>
+      'Pindutin ang ayaw ninyong itanim. Iwanang walang pili kung wala.';
+
+  @override
+  String get questionColdStorageLabel => 'Cold storage';
+
+  @override
+  String get questionColdStorageHint => 'Mahalaga sa presyo ng sibuyas.';
+
+  @override
+  String questionPrioritiesPicked(int count) {
+    return '$count sa 3 ang napili';
+  }
+
+  @override
+  String cardFailedSeasonsElNino(int failed, int seasons) {
+    return 'Nasira sa $failed sa $seasons na El Niño na taon';
+  }
+
+  @override
+  String cardRank(int rank) {
+    return 'Ika-$rank';
+  }
+
+  @override
+  String cardConfidence(String level) {
+    return 'Katiyakan: $level';
+  }
+
+  @override
+  String get cardSmallMarket =>
+      'Maliit ang lokal na pamilihan: kumonsulta sa MAO';
+
+  @override
+  String resultSubtitle(String town, String water) {
+    return '$town · $water';
+  }
+
+  @override
+  String get resultElNinoMode =>
+      'Taon ng El Niño: mas mabigat ang tubig at panganib';
+
+  @override
+  String get resultDone => 'Tapos na';
+
+  @override
+  String get resultSaved => 'Naka-save sa teleponong ito ang inyong mga sagot.';
+
+  @override
+  String holdRemovedCrops(String crops) {
+    return 'Tinanggal: $crops';
+  }
+
+  @override
+  String get holdTipLabel => 'Ano ang magagawa';
+
+  @override
+  String get holdGuardWater =>
+      'Masyadong mataas ang tsansang masira sa inyong patubig ngayong El Niño.';
+
+  @override
+  String get holdGuardFarmer =>
+      'Wala nang natirang pananim matapos alisin ang ayaw ninyong itanim.';
+
+  @override
+  String get holdGuardHeat => 'Masyadong mainit sa panahon ng pamumulaklak.';
+
+  @override
+  String get holdGuardProfit =>
+      'Walang pananim na inaasahang kikita ngayong tag-araw sa inyong patubig.';
+
+  @override
+  String get holdGuardSeason => 'Walang pananim na angkop sa tag-araw.';
+
+  @override
+  String get recommendNoSaved => 'Wala pang naka-save na sagot.';
+
+  @override
+  String get homeLastRecommendation => 'Tingnan ang huling payo';
+
+  @override
+  String get homeLastRecommendationTitle => 'Huling payo';
+
+  @override
+  String drynessRankWet(int rank, int n) {
+    return 'Ika-$rank sa pinakabasa sa $n na taon';
+  }
+
+  @override
+  String drynessDValue(String value) {
+    return 'D $value';
+  }
+
+  @override
+  String homeHeatDangerFrom(String category, String value) {
+    return 'Sa mga araw na $category (heat index $value°C pataas):';
+  }
+
+  @override
+  String get homeTrackedHint =>
+      'Magtala ng tanim para makita rito ang yugto at mga babala nito.';
 }

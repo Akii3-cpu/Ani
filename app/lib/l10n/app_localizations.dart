@@ -476,10 +476,10 @@ abstract class AppLocalizations {
   /// **'What were your last two crops?'**
   String get questionLastCropsTitle;
 
-  /// Hint for step 2
+  /// Hint for step 2 (two picks: most recent, then the one before)
   ///
   /// In en, this message translates to:
-  /// **'Pick up to two.'**
+  /// **'Most recent first. Pick None if the field was empty.'**
   String get questionLastCropsHint;
 
   /// Questionnaire step 3
@@ -602,10 +602,10 @@ abstract class AppLocalizations {
   /// **'Water needed: {mm} mm'**
   String cardWaterNeeded(int mm);
 
-  /// Net income p10-p90; values are preformatted
+  /// Net income p10-p90; values are preformatted with the peso sign, e.g. '−₱12,300'
   ///
   /// In en, this message translates to:
-  /// **'Net income: ₱{low} to ₱{high} per hectare'**
+  /// **'Net income: {low} to {high} per hectare'**
   String cardNetIncome(String low, String high);
 
   /// Label before confidence level
@@ -955,6 +955,216 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'{count, plural, =1{1 crop in this town\'s data} other{{count} crops in this town\'s data}}'**
   String homeCropCount(int count);
+
+  /// Questionnaire and result screen header
+  ///
+  /// In en, this message translates to:
+  /// **'What should I plant?'**
+  String get recommendTitle;
+
+  /// Step 2 section: the most recent crop
+  ///
+  /// In en, this message translates to:
+  /// **'Most recent crop'**
+  String get questionLastCropRecent;
+
+  /// Step 2 section: the crop before the most recent
+  ///
+  /// In en, this message translates to:
+  /// **'The crop before that'**
+  String get questionLastCropBefore;
+
+  /// Step 3 section: water source
+  ///
+  /// In en, this message translates to:
+  /// **'Where does your water come from?'**
+  String get questionWaterSourceLabel;
+
+  /// Step 3 section: number of irrigations (planner water level)
+  ///
+  /// In en, this message translates to:
+  /// **'How many times can you irrigate this dry season?'**
+  String get questionIrrigationsLabel;
+
+  /// Water source option
+  ///
+  /// In en, this message translates to:
+  /// **'Rain only'**
+  String get sourceRain;
+
+  /// Water source option
+  ///
+  /// In en, this message translates to:
+  /// **'Pump or shallow tube well'**
+  String get sourcePump;
+
+  /// Water source option
+  ///
+  /// In en, this message translates to:
+  /// **'Irrigation canal (NIA or communal)'**
+  String get sourceCanal;
+
+  /// Water source option
+  ///
+  /// In en, this message translates to:
+  /// **'River, creek or pond'**
+  String get sourceRiver;
+
+  /// Hint for step 4
+  ///
+  /// In en, this message translates to:
+  /// **'Tap any you will not plant. Leave all empty if none.'**
+  String get questionWontHint;
+
+  /// Step 4 section heading
+  ///
+  /// In en, this message translates to:
+  /// **'Cold storage'**
+  String get questionColdStorageLabel;
+
+  /// Subtitle of the cold storage choice
+  ///
+  /// In en, this message translates to:
+  /// **'Matters for onion (Sibuyas) prices.'**
+  String get questionColdStorageHint;
+
+  /// Step 5 counter
+  ///
+  /// In en, this message translates to:
+  /// **'{count} of 3 picked'**
+  String questionPrioritiesPicked(int count);
+
+  /// Crop risk line in El Niño mode (failure counted over El Niño seasons)
+  ///
+  /// In en, this message translates to:
+  /// **'Failed in {failed} of {seasons} El Niño years'**
+  String cardFailedSeasonsElNino(int failed, int seasons);
+
+  /// Rank badge on a crop card
+  ///
+  /// In en, this message translates to:
+  /// **'No. {rank}'**
+  String cardRank(int rank);
+
+  /// Confidence pill; level is confidenceHigh/Medium/Low
+  ///
+  /// In en, this message translates to:
+  /// **'Confidence: {level}'**
+  String cardConfidence(String level);
+
+  /// Flag for crops with a thin local market
+  ///
+  /// In en, this message translates to:
+  /// **'Small local market: check with the MAO'**
+  String get cardSmallMarket;
+
+  /// Result screen subtitle: town and water answer
+  ///
+  /// In en, this message translates to:
+  /// **'{town} · {water}'**
+  String resultSubtitle(String town, String water);
+
+  /// Note that El Niño mode raised the water and risk weights
+  ///
+  /// In en, this message translates to:
+  /// **'El Niño year: water and risk count more'**
+  String get resultElNinoMode;
+
+  /// Close the result screen
+  ///
+  /// In en, this message translates to:
+  /// **'Done'**
+  String get resultDone;
+
+  /// Note under the result
+  ///
+  /// In en, this message translates to:
+  /// **'Your answers are saved on this phone.'**
+  String get resultSaved;
+
+  /// Crops removed by the blocking guard; crops is a comma-separated list
+  ///
+  /// In en, this message translates to:
+  /// **'Ruled out: {crops}'**
+  String holdRemovedCrops(String crops);
+
+  /// Hold screen label before the tip
+  ///
+  /// In en, this message translates to:
+  /// **'What you can do'**
+  String get holdTipLabel;
+
+  /// Hold reason for guard g2 (English locale; Filipino shows planner text)
+  ///
+  /// In en, this message translates to:
+  /// **'The chance of crop failure is too high for your water supply this El Niño.'**
+  String get holdGuardWater;
+
+  /// Hold reason for guard g4
+  ///
+  /// In en, this message translates to:
+  /// **'No crop is left after removing the ones you won\'t plant.'**
+  String get holdGuardFarmer;
+
+  /// Hold reason for guard g5
+  ///
+  /// In en, this message translates to:
+  /// **'It is too hot at flowering time.'**
+  String get holdGuardHeat;
+
+  /// Hold reason for guard g6
+  ///
+  /// In en, this message translates to:
+  /// **'No crop is expected to make a profit this dry season with your water.'**
+  String get holdGuardProfit;
+
+  /// Hold reason for guard g1
+  ///
+  /// In en, this message translates to:
+  /// **'No crop suits the dry season.'**
+  String get holdGuardSeason;
+
+  /// Shown when reopening a recommendation with nothing saved
+  ///
+  /// In en, this message translates to:
+  /// **'No saved answers yet.'**
+  String get recommendNoSaved;
+
+  /// Home secondary button that reopens the last saved recommendation
+  ///
+  /// In en, this message translates to:
+  /// **'See last recommendation'**
+  String get homeLastRecommendation;
+
+  /// Eyebrow above the saved recommendation summary on Home
+  ///
+  /// In en, this message translates to:
+  /// **'Last recommendation'**
+  String get homeLastRecommendationTitle;
+
+  /// Rank sentence when the dryness index is below zero: this month is the rank-th wettest of n years on record
+  ///
+  /// In en, this message translates to:
+  /// **'{rank, plural, =1{Wettest} other{No. {rank} wettest}} of {n, plural, =1{1 year} other{{n} years}}'**
+  String drynessRankWet(int rank, int n);
+
+  /// Dryness index value on the Home banner; value is preformatted, e.g. 'D -1.45'
+  ///
+  /// In en, this message translates to:
+  /// **'D {value}'**
+  String drynessDValue(String value);
+
+  /// Heat-safety strip lead-in before 'Magtrabaho nang maaga'; category is the PAGASA danger category name, value its lower bound
+  ///
+  /// In en, this message translates to:
+  /// **'On {category} days (heat index {value}°C and up):'**
+  String homeHeatDangerFrom(String category, String value);
+
+  /// Hint under the empty tracked-crop state on Home
+  ///
+  /// In en, this message translates to:
+  /// **'Track a planting to see its stage and alerts here.'**
+  String get homeTrackedHint;
 }
 
 class _AppLocalizationsDelegate

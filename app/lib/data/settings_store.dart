@@ -1,8 +1,10 @@
 import 'package:shared_preferences/shared_preferences.dart';
 
 import 'bundle.dart';
+import 'planner_profile.dart';
 
-/// Locally persisted user settings (language, town, onboarding state).
+/// Locally persisted user settings (language, town, onboarding state, the
+/// last planner answers).
 ///
 /// Backed by [SharedPreferences]; in tests seed values with
 /// `SharedPreferences.setMockInitialValues({...})` before [SettingsStore.load].
@@ -16,6 +18,7 @@ class SettingsStore {
   static const keyLocale = 'ani.locale';
   static const keyTown = 'ani.town';
   static const keyOnboardingComplete = 'ani.onboardingComplete';
+  static const keyPlannerProfile = 'ani.plannerProfile';
 
   /// Language codes the app supports.
   static const supportedLocales = {'en', 'fil'};
@@ -47,10 +50,18 @@ class SettingsStore {
   Future<void> setOnboardingComplete(bool value) =>
       _prefs.setBool(keyOnboardingComplete, value);
 
+  /// The last saved planner answers, or null if none / unreadable.
+  SavedPlannerProfile? get plannerProfile =>
+      SavedPlannerProfile.tryDecode(_prefs.getString(keyPlannerProfile));
+
+  Future<void> setPlannerProfile(SavedPlannerProfile profile) =>
+      _prefs.setString(keyPlannerProfile, profile.encode());
+
   /// Removes all Ani settings.
   Future<void> clear() async {
     await _prefs.remove(keyLocale);
     await _prefs.remove(keyTown);
     await _prefs.remove(keyOnboardingComplete);
+    await _prefs.remove(keyPlannerProfile);
   }
 }
