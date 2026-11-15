@@ -1,0 +1,671 @@
+{
+  "@@locale": "en",
+  "appTitle": "Ani",
+  "@appTitle": {
+    "description": "The application title"
+  },
+  "onboardingLanguageTitle": "Choose your language",
+  "@onboardingLanguageTitle": {
+    "description": "Onboarding step 1 title"
+  },
+  "onboardingLanguageSubtitle": "You can change this later in settings.",
+  "@onboardingLanguageSubtitle": {
+    "description": "Onboarding step 1 subtitle"
+  },
+  "languageEnglish": "English",
+  "@languageEnglish": {
+    "description": "Language option; shown in its own language in both locales"
+  },
+  "languageFilipino": "Filipino",
+  "@languageFilipino": {
+    "description": "Language option; shown in its own language in both locales"
+  },
+  "onboardingTownTitle": "Where is your farm?",
+  "@onboardingTownTitle": {
+    "description": "Onboarding step 2 title (town picker)"
+  },
+  "onboardingTownSubtitle": "We use the weather and soil data for your town.",
+  "@onboardingTownSubtitle": {
+    "description": "Onboarding step 2 subtitle"
+  },
+  "townGuimba": "Guimba",
+  "@townGuimba": {
+    "description": "Town name (proper noun, same in both locales)"
+  },
+  "townMunoz": "Science City of Muñoz",
+  "@townMunoz": {
+    "description": "Town name (proper noun, same in both locales)"
+  },
+  "townBongabon": "Bongabon",
+  "@townBongabon": {
+    "description": "Town name (proper noun, same in both locales)"
+  },
+  "onboardingContinue": "Continue",
+  "@onboardingContinue": {
+    "description": "Primary button to go to the next onboarding step"
+  },
+  "onboardingBack": "Back",
+  "@onboardingBack": {
+    "description": "Button to go to the previous onboarding step"
+  },
+  "onboardingStepOf": "Step {step} of {total}",
+  "@onboardingStepOf": {
+    "description": "Onboarding progress label",
+    "placeholders": {
+      "step": {
+        "type": "int"
+      },
+      "total": {
+        "type": "int"
+      }
+    }
+  },
+  "navHome": "Home",
+  "@navHome": {
+    "description": "Bottom nav tab: Start/Home screen"
+  },
+  "navOutlook": "Outlook",
+  "@navOutlook": {
+    "description": "Bottom nav tab: season outlook"
+  },
+  "navCrops": "Crops",
+  "@navCrops": {
+    "description": "Bottom nav tab: crop library"
+  },
+  "navMyFarm": "My farm",
+  "@navMyFarm": {
+    "description": "Bottom nav tab: tracked plantings"
+  },
+  "comingSoon": "This screen is coming soon.",
+  "@comingSoon": {
+    "description": "Placeholder text for screens not built yet"
+  },
+  "settingsTitle": "Settings",
+  "@settingsTitle": {
+    "description": "Settings sheet title"
+  },
+  "settingsChangeTown": "Change town",
+  "@settingsChangeTown": {
+    "description": "Settings action: re-pick the town"
+  },
+  "settingsChangeLanguage": "Change language",
+  "@settingsChangeLanguage": {
+    "description": "Settings action: re-pick the language"
+  },
+  "cropPalay": "Palay",
+  "@cropPalay": {
+    "description": "Crop name (rice); Filipino name used in both locales, from planner.NAME"
+  },
+  "cropSibuyas": "Sibuyas",
+  "@cropSibuyas": {
+    "description": "Crop name (onion); Filipino name used in both locales, from planner.NAME"
+  },
+  "cropMunggo": "Munggo",
+  "@cropMunggo": {
+    "description": "Crop name (mung bean); Filipino name used in both locales, from planner.NAME"
+  },
+  "cropMais": "Mais",
+  "@cropMais": {
+    "description": "Crop name (maize); Filipino name used in both locales, from planner.NAME"
+  },
+  "cropKamote": "Kamote",
+  "@cropKamote": {
+    "description": "Crop name (sweet potato); Filipino name used in both locales, from planner.NAME"
+  },
+  "cropPalayGloss": "Rice",
+  "@cropPalayGloss": {
+    "description": "English gloss for Palay; UI may show it next to the name in English only"
+  },
+  "cropSibuyasGloss": "Onion",
+  "@cropSibuyasGloss": {
+    "description": "English gloss for Sibuyas; UI may show it next to the name in English only"
+  },
+  "cropMunggoGloss": "Mung bean",
+  "@cropMunggoGloss": {
+    "description": "English gloss for Munggo; UI may show it next to the name in English only"
+  },
+  "cropMaisGloss": "Maize",
+  "@cropMaisGloss": {
+    "description": "English gloss for Mais; UI may show it next to the name in English only"
+  },
+  "cropKamoteGloss": "Sweet potato",
+  "@cropKamoteGloss": {
+    "description": "English gloss for Kamote; UI may show it next to the name in English only"
+  },
+  "holdTitle": "Huwag munang magtanim",
+  "@holdTitle": {
+    "description": "Hold screen title; doc-quoted, Filipino in both locales"
+  },
+  "whyLabel": "Bakit?",
+  "@whyLabel": {
+    "description": "Label for the reasons on a crop card; doc-quoted, Filipino in both locales"
+  },
+  "dryNormal": "Normal",
+  "@dryNormal": {
+    "description": "Dryness alert level; doc-quoted, same in both locales"
+  },
+  "dryBantay": "Bantay",
+  "@dryBantay": {
+    "description": "Dryness alert level (watch); doc-quoted, Filipino in both locales"
+  },
+  "dryDelikado": "Delikado",
+  "@dryDelikado": {
+    "description": "Dryness alert level (danger); doc-quoted, Filipino in both locales"
+  },
+  "consultMao": "Kumonsulta sa MAO",
+  "@consultMao": {
+    "description": "Referral to the Municipal Agriculture Office; doc-quoted, Filipino in both locales"
+  },
+  "workEarly": "Magtrabaho nang maaga",
+  "@workEarly": {
+    "description": "Heat safety advice on danger days; doc-quoted, Filipino in both locales"
+  },
+  "elNinoExpected": "Inaasahan ang El Niño ngayong tag-araw",
+  "@elNinoExpected": {
+    "description": "El Niño outlook headline; doc-quoted, Filipino in both locales"
+  },
+  "homeCta": "What should I plant?",
+  "@homeCta": {
+    "description": "Home call-to-action that opens the recommendation questionnaire"
+  },
+  "homeOutlookTitle": "Dry-season outlook",
+  "@homeOutlookTitle": {
+    "description": "Home card title for the El Niño season outlook"
+  },
+  "homeTrackedTitle": "Your crop",
+  "@homeTrackedTitle": {
+    "description": "Home card title for the tracked-crop summary"
+  },
+  "homeTrackedEmpty": "No crop tracked yet.",
+  "@homeTrackedEmpty": {
+    "description": "Empty state for the tracked-crop summary"
+  },
+  "alertsTitle": "Alerts",
+  "@alertsTitle": {
+    "description": "Alerts list title"
+  },
+  "alertsEmpty": "No alerts right now.",
+  "@alertsEmpty": {
+    "description": "Empty state for the alerts list"
+  },
+  "ensoElNino": "El Niño",
+  "@ensoElNino": {
+    "description": "ENSO phase tag"
+  },
+  "ensoLaNina": "La Niña",
+  "@ensoLaNina": {
+    "description": "ENSO phase tag"
+  },
+  "ensoNeutral": "Neutral",
+  "@ensoNeutral": {
+    "description": "ENSO phase tag"
+  },
+  "ensoJasValue": "JAS {value}",
+  "@ensoJasValue": {
+    "description": "ENSO index for July-August-September, e.g. 'JAS +2.2'; value is preformatted",
+    "placeholders": {
+      "value": {
+        "type": "String"
+      }
+    }
+  },
+  "drynessTitle": "Dryness",
+  "@drynessTitle": {
+    "description": "Title of the dryness banner/chart"
+  },
+  "drynessRank": "{rank, plural, =1{Driest} other{No. {rank} driest}} of {n, plural, =1{1 year} other{{n} years}}",
+  "@drynessRank": {
+    "description": "Rank sentence under the dryness banner: this season is the rank-th driest of n years on record",
+    "placeholders": {
+      "rank": {
+        "type": "int"
+      },
+      "n": {
+        "type": "int"
+      }
+    }
+  },
+  "drynessChartTitle": "Monthly dryness index",
+  "@drynessChartTitle": {
+    "description": "Outlook chart title"
+  },
+  "drynessChartElNino": "El Niño seasons",
+  "@drynessChartElNino": {
+    "description": "Chart legend for El Niño seasons"
+  },
+  "heatSafetyTitle": "Heat safety",
+  "@heatSafetyTitle": {
+    "description": "Heat safety strip/section title"
+  },
+  "heatIndexValue": "Heat index {value}°C",
+  "@heatIndexValue": {
+    "description": "Heat index reading; value is preformatted",
+    "placeholders": {
+      "value": {
+        "type": "String"
+      }
+    }
+  },
+  "heatCaution": "Caution",
+  "@heatCaution": {
+    "description": "PAGASA heat index category"
+  },
+  "heatExtremeCaution": "Extreme caution",
+  "@heatExtremeCaution": {
+    "description": "PAGASA heat index category"
+  },
+  "heatDanger": "Danger",
+  "@heatDanger": {
+    "description": "PAGASA heat index category"
+  },
+  "heatExtremeDanger": "Extreme danger",
+  "@heatExtremeDanger": {
+    "description": "PAGASA heat index category"
+  },
+  "heatSafetyNote": "For people's safety only. Not used to choose crops.",
+  "@heatSafetyNote": {
+    "description": "Disclaimer under heat safety (doc requirement)"
+  },
+  "questionStepOf": "Question {step} of {total}",
+  "@questionStepOf": {
+    "description": "Questionnaire progress label",
+    "placeholders": {
+      "step": {
+        "type": "int"
+      },
+      "total": {
+        "type": "int"
+      }
+    }
+  },
+  "questionTownTitle": "Which town is your farm in?",
+  "@questionTownTitle": {
+    "description": "Questionnaire step 1"
+  },
+  "questionLastCropsTitle": "What were your last two crops?",
+  "@questionLastCropsTitle": {
+    "description": "Questionnaire step 2"
+  },
+  "questionLastCropsHint": "Pick up to two.",
+  "@questionLastCropsHint": {
+    "description": "Hint for step 2"
+  },
+  "questionWaterTitle": "How much water can you give?",
+  "@questionWaterTitle": {
+    "description": "Questionnaire step 3"
+  },
+  "waterRainfed": "Rain only (no irrigation)",
+  "@waterRainfed": {
+    "description": "Water option: rainfed"
+  },
+  "waterLimited2": "About 2 irrigations",
+  "@waterLimited2": {
+    "description": "Water option: limited_2"
+  },
+  "waterLimited4": "About 4 irrigations",
+  "@waterLimited4": {
+    "description": "Water option: limited_4"
+  },
+  "waterFull": "Irrigate as needed",
+  "@waterFull": {
+    "description": "Water option: full"
+  },
+  "questionWontTitle": "Any crops you won't plant?",
+  "@questionWontTitle": {
+    "description": "Questionnaire step 4"
+  },
+  "questionColdStorage": "I can use cold storage",
+  "@questionColdStorage": {
+    "description": "Checkbox in step 4 (affects onion price-risk guard)"
+  },
+  "questionPrioritiesTitle": "What matters most to you?",
+  "@questionPrioritiesTitle": {
+    "description": "Questionnaire step 5"
+  },
+  "questionPrioritiesHint": "Tap your top 3, most important first.",
+  "@questionPrioritiesHint": {
+    "description": "Hint for step 5"
+  },
+  "priorityIncome": "Income",
+  "@priorityIncome": {
+    "description": "Priority option"
+  },
+  "priorityRisk": "Low risk",
+  "@priorityRisk": {
+    "description": "Priority option"
+  },
+  "priorityWater": "Saves water",
+  "@priorityWater": {
+    "description": "Priority option"
+  },
+  "prioritySoil": "Soil health",
+  "@prioritySoil": {
+    "description": "Priority option"
+  },
+  "priorityPest": "Fewer pests",
+  "@priorityPest": {
+    "description": "Priority option"
+  },
+  "answerNone": "None",
+  "@answerNone": {
+    "description": "Choice meaning no crop / nothing"
+  },
+  "questionSeeResult": "See advice",
+  "@questionSeeResult": {
+    "description": "Final questionnaire button"
+  },
+  "resultTitle": "Suggested crops",
+  "@resultTitle": {
+    "description": "Result screen title"
+  },
+  "cardFailedSeasons": "Failed in {failed} of {seasons, plural, =1{1 year} other{{seasons} years}}",
+  "@cardFailedSeasons": {
+    "description": "Crop risk line: number of failed seasons out of simulated seasons",
+    "placeholders": {
+      "failed": {
+        "type": "int"
+      },
+      "seasons": {
+        "type": "int"
+      }
+    }
+  },
+  "cardFailRange": "Likely range {low}–{high}",
+  "@cardFailRange": {
+    "description": "Wilson interval for the failure rate; values are preformatted percents",
+    "placeholders": {
+      "low": {
+        "type": "String"
+      },
+      "high": {
+        "type": "String"
+      }
+    }
+  },
+  "cardWaterNeeded": "Water needed: {mm} mm",
+  "@cardWaterNeeded": {
+    "description": "Season water need",
+    "placeholders": {
+      "mm": {
+        "type": "int"
+      }
+    }
+  },
+  "cardNetIncome": "Net income: ₱{low} to ₱{high} per hectare",
+  "@cardNetIncome": {
+    "description": "Net income p10-p90; values are preformatted",
+    "placeholders": {
+      "low": {
+        "type": "String"
+      },
+      "high": {
+        "type": "String"
+      }
+    }
+  },
+  "confidenceLabel": "Confidence",
+  "@confidenceLabel": {
+    "description": "Label before confidence level"
+  },
+  "confidenceHigh": "High",
+  "@confidenceHigh": {
+    "description": "Confidence level"
+  },
+  "confidenceMedium": "Medium",
+  "@confidenceMedium": {
+    "description": "Confidence level"
+  },
+  "confidenceLow": "Low",
+  "@confidenceLow": {
+    "description": "Confidence level"
+  },
+  "lowConfidenceNote": "Low confidence. Please check with your Municipal Agriculture Office.",
+  "@lowConfidenceNote": {
+    "description": "Shown with the MAO referral on Low confidence cards"
+  },
+  "onionPriceWarning": "No cold storage: high price risk",
+  "@onionPriceWarning": {
+    "description": "Onion price-risk warning (guard g3)"
+  },
+  "holdReasonLabel": "Why not now",
+  "@holdReasonLabel": {
+    "description": "Hold screen label before the blocking guard's reason"
+  },
+  "holdTip": "Cover the soil with straw (mulch) or let it rest, and get irrigation ready for next season.",
+  "@holdTip": {
+    "description": "Hold screen tip (fil text from planner.hold_message)"
+  },
+  "resultTrackThis": "Track this crop",
+  "@resultTrackThis": {
+    "description": "Button on a crop card to start tracking"
+  },
+  "resultStartOver": "Answer again",
+  "@resultStartOver": {
+    "description": "Button to restart the questionnaire"
+  },
+  "myFarmAddPlanting": "Add planting",
+  "@myFarmAddPlanting": {
+    "description": "My farm: add a planting"
+  },
+  "plantingCrop": "Crop",
+  "@plantingCrop": {
+    "description": "Planting form field"
+  },
+  "plantingDate": "Planting date",
+  "@plantingDate": {
+    "description": "Planting form field"
+  },
+  "plantingMethod": "Method",
+  "@plantingMethod": {
+    "description": "Planting form field"
+  },
+  "methodDirectSeed": "Direct seeding",
+  "@methodDirectSeed": {
+    "description": "Planting method option"
+  },
+  "methodTransplant": "Transplanting",
+  "@methodTransplant": {
+    "description": "Planting method option"
+  },
+  "plantingIrrigation": "Irrigation",
+  "@plantingIrrigation": {
+    "description": "Planting form field (defaults from profile)"
+  },
+  "plantingSave": "Save",
+  "@plantingSave": {
+    "description": "Save button"
+  },
+  "stagePrep": "Prep",
+  "@stagePrep": {
+    "description": "Field machine stage: land preparation"
+  },
+  "stageEstab": "Establishment",
+  "@stageEstab": {
+    "description": "Field machine stage: establishment"
+  },
+  "stageVeg": "Vegetative",
+  "@stageVeg": {
+    "description": "Field machine stage: vegetative"
+  },
+  "stageRepro": "Flowering",
+  "@stageRepro": {
+    "description": "Field machine stage: reproductive"
+  },
+  "stageMature": "Maturing",
+  "@stageMature": {
+    "description": "Field machine stage: mature"
+  },
+  "stageHarvest": "Harvest",
+  "@stageHarvest": {
+    "description": "Field machine stage: harvest"
+  },
+  "stageFailed": "Failed",
+  "@stageFailed": {
+    "description": "Field machine stage: failed"
+  },
+  "trackerDay": "Day {day}",
+  "@trackerDay": {
+    "description": "Days since planting",
+    "placeholders": {
+      "day": {
+        "type": "int"
+      }
+    }
+  },
+  "expectedHarvest": "Expected harvest: {start} – {end}",
+  "@expectedHarvest": {
+    "description": "Expected harvest window; dates preformatted",
+    "placeholders": {
+      "start": {
+        "type": "String"
+      },
+      "end": {
+        "type": "String"
+      }
+    }
+  },
+  "confirmHarvest": "Confirm harvest",
+  "@confirmHarvest": {
+    "description": "Button that confirms harvest (transition 7)"
+  },
+  "waitingForData": "Waiting for data",
+  "@waitingForData": {
+    "description": "Day with no POWER data yet"
+  },
+  "waitingForDataDays": "{count, plural, =1{1 day waiting for data} other{{count} days waiting for data}}",
+  "@waitingForDataDays": {
+    "description": "Number of recent days without POWER data",
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "lastUpdated": "Updated {date}",
+  "@lastUpdated": {
+    "description": "Last sync time; date preformatted",
+    "placeholders": {
+      "date": {
+        "type": "String"
+      }
+    }
+  },
+  "offlineNote": "Offline: using saved data",
+  "@offlineNote": {
+    "description": "Banner when no network"
+  },
+  "demoReplayLabel": "Replay of a past season",
+  "@demoReplayLabel": {
+    "description": "Label for demo mode"
+  },
+  "alertWaterNow": "Water now",
+  "@alertWaterNow": {
+    "description": "Alert title"
+  },
+  "alertWaterNowBody": "The soil is drying out. Irrigate in the next day or two.",
+  "@alertWaterNowBody": {
+    "description": "Alert body"
+  },
+  "alertHeatFlowering": "Heat at flowering",
+  "@alertHeatFlowering": {
+    "description": "Alert title"
+  },
+  "alertHeatFloweringBody": "Very hot days during flowering can lower your harvest. Keep the soil moist.",
+  "@alertHeatFloweringBody": {
+    "description": "Alert body"
+  },
+  "alertOnionRot": "Onion rot risk",
+  "@alertOnionRot": {
+    "description": "Alert title"
+  },
+  "alertOnionRotBody": "The soil is too wet. Hold off on watering and let the field drain.",
+  "@alertOnionRotBody": {
+    "description": "Alert body"
+  },
+  "alertFailed": "Crop failed",
+  "@alertFailed": {
+    "description": "Alert title"
+  },
+  "alertFailedBody": "The crop is unlikely to recover this season.",
+  "@alertFailedBody": {
+    "description": "Alert body"
+  },
+  "alertHarvestReady": "Ready to harvest",
+  "@alertHarvestReady": {
+    "description": "Alert title"
+  },
+  "alertHarvestReadyBody": "Your crop has reached maturity. Confirm when you harvest.",
+  "@alertHarvestReadyBody": {
+    "description": "Alert body"
+  },
+  "libraryTitle": "Crop library",
+  "@libraryTitle": {
+    "description": "Crop library title"
+  },
+  "cropDurationDays": "{days, plural, =1{1 day} other{{days} days}}",
+  "@cropDurationDays": {
+    "description": "Crop duration",
+    "placeholders": {
+      "days": {
+        "type": "int"
+      }
+    }
+  },
+  "cropDurationLabel": "Duration",
+  "@cropDurationLabel": {
+    "description": "Library field"
+  },
+  "cropSowingWindow": "Sowing window",
+  "@cropSowingWindow": {
+    "description": "Library field"
+  },
+  "cropFamily": "Family",
+  "@cropFamily": {
+    "description": "Library field (plant family)"
+  },
+  "cropWaterNeed": "Water need",
+  "@cropWaterNeed": {
+    "description": "Library field"
+  },
+  "cropRiskByIrrigation": "Failed seasons by irrigation",
+  "@cropRiskByIrrigation": {
+    "description": "Library table title"
+  },
+  "aboutTitle": "About and limits",
+  "@aboutTitle": {
+    "description": "About page title"
+  },
+  "aboutAdvisory": "Ani gives advice only. Weather is from one point per town, and rice water need is a lower bound. Results were not tested in the field.",
+  "@aboutAdvisory": {
+    "description": "About page limits paragraph"
+  },
+  "aboutSources": "Data: NASA POWER, ISRIC SoilGrids, NOAA CPC, PSA.",
+  "@aboutSources": {
+    "description": "Data sources"
+  },
+  "actionRetry": "Try again",
+  "@actionRetry": {
+    "description": "Retry button"
+  },
+  "actionClose": "Close",
+  "@actionClose": {
+    "description": "Close button"
+  },
+  "actionCancel": "Cancel",
+  "@actionCancel": {
+    "description": "Cancel button"
+  },
+  "bundleLoadError": "Could not load the data for this town.",
+  "@bundleLoadError": {
+    "description": "Error card when the bundled town JSON fails to load"
+  },
+  "homeCropCount": "{count, plural, =1{1 crop in this town's data} other{{count} crops in this town's data}}",
+  "@homeCropCount": {
+    "description": "Home: number of crops in the loaded bundle",
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  }
+}
