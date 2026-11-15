@@ -102,7 +102,7 @@ Tests in `app/test/` load the fixtures and assert equality (numeric tolerance 1e
 
 Done when: `flutter test` green; planner in Dart gives the same cards as Python for every fixture profile.
 
-_Status: met on 2026-11-15. All six `lib/core` modules are pure Dart (no Flutter imports). Planner matches all 192 fixture profiles, field machine all 45 seasons day by day, ET0/heat index/dryness every `numeric.json` row within 1e-6; `flutter analyze` clean, 717 tests pass. Alert machine has no Python counterpart (only the stateless `zscores.label`); its edge-case choices are documented in `alert_machine.dart`. Known export-rounding gaps, not port errors: tracker stage fractions at 3 dp shift one onion stage transition by a day (`bongabon|onion|2023-24|rainfed`), and GWETROOT at 3 dp in `dryness.reference` moves on-device D by up to 0.094 vs `dryness.monthly`. Raising precision in `export_json.py` would tighten both._
+_Status: met on 2026-11-15. All six `lib/core` modules are pure Dart (no Flutter imports). Planner matches all 192 fixture profiles, field machine all 45 seasons day by day, ET0/heat index/dryness every `numeric.json` row within 1e-6; `flutter analyze` clean, 717 tests pass. Alert machine has no Python counterpart (only the stateless `zscores.label`); its edge-case choices are documented in `alert_machine.dart`. Export precision was then raised (stage fractions and `g_mat` at 6 dp; reference GWETROOT at 5 dp, balances at 2 dp), so bundle-driven replays match the fixtures exactly and on-device D is within 0.0055 of `dryness.monthly`._
 
 ## Phase 3 — Start screen + Recommendation flow (the core demo)
 

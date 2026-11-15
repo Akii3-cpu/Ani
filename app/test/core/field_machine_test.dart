@@ -155,9 +155,8 @@ void main() {
       }
     });
 
-    // The bundle rounds tracker params to 3 dp (e.g. onion f_v 0.26666667 -> 0.267), which can
-    // move a stage boundary by one day; the path of states and guards must be identical.
-    test('bundle-derived Params reproduce the fixture transitions (within 1 day)', () {
+    // Stage fractions and g_mat are exported to 6 dp, so the bundle reproduces the fixture exactly.
+    test('bundle-derived Params reproduce the fixture transitions exactly', () {
       final diff = <String>[];
       for (final c in cases) {
         final prm = bundles[c['muni']]!.tracker.crops[c['crop']]!.toFieldParams(c['water'] as String);
@@ -169,7 +168,7 @@ void main() {
                 got[i].from.label == want[i][1] &&
                     got[i].to.label == want[i][2] &&
                     got[i].guard == want[i][3] &&
-                    (got[i].day - (want[i][0] as int)).abs() <= 1,
+                    got[i].day == want[i][0],
             ].every((x) => x);
         if (!ok) diff.add('${c['id']}: ${got.map((t) => t.toList()).toList()} vs $want');
       }

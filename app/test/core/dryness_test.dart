@@ -137,10 +137,7 @@ void main() {
       final dry = b.dryness;
       final base = {for (final e in dry.reference.entries) e.key: _baseline(e.key, e.value)};
 
-      // The bundle rounds reference balances to 1 dp and GWETROOT to 3 dp, and D to 2 dp.
-      // Where GWETROOT is nearly pinned (MAD tiny, e.g. September) the 3-dp rounding moves
-      // z_sm by up to ~0.18, i.e. D by up to ~0.09; the pipeline itself, re-run on the
-      // rounded reference, gives the same D as this port. 95% of months agree within 0.02.
+      // The bundle stores reference balances at 2 dp, GWETROOT at 5 dp, and D at 2 dp.
       test('reproduces dryness.monthly D', () {
         expect(base.keys.toSet(), {for (var m = 1; m <= 12; m++) m});
         final diffs = <double>[];
@@ -151,7 +148,7 @@ void main() {
           expect(s.d, isNotNull, reason: p.month);
           final diff = (s.d! - p.d).abs();
           diffs.add(diff);
-          expect(diff, lessThan(0.1), reason: '${p.month}: device ${s.d} vs bundle ${p.d}');
+          expect(diff, lessThan(0.02), reason: '${p.month}: device ${s.d} vs bundle ${p.d}');
           if (drynessLabel(p.d) != s.label) {
             labelMismatch.add(p.month);
             // Only allowed right at a threshold, within the rounding error.
@@ -165,7 +162,7 @@ void main() {
         print('${town.id}: ${diffs.length} months, |D_device - D_bundle| p95 ${p95.toStringAsFixed(4)}, '
             'max ${diffs.last.toStringAsFixed(4)}, threshold label flips $labelMismatch');
         expect(diffs.length, dry.monthly.length);
-        expect(p95, lessThan(0.03));
+        expect(p95, lessThan(0.01));
         expect(labelMismatch.length, lessThanOrEqualTo(1));
       });
 

@@ -99,8 +99,8 @@ def dryness_reference(daily):
         g = m[m.index.month == mm]
         g = g[g.wb_mm.notna() | g.gwetroot.notna()]
         out[str(mm)] = {"years": [int(i.year) for i in g.index],
-                        "bal1": [num(v, 1) for v in g.wb_mm], "bal3": [num(v, 1) for v in g.bal3],
-                        "gwet": [num(v, 3) for v in g.gwetroot]}
+                        "bal1": [num(v, 2) for v in g.wb_mm], "bal3": [num(v, 2) for v in g.bal3],
+                        "gwet": [num(v, 5) for v in g.gwetroot]}
     return out
 
 
@@ -142,8 +142,9 @@ def build(muni, daily, monthly, soil_row, ref, risk, outcomes, enso, crops, soil
                             "sow_window_days_after_nov1": [int(c["sow_day"][1]), int(c["sow_day"][2])]}
         prm = params_for(crop, c, soil_row, d, years, False, rot)
         tracker[crop] = {k: num(getattr(prm, k), 3) for k in
-                         ("taw", "p", "kc_ini", "kc_mid", "kc_end", "t_base", "g_mat", "f_e", "f_v", "f_r",
-                          "t_crit", "rot_p98")}
+                         ("taw", "p", "kc_ini", "kc_mid", "kc_end", "t_base", "t_crit", "rot_p98")}
+        # stage boundaries need more digits: 3 dp moves a stage transition by a day (schema 2)
+        tracker[crop].update({k: num(getattr(prm, k), 6) for k in ("g_mat", "f_e", "f_v", "f_r")})
         tracker[crop].update(ks_fail=KS_FAIL, k_fail=K_FAIL, d_prep=0,
                              sensitive=["Veg", "Repro"], t_up=None)
     # risk (+ heat share for g5)
