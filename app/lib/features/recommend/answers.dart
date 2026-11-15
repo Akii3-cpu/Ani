@@ -26,19 +26,37 @@ class RecommendAnswers {
 
   /// Prefills from saved answers; [fallbackTown] (the app's town) is used
   /// when nothing is saved. The saved town is kept even if it differs.
-  factory RecommendAnswers.prefill({SavedPlannerProfile? saved, Town? fallbackTown}) {
+  ///
+  /// [recordedLast] is the last two crops from the farm's outcome records
+  /// (most recent first) and [recordedAt] the newest outcome's date. They
+  /// fill "last two crops" when the saved answers have none, or when the
+  /// records are newer than the saved answers (a harvest logged since the
+  /// last questionnaire). Otherwise the farmer's saved answer stays.
+  factory RecommendAnswers.prefill({
+    SavedPlannerProfile? saved,
+    Town? fallbackTown,
+    List<String>? recordedLast,
+    DateTime? recordedAt,
+  }) {
     final p = saved?.profile;
-    if (p == null) return RecommendAnswers(town: fallbackTown);
-    return RecommendAnswers(
-      town: saved!.town ?? fallbackTown,
-      lastRecent: p.last.isNotEmpty ? p.last[0] : null,
-      lastBefore: p.last.length > 1 ? p.last[1] : null,
-      waterSource: saved.waterSource,
-      water: p.water,
-      wont: {...p.wont},
-      coldStorage: p.coldStorage,
-      priorities: [...p.priorities.where(kCriteria.contains).take(maxPriorities)],
-    );
+    final records = [...?recordedLast?.where(CropId.all.contains).take(2)];
+    final useRecords = records.isNotEmpty &&
+        (p == null || p.last.isEmpty || (recordedAt != null && recordedAt.isAfter(saved!.savedAt)));
+    final last = useRecords ? records : (p?.last ?? const <String>[]);
+    final a = p == null
+        ? RecommendAnswers(town: fallbackTown)
+        : RecommendAnswers(
+            town: saved!.town ?? fallbackTown,
+            waterSource: saved.waterSource,
+            water: p.water,
+            wont: {...p.wont},
+            coldStorage: p.coldStorage,
+            priorities: [...p.priorities.where(kCriteria.contains).take(maxPriorities)],
+          );
+    a.lastRecent = last.isNotEmpty ? last[0] : null;
+    a.lastBefore = last.length > 1 ? last[1] : null;
+    a.lastFromRecords = useRecords;
+    return a;
   }
 
   static const int steps = 5;
@@ -48,6 +66,9 @@ class RecommendAnswers {
 
   /// Crop ids ([CropId]); null = None.
   String? lastRecent;
+
+  /// True when [lastRecent] / [lastBefore] came from the farm's records.
+  bool lastFromRecords = false;
   String? lastBefore;
 
   /// [WaterSource] id, or null.

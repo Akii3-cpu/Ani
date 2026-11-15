@@ -656,4 +656,198 @@ class AppLocalizationsEn extends AppLocalizations {
   @override
   String get homeTrackedHint =>
       'Track a planting to see its stage and alerts here.';
+
+  @override
+  String get myFarmEmptyTitle => 'No plantings yet';
+
+  @override
+  String get myFarmEmptyHint =>
+      'Add the crop you planted to follow its stages and get alerts.';
+
+  @override
+  String get myFarmGrowing => 'Growing now';
+
+  @override
+  String get myFarmPast => 'Past seasons';
+
+  @override
+  String plantingPlantedOn(String date) {
+    return 'Planted $date';
+  }
+
+  @override
+  String get plantingDemoTag => 'Demo';
+
+  @override
+  String plantingProgress(int percent) {
+    return '$percent% of the season';
+  }
+
+  @override
+  String plantingLastData(String date) {
+    return 'Weather data up to $date';
+  }
+
+  @override
+  String get plantingNoDataYet => 'No weather data yet';
+
+  @override
+  String get waitingForDataNote =>
+      'NASA POWER publishes a few days late. The tracker moves on when the data arrives.';
+
+  @override
+  String get plantingStages => 'Stages';
+
+  @override
+  String get stageNotYet => 'Not yet';
+
+  @override
+  String get stageNow => 'Now';
+
+  @override
+  String plantingReadySince(String date) {
+    return 'Ready since $date';
+  }
+
+  @override
+  String outcomeHarvested(String date) {
+    return 'Harvested on $date';
+  }
+
+  @override
+  String outcomeFailed(String date) {
+    return 'Crop failed on $date';
+  }
+
+  @override
+  String get plantingRemove => 'Remove planting';
+
+  @override
+  String get plantingRemoveConfirm =>
+      'Remove this planting and its alerts? Past harvest records stay.';
+
+  @override
+  String get actionRemove => 'Remove';
+
+  @override
+  String get plantingNoAlerts => 'No alerts for this crop.';
+
+  @override
+  String get plantingMethodHint =>
+      'Only matters for onion: its season is counted from transplanting.';
+
+  @override
+  String get plantingIrrigationHint =>
+      'Filled in from your last planner answers. Change it if needed.';
+
+  @override
+  String get plantingTownLabel => 'Town';
+
+  @override
+  String get plantingSaved => 'Planting saved';
+
+  @override
+  String get plantingSaveError => 'Could not save the planting.';
+
+  @override
+  String get plantingDetailTitle => 'Planting';
+
+  @override
+  String get syncUpdating => 'Updating weather…';
+
+  @override
+  String get alertsNew => 'New';
+
+  @override
+  String alertsTimes(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count times',
+      one: 'once',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get alertsSeeAll => 'See all alerts';
+
+  @override
+  String alertsUnseenCount(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count new alerts',
+      one: '1 new alert',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get alertWaterStressBody =>
+      'The crop is short of water. Irrigate as soon as you can; if you cannot, cover the soil with straw.';
+
+  @override
+  String get alertsDemoNote =>
+      'Alerts from the replay are not saved and do not notify you.';
+
+  @override
+  String get homeOpenMyFarm => 'Open My farm';
+
+  @override
+  String get demoTitle => 'Season replay (demo)';
+
+  @override
+  String get demoBanner => 'Replay of a past season – not live data';
+
+  @override
+  String get demoPickHint =>
+      'Pick a past dry season to watch a crop go from planting to harvest in a few taps. Nothing here is saved to your farm.';
+
+  @override
+  String demoSeasonTitle(String crop, String town) {
+    return '$crop in $town';
+  }
+
+  @override
+  String demoSeasonSubtitle(String season, String water) {
+    return 'Dry season $season · $water';
+  }
+
+  @override
+  String demoShows(String alerts) {
+    return 'Shows: $alerts';
+  }
+
+  @override
+  String demoDayOf(int day, int total) {
+    return 'Day $day of $total';
+  }
+
+  @override
+  String demoDate(String date) {
+    return 'Replay date: $date';
+  }
+
+  @override
+  String get demoNextDay => 'Next day';
+
+  @override
+  String get demoNextWeek => '+7 days';
+
+  @override
+  String get demoRunToEnd => 'Run to end';
+
+  @override
+  String get demoRestart => 'Start over';
+
+  @override
+  String get demoEnded => 'Replay finished';
+
+  @override
+  String get demoLoadError => 'Could not load the replay.';
+
+  @override
+  String get questionLastCropsFromRecords =>
+      'Filled in from your harvest records.';
 }

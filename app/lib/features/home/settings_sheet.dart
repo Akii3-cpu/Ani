@@ -4,6 +4,7 @@ import '../../app_state.dart';
 import '../../data/bundle.dart';
 import '../../l10n/app_localizations.dart';
 import '../../theme/theme.dart';
+import '../farm/demo_screen.dart';
 import '../labels.dart';
 
 /// Opens the settings sheet (change language / change town).
@@ -60,6 +61,24 @@ class SettingsSheet extends StatelessWidget {
               ),
               const SizedBox(height: AniSpacing.sm),
             ],
+            const SizedBox(height: AniSpacing.md),
+            AniCard(
+              key: const ValueKey('settings-demo'),
+              padding: const EdgeInsets.all(AniSpacing.md),
+              onTap: () {
+                final navigator = Navigator.of(context);
+                navigator.pop();
+                navigator.push(MaterialPageRoute<void>(builder: (_) => const DemoPickerScreen()));
+              },
+              child: Row(
+                children: [
+                  const Icon(Icons.replay_outlined, color: AniColors.gold),
+                  const SizedBox(width: AniSpacing.md),
+                  Expanded(child: Text(l.demoTitle, style: Theme.of(context).textTheme.titleSmall)),
+                  const Icon(Icons.chevron_right, color: AniColors.muted),
+                ],
+              ),
+            ),
           ],
         ),
       ),

@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import '../../app_state.dart';
 import '../../core/planner.dart';
 import '../../data/bundle.dart';
+import '../../data/farm_store.dart';
 import '../../data/planner_profile.dart';
 import '../../l10n/app_localizations.dart';
 import '../../theme/theme.dart';
@@ -31,7 +32,24 @@ class _QuestionnaireScreenState extends State<QuestionnaireScreen> {
   void didChangeDependencies() {
     super.didChangeDependencies();
     final state = AppScope.of(context);
-    _answers ??= RecommendAnswers.prefill(saved: state.plannerProfile, fallbackTown: state.town);
+    if (_answers != null) return;
+    final saved = state.plannerProfile;
+    final town = saved?.town ?? state.town;
+    final tracker = state.trackerService;
+    final outcomes = [
+      for (final o in tracker?.outcomes ?? const <OutcomeRecord>[])
+        if (o.town == town) o
+    ];
+    DateTime? recordedAt;
+    for (final o in outcomes) {
+      if (recordedAt == null || o.date.isAfter(recordedAt)) recordedAt = o.date;
+    }
+    _answers = RecommendAnswers.prefill(
+      saved: saved,
+      fallbackTown: state.town,
+      recordedLast: outcomes.isEmpty ? null : tracker!.lastTwoCrops(town: town),
+      recordedAt: recordedAt,
+    );
   }
 
   RecommendAnswers get _a => _answers!;
@@ -183,6 +201,18 @@ class _QuestionnaireScreenState extends State<QuestionnaireScreen> {
             ),
         ];
     return [
+      if (_a.lastFromRecords)
+        Row(
+          key: const ValueKey('q-last-from-records'),
+          children: [
+            const Icon(Icons.history, size: 16, color: AniColors.olive),
+            const SizedBox(width: AniSpacing.xs),
+            Expanded(
+              child: Text(l.questionLastCropsFromRecords,
+                  style: Theme.of(context).textTheme.bodySmall?.copyWith(color: AniColors.olive)),
+            ),
+          ],
+        ),
       _SectionLabel(l.questionLastCropRecent),
       ...pick('recent', _a.lastRecent, (v) => _a.lastRecent = v),
       const SizedBox(height: AniSpacing.sm),

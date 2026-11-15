@@ -864,5 +864,275 @@
   "homeTrackedHint": "Track a planting to see its stage and alerts here.",
   "@homeTrackedHint": {
     "description": "Hint under the empty tracked-crop state on Home"
+  },
+  "myFarmEmptyTitle": "No plantings yet",
+  "@myFarmEmptyTitle": {
+    "description": "My farm empty state title"
+  },
+  "myFarmEmptyHint": "Add the crop you planted to follow its stages and get alerts.",
+  "@myFarmEmptyHint": {
+    "description": "My farm empty state hint"
+  },
+  "myFarmGrowing": "Growing now",
+  "@myFarmGrowing": {
+    "description": "My farm section: open plantings"
+  },
+  "myFarmPast": "Past seasons",
+  "@myFarmPast": {
+    "description": "My farm section: closed plantings"
+  },
+  "plantingPlantedOn": "Planted {date}",
+  "@plantingPlantedOn": {
+    "description": "Planting date line; date preformatted",
+    "placeholders": {
+      "date": {
+        "type": "String"
+      }
+    }
+  },
+  "plantingDemoTag": "Demo",
+  "@plantingDemoTag": {
+    "description": "Tag on demo replay rows"
+  },
+  "plantingProgress": "{percent}% of the season",
+  "@plantingProgress": {
+    "description": "Season progress (growing degree days so far / needed)",
+    "placeholders": {
+      "percent": {
+        "type": "int"
+      }
+    }
+  },
+  "plantingLastData": "Weather data up to {date}",
+  "@plantingLastData": {
+    "description": "Last real POWER day replayed; date preformatted",
+    "placeholders": {
+      "date": {
+        "type": "String"
+      }
+    }
+  },
+  "plantingNoDataYet": "No weather data yet",
+  "@plantingNoDataYet": {
+    "description": "No POWER day replayed yet"
+  },
+  "waitingForDataNote": "NASA POWER publishes a few days late. The tracker moves on when the data arrives.",
+  "@waitingForDataNote": {
+    "description": "Explains the waiting-for-data lag"
+  },
+  "plantingStages": "Stages",
+  "@plantingStages": {
+    "description": "Stage timeline heading"
+  },
+  "stageNotYet": "Not yet",
+  "@stageNotYet": {
+    "description": "Timeline: stage not reached"
+  },
+  "stageNow": "Now",
+  "@stageNow": {
+    "description": "Timeline: current stage marker"
+  },
+  "plantingReadySince": "Ready since {date}",
+  "@plantingReadySince": {
+    "description": "Ready-to-harvest date; preformatted",
+    "placeholders": {
+      "date": {
+        "type": "String"
+      }
+    }
+  },
+  "outcomeHarvested": "Harvested on {date}",
+  "@outcomeHarvested": {
+    "description": "Closed planting: harvest outcome; date preformatted",
+    "placeholders": {
+      "date": {
+        "type": "String"
+      }
+    }
+  },
+  "outcomeFailed": "Crop failed on {date}",
+  "@outcomeFailed": {
+    "description": "Closed planting: failed outcome; date preformatted",
+    "placeholders": {
+      "date": {
+        "type": "String"
+      }
+    }
+  },
+  "plantingRemove": "Remove planting",
+  "@plantingRemove": {
+    "description": "Button to delete a planting"
+  },
+  "plantingRemoveConfirm": "Remove this planting and its alerts? Past harvest records stay.",
+  "@plantingRemoveConfirm": {
+    "description": "Confirm dialog for removing a planting"
+  },
+  "actionRemove": "Remove",
+  "@actionRemove": {
+    "description": "Destructive confirm button"
+  },
+  "plantingNoAlerts": "No alerts for this crop.",
+  "@plantingNoAlerts": {
+    "description": "Detail: no alerts yet"
+  },
+  "plantingMethodHint": "Only matters for onion: its season is counted from transplanting.",
+  "@plantingMethodHint": {
+    "description": "Add planting: method note"
+  },
+  "plantingIrrigationHint": "Filled in from your last planner answers. Change it if needed.",
+  "@plantingIrrigationHint": {
+    "description": "Add planting: irrigation prefilled from profile"
+  },
+  "plantingTownLabel": "Town",
+  "@plantingTownLabel": {
+    "description": "Add planting: town field"
+  },
+  "plantingSaved": "Planting saved",
+  "@plantingSaved": {
+    "description": "Snackbar after adding a planting"
+  },
+  "plantingSaveError": "Could not save the planting.",
+  "@plantingSaveError": {
+    "description": "Snackbar on save error"
+  },
+  "plantingDetailTitle": "Planting",
+  "@plantingDetailTitle": {
+    "description": "Planting detail screen title"
+  },
+  "syncUpdating": "Updating weather…",
+  "@syncUpdating": {
+    "description": "Tracker status while syncing POWER"
+  },
+  "alertsNew": "New",
+  "@alertsNew": {
+    "description": "Badge on unseen alerts"
+  },
+  "alertsTimes": "{count, plural, =1{once} other{{count} times}}",
+  "@alertsTimes": {
+    "description": "Collapsed water-now alerts count",
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "alertsSeeAll": "See all alerts",
+  "@alertsSeeAll": {
+    "description": "Home: open the alerts list"
+  },
+  "alertsUnseenCount": "{count, plural, =1{1 new alert} other{{count} new alerts}}",
+  "@alertsUnseenCount": {
+    "description": "Bell semantics label",
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "alertWaterStressBody": "The crop is short of water. Irrigate as soon as you can; if you cannot, cover the soil with straw.",
+  "@alertWaterStressBody": {
+    "description": "Water-now alert body when the crop is already stressed"
+  },
+  "alertsDemoNote": "Alerts from the replay are not saved and do not notify you.",
+  "@alertsDemoNote": {
+    "description": "Demo: alerts note"
+  },
+  "homeOpenMyFarm": "Open My farm",
+  "@homeOpenMyFarm": {
+    "description": "Home: go to the My farm tab"
+  },
+  "demoTitle": "Season replay (demo)",
+  "@demoTitle": {
+    "description": "Demo mode entry and title"
+  },
+  "demoBanner": "Replay of a past season – not live data",
+  "@demoBanner": {
+    "description": "Persistent demo banner"
+  },
+  "demoPickHint": "Pick a past dry season to watch a crop go from planting to harvest in a few taps. Nothing here is saved to your farm.",
+  "@demoPickHint": {
+    "description": "Demo picker intro"
+  },
+  "demoSeasonTitle": "{crop} in {town}",
+  "@demoSeasonTitle": {
+    "description": "Demo season card title",
+    "placeholders": {
+      "crop": {
+        "type": "String"
+      },
+      "town": {
+        "type": "String"
+      }
+    }
+  },
+  "demoSeasonSubtitle": "Dry season {season} · {water}",
+  "@demoSeasonSubtitle": {
+    "description": "Demo season card subtitle",
+    "placeholders": {
+      "season": {
+        "type": "String"
+      },
+      "water": {
+        "type": "String"
+      }
+    }
+  },
+  "demoShows": "Shows: {alerts}",
+  "@demoShows": {
+    "description": "Demo season: alert types it shows",
+    "placeholders": {
+      "alerts": {
+        "type": "String"
+      }
+    }
+  },
+  "demoDayOf": "Day {day} of {total}",
+  "@demoDayOf": {
+    "description": "Demo progress",
+    "placeholders": {
+      "day": {
+        "type": "int"
+      },
+      "total": {
+        "type": "int"
+      }
+    }
+  },
+  "demoDate": "Replay date: {date}",
+  "@demoDate": {
+    "description": "Simulated today; date preformatted",
+    "placeholders": {
+      "date": {
+        "type": "String"
+      }
+    }
+  },
+  "demoNextDay": "Next day",
+  "@demoNextDay": {
+    "description": "Demo control"
+  },
+  "demoNextWeek": "+7 days",
+  "@demoNextWeek": {
+    "description": "Demo control"
+  },
+  "demoRunToEnd": "Run to end",
+  "@demoRunToEnd": {
+    "description": "Demo control: run until harvest-ready or the season ends"
+  },
+  "demoRestart": "Start over",
+  "@demoRestart": {
+    "description": "Demo control"
+  },
+  "demoEnded": "Replay finished",
+  "@demoEnded": {
+    "description": "Demo: season closed"
+  },
+  "demoLoadError": "Could not load the replay.",
+  "@demoLoadError": {
+    "description": "Demo: load error"
+  },
+  "questionLastCropsFromRecords": "Filled in from your harvest records.",
+  "@questionLastCropsFromRecords": {
+    "description": "Questionnaire: last two crops prefilled from outcomes"
   }
 }

@@ -127,6 +127,8 @@ _Status: met on 2026-11-15. `test/features/recommend_chapter5_test.dart` drives 
 
 Done when: a logged planting advances day by day from real POWER data, survives app restart offline, and the replay shows every alert type.
 
+_Status: met on Flutter web on 2026-11-15. POWER client + per-town day cache (`power_client.dart`, `weather_cache.dart`), farm store, `tracker_service.dart` (replay via `core/season_replay.dart`, alert dedupe, confirm harvest = transition 7, outcome records feeding "last two crops"), My farm / add planting / detail timeline, alerts bell + list, local notifications behind `AlertNotifier` (no-op on web), and a demo replay of three bundled seasons (`assets/fixtures/demo_seasons.json` from `pipeline/export_demo.py`) that together show all five alert types. A browser check synced a real planting from NASA POWER ("4 days waiting for data"). `flutter analyze` clean, 909 tests pass. Not verified: Android/iOS builds and real notification delivery (no Android SDK; iOS 26.5 platform missing). Known gaps: a backdated planting's first alerts appear in the list but don't fire a notification; Filipino strings need a native-speaker check._
+
 ## Phase 5 — Season outlook, crop library, heat safety
 
 1. **Outlook tab**: El Niño tag + past-season labels, monthly dryness-index chart with El Niño seasons marked, live dekadal D from synced POWER data through `dryness.dart` + `alert_machine.dart` (falls back to bundled `dryness.latest` offline).

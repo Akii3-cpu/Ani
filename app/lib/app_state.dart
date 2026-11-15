@@ -1,18 +1,133 @@
 import 'package:flutter/widgets.dart';
 
 import 'core/planner.dart';
+import 'data/alert_notifier.dart';
 import 'data/bundle.dart';
+import 'data/demo_seasons.dart';
 import 'data/planner_profile.dart';
 import 'data/settings_store.dart';
+import 'data/tracker_service.dart';
+import 'features/alerts/alert_labels.dart';
+import 'l10n/app_localizations.dart';
 
 /// App-wide state: language, town, onboarding flag, the town's bundle and the
 /// last planner answers.
 class AppState extends ChangeNotifier {
-  AppState({Future<SettingsStore> Function()? openStore, BundleLoader? loader, this.assets})
-      : _openStore = openStore ?? SettingsStore.load,
-        _loader = loader ?? BundleLoader.instance;
+  AppState({
+    Future<SettingsStore> Function()? openStore,
+    BundleLoader? loader,
+    this.assets,
+    Future<TrackerService> Function(Future<AniBundle> Function(Town town) bundleFor)? openTracker,
+    AlertNotifier? notifier,
+    Future<List<DemoSeason>> Function()? loadDemoSeasons,
+  })  : _openStore = openStore ?? SettingsStore.load,
+        _loader = loader ?? BundleLoader.instance,
+        _openTracker = openTracker ?? ((bundleFor) => TrackerService.open(bundleFor: bundleFor)),
+        notifier = notifier ?? AlertNotifier.platform(),
+        _loadDemoSeasons = loadDemoSeasons ?? (() => DemoSeasons.load(bundle: assets));
 
   final Future<SettingsStore> Function() _openStore;
+  final Future<TrackerService> Function(Future<AniBundle> Function(Town town) bundleFor) _openTracker;
+  final Future<List<DemoSeason>> Function() _loadDemoSeasons;
+  Future<TrackerService>? _tracker;
+  TrackerService? _trackerService;
+  Future<List<DemoSeason>>? _demoSeasons;
+
+  /// Local notifications for new real alerts (no-op on web / in tests).
+  final AlertNotifier notifier;
+
+  /// The crop tracker (plantings, POWER sync, alerts), opened on first use.
+  /// Use [refreshTracker] to sync and replay (app start / resume, My farm).
+  Future<TrackerService> tracker() => _tracker ??= _openTracker(bundleFor).then((t) {
+        _trackerService = t;
+        notifyListeners();
+        return t;
+      }, onError: (Object e, StackTrace st) {
+        _tracker = null;
+        Error.throwWithStackTrace(e, st);
+      });
+
+  /// The tracker once [tracker] has opened it, else null.
+  TrackerService? get trackerService => _trackerService;
+
+  Future<TrackerRefresh?>? _refreshing;
+  TrackerRefresh? _lastRefresh;
+  DateTime? _lastRefreshAt;
+
+  bool _trackerLoaded = false;
+
+  /// True once a [refreshTracker] has finished (successfully or not), so
+  /// the tracker's views are meaningful.
+  bool get trackerLoaded => _trackerLoaded;
+
+  /// True while [refreshTracker] runs.
+  bool get trackerRefreshing => _refreshing != null;
+
+  /// Result of the last finished [refreshTracker], or null.
+  TrackerRefresh? get lastTrackerRefresh => _lastRefresh;
+
+  /// When the last [refreshTracker] finished.
+  DateTime? get lastTrackerRefreshAt => _lastRefreshAt;
+
+  /// Opens the tracker, syncs POWER (unless [sync] is false), replays every
+  /// open planting and shows notifications for the new real alerts. Calls
+  /// that overlap share one run. Never throws; returns null on failure.
+  Future<TrackerRefresh?> refreshTracker({bool sync = true}) {
+    final running = _refreshing;
+    if (running != null) return running;
+    final f = _refreshing = _doRefresh(sync: sync);
+    notifyListeners();
+    return f;
+  }
+
+  Future<TrackerRefresh?> _doRefresh({required bool sync}) async {
+    TrackerRefresh? r;
+    try {
+      final t = await tracker();
+      r = await t.refresh(sync: sync);
+      _lastRefresh = r;
+      _lastRefreshAt = DateTime.now();
+      final notices = noticesFor(_notificationStrings(), r.newAlerts.where((a) => !a.isDemo));
+      if (notices.isNotEmpty) await notifier.show(notices);
+    } catch (e) {
+      debugPrint('tracker refresh failed: $e');
+    }
+    _refreshing = null;
+    _trackerLoaded = true;
+    notifyListeners();
+    return r;
+  }
+
+  AppLocalizations _notificationStrings() {
+    var code = _localeCode;
+    code ??= WidgetsBinding.instance.platformDispatcher.locale.languageCode == 'fil' ? 'fil' : 'en';
+    return lookupAppLocalizations(Locale(code));
+  }
+
+  /// Asks for notification permission once (after the first real planting
+  /// is saved, not on launch). Never throws.
+  Future<void> requestNotificationPermissionOnce() async {
+    final store = _store;
+    if (store == null || store.notificationsAsked) return;
+    await store.setNotificationsAsked();
+    try {
+      await notifier.requestPermission();
+    } catch (_) {}
+  }
+
+  /// The bundled demo seasons (loaded once).
+  Future<List<DemoSeason>> demoSeasons() => _demoSeasons ??= _loadDemoSeasons().catchError((Object e) {
+        _demoSeasons = null;
+        Error.throwWithStackTrace(e, StackTrace.current);
+      });
+
+  /// Starts a replay of [season] on its own in-memory store (never the
+  /// farmer's records).
+  Future<DemoReplay> startDemo(DemoSeason season) async {
+    final b = await bundleFor(season.town);
+    return DemoReplay(season, b);
+  }
+
   final BundleLoader _loader;
 
   /// Asset bundle to read town JSON from (default rootBundle).

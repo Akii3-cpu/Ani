@@ -1,11 +1,19 @@
 import 'package:flutter/material.dart';
 
+import '../../app_shell.dart';
 import '../../app_state.dart';
 import '../../core/dryness.dart' show dryRank;
 import '../../data/bundle.dart';
+import '../../data/farm_store.dart';
 import '../../data/planner_profile.dart';
+import '../../data/tracker_service.dart';
 import '../../l10n/app_localizations.dart';
 import '../../theme/theme.dart';
+import '../alerts/alerts_screen.dart';
+import '../farm/add_planting_screen.dart';
+import '../farm/planting_detail_screen.dart';
+import '../farm/planting_widgets.dart';
+import '../farm/tracker_builder.dart';
 import '../labels.dart';
 import '../recommend/recommend_flow.dart';
 import '../recommend/recommend_labels.dart';
@@ -33,6 +41,7 @@ class HomeScreen extends StatelessWidget {
           Row(
             children: [
               Expanded(child: Eyebrow(l.appTitle)),
+              const AlertsBell(),
               IconButton(
                 key: const ValueKey('home-settings'),
                 tooltip: l.settingsTitle,
@@ -343,41 +352,69 @@ class _LastRecommendation extends StatelessWidget {
 
 // ------------------------------------------------------------------ tracked crop, alerts
 
+/// Active plantings with stage and progress (tap: detail), or the empty
+/// state with "Add planting".
 class _TrackedCropCard extends StatelessWidget {
   const _TrackedCropCard();
+
+  static const _max = 3;
 
   @override
   Widget build(BuildContext context) {
     final l = AppLocalizations.of(context);
     final theme = Theme.of(context);
-    return AniCard(
-      key: const ValueKey('home-crops'),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Eyebrow(l.homeTrackedTitle),
-          const SizedBox(height: AniSpacing.sm),
-          Row(
-            children: [
-              const Icon(Icons.grass_outlined, color: AniColors.sand),
-              const SizedBox(width: AniSpacing.sm),
-              Expanded(
-                child: Text(
-                  l.homeTrackedEmpty,
-                  key: const ValueKey('home-crops-empty'),
-                  style: theme.textTheme.titleSmall,
-                ),
+    return TrackerBuilder(builder: (context, t) {
+      final open = [for (final v in t?.views ?? const <PlantingView>[]) if (!v.isClosed) v];
+      return AniCard(
+        key: const ValueKey('home-crops'),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          children: [
+            Eyebrow(l.homeTrackedTitle),
+            const SizedBox(height: AniSpacing.sm),
+            if (open.isEmpty) ...[
+              Row(
+                children: [
+                  const Icon(Icons.grass_outlined, color: AniColors.sand),
+                  const SizedBox(width: AniSpacing.sm),
+                  Expanded(
+                    child: Text(
+                      l.homeTrackedEmpty,
+                      key: const ValueKey('home-crops-empty'),
+                      style: theme.textTheme.titleSmall,
+                    ),
+                  ),
+                ],
+              ),
+              const SizedBox(height: AniSpacing.xs),
+              Text(l.homeTrackedHint, style: theme.textTheme.bodyMedium?.copyWith(color: AniColors.muted)),
+              const SizedBox(height: AniSpacing.sm),
+              OutlinedButton.icon(
+                key: const ValueKey('home-add-planting'),
+                onPressed: () => openAddPlanting(context),
+                icon: const Icon(Icons.add, size: 20),
+                label: Text(l.myFarmAddPlanting),
+              ),
+            ] else ...[
+              for (final v in open.take(_max)) ...[
+                PlantingRow(view: v, compact: true, onTap: () => openPlantingDetail(context, v.planting.id)),
+                const SizedBox(height: AniSpacing.sm),
+              ],
+              TextButton.icon(
+                key: const ValueKey('home-open-farm'),
+                onPressed: () => AppShell.selectTab(context, AppShell.farmTab),
+                icon: const Icon(Icons.agriculture_outlined, size: 20),
+                label: Text(l.homeOpenMyFarm),
               ),
             ],
-          ),
-          const SizedBox(height: AniSpacing.xs),
-          Text(l.homeTrackedHint, style: theme.textTheme.bodyMedium?.copyWith(color: AniColors.muted)),
-        ],
-      ),
-    );
+          ],
+        ),
+      );
+    });
   }
 }
 
+/// The latest alerts (water-now runs collapsed), with "See all".
 class _AlertsCard extends StatelessWidget {
   const _AlertsCard();
 
@@ -385,28 +422,46 @@ class _AlertsCard extends StatelessWidget {
   Widget build(BuildContext context) {
     final l = AppLocalizations.of(context);
     final theme = Theme.of(context);
-    return AniCard(
-      key: const ValueKey('home-alerts'),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Eyebrow(l.alertsTitle),
-          const SizedBox(height: AniSpacing.sm),
-          Row(
-            children: [
-              const Icon(Icons.notifications_none_outlined, color: AniColors.sand),
-              const SizedBox(width: AniSpacing.sm),
-              Expanded(
-                child: Text(
-                  l.alertsEmpty,
-                  key: const ValueKey('home-alerts-empty'),
-                  style: theme.textTheme.bodyMedium?.copyWith(color: AniColors.muted),
-                ),
+    return TrackerBuilder(builder: (context, t) {
+      final alerts = t?.alerts ?? const <AlertRecord>[];
+      return AniCard(
+        key: const ValueKey('home-alerts'),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          children: [
+            Eyebrow(l.alertsTitle),
+            const SizedBox(height: AniSpacing.sm),
+            if (alerts.isEmpty)
+              Row(
+                children: [
+                  const Icon(Icons.notifications_none_outlined, color: AniColors.sand),
+                  const SizedBox(width: AniSpacing.sm),
+                  Expanded(
+                    child: Text(
+                      l.alertsEmpty,
+                      key: const ValueKey('home-alerts-empty'),
+                      style: theme.textTheme.bodyMedium?.copyWith(color: AniColors.muted),
+                    ),
+                  ),
+                ],
+              )
+            else ...[
+              AlertList(
+                key: const ValueKey('home-alerts-list'),
+                alerts: alerts,
+                maxGroups: 3,
+                newIds: {for (final a in alerts) if (!a.seen) a.id},
+              ),
+              const SizedBox(height: AniSpacing.sm),
+              TextButton(
+                key: const ValueKey('home-alerts-all'),
+                onPressed: () => openAlerts(context),
+                child: Text(l.alertsSeeAll),
               ),
             ],
-          ),
-        ],
-      ),
-    );
+          ],
+        ),
+      );
+    });
   }
 }

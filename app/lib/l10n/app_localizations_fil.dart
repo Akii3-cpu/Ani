@@ -613,4 +613,185 @@ class AppLocalizationsFil extends AppLocalizations {
   @override
   String get homeTrackedHint =>
       'Magtala ng tanim para makita rito ang yugto at mga babala nito.';
+
+  @override
+  String get myFarmEmptyTitle => 'Wala pang nakatalang tanim';
+
+  @override
+  String get myFarmEmptyHint =>
+      'Itala ang inyong itinanim para masundan ang yugto nito at makatanggap ng babala.';
+
+  @override
+  String get myFarmGrowing => 'Kasalukuyang tanim';
+
+  @override
+  String get myFarmPast => 'Mga nakaraang taniman';
+
+  @override
+  String plantingPlantedOn(String date) {
+    return 'Itinanim $date';
+  }
+
+  @override
+  String get plantingDemoTag => 'Demo';
+
+  @override
+  String plantingProgress(int percent) {
+    return '$percent% ng panahon';
+  }
+
+  @override
+  String plantingLastData(String date) {
+    return 'May datos ng panahon hanggang $date';
+  }
+
+  @override
+  String get plantingNoDataYet => 'Wala pang datos ng panahon';
+
+  @override
+  String get waitingForDataNote =>
+      'Ilang araw na huli ang datos ng NASA POWER. Uusad ang tala kapag dumating na ito.';
+
+  @override
+  String get plantingStages => 'Mga yugto';
+
+  @override
+  String get stageNotYet => 'Hindi pa';
+
+  @override
+  String get stageNow => 'Ngayon';
+
+  @override
+  String plantingReadySince(String date) {
+    return 'Handa na mula $date';
+  }
+
+  @override
+  String outcomeHarvested(String date) {
+    return 'Inani noong $date';
+  }
+
+  @override
+  String outcomeFailed(String date) {
+    return 'Nasira ang tanim noong $date';
+  }
+
+  @override
+  String get plantingRemove => 'Alisin ang tanim';
+
+  @override
+  String get plantingRemoveConfirm =>
+      'Alisin ang tanim na ito at ang mga babala nito? Mananatili ang tala ng nakaraang ani.';
+
+  @override
+  String get actionRemove => 'Alisin';
+
+  @override
+  String get plantingNoAlerts => 'Walang babala para sa tanim na ito.';
+
+  @override
+  String get plantingMethodHint =>
+      'Sa sibuyas lang ito mahalaga: binibilang ang panahon nito mula sa paglilipat-tanim.';
+
+  @override
+  String get plantingIrrigationHint =>
+      'Mula sa huli ninyong sagot sa payo. Palitan kung kailangan.';
+
+  @override
+  String get plantingTownLabel => 'Bayan';
+
+  @override
+  String get plantingSaved => 'Naitala ang tanim';
+
+  @override
+  String get plantingSaveError => 'Hindi ma-save ang tanim.';
+
+  @override
+  String get plantingDetailTitle => 'Tanim';
+
+  @override
+  String get syncUpdating => 'Ina-update ang panahon…';
+
+  @override
+  String get alertsNew => 'Bago';
+
+  @override
+  String alertsTimes(int count) {
+    return '$count beses';
+  }
+
+  @override
+  String get alertsSeeAll => 'Tingnan lahat ng babala';
+
+  @override
+  String alertsUnseenCount(int count) {
+    return '$count bagong babala';
+  }
+
+  @override
+  String get alertWaterStressBody =>
+      'Kulang sa tubig ang tanim. Magpatubig agad kung kaya; kung hindi, takpan ng dayami ang lupa.';
+
+  @override
+  String get alertsDemoNote =>
+      'Hindi naka-save at hindi magpapadala ng abiso ang mga babala sa replay.';
+
+  @override
+  String get homeOpenMyFarm => 'Buksan ang Aking bukid';
+
+  @override
+  String get demoTitle => 'Replay ng panahon (demo)';
+
+  @override
+  String get demoBanner => 'Replay ng nakaraang panahon – hindi live na datos';
+
+  @override
+  String get demoPickHint =>
+      'Pumili ng nakaraang tag-araw para makita ang tanim mula pagtatanim hanggang anihan. Walang mase-save sa inyong bukid.';
+
+  @override
+  String demoSeasonTitle(String crop, String town) {
+    return '$crop sa $town';
+  }
+
+  @override
+  String demoSeasonSubtitle(String season, String water) {
+    return 'Tag-araw $season · $water';
+  }
+
+  @override
+  String demoShows(String alerts) {
+    return 'Makikita: $alerts';
+  }
+
+  @override
+  String demoDayOf(int day, int total) {
+    return 'Araw $day sa $total';
+  }
+
+  @override
+  String demoDate(String date) {
+    return 'Petsa sa replay: $date';
+  }
+
+  @override
+  String get demoNextDay => 'Susunod na araw';
+
+  @override
+  String get demoNextWeek => '+7 araw';
+
+  @override
+  String get demoRunToEnd => 'Hanggang dulo';
+
+  @override
+  String get demoRestart => 'Ulitin';
+
+  @override
+  String get demoEnded => 'Tapos na ang replay';
+
+  @override
+  String get demoLoadError => 'Hindi ma-load ang replay.';
+
+  @override
+  String get questionLastCropsFromRecords => 'Mula sa tala ng inyong ani.';
 }

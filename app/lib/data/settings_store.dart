@@ -19,6 +19,7 @@ class SettingsStore {
   static const keyTown = 'ani.town';
   static const keyOnboardingComplete = 'ani.onboardingComplete';
   static const keyPlannerProfile = 'ani.plannerProfile';
+  static const keyNotificationsAsked = 'ani.notificationsAsked';
 
   /// Language codes the app supports.
   static const supportedLocales = {'en', 'fil'};
@@ -57,11 +58,17 @@ class SettingsStore {
   Future<void> setPlannerProfile(SavedPlannerProfile profile) =>
       _prefs.setString(keyPlannerProfile, profile.encode());
 
+  /// Whether the app already asked for notification permission.
+  bool get notificationsAsked => _prefs.getBool(keyNotificationsAsked) ?? false;
+
+  Future<void> setNotificationsAsked() => _prefs.setBool(keyNotificationsAsked, true);
+
   /// Removes all Ani settings.
   Future<void> clear() async {
     await _prefs.remove(keyLocale);
     await _prefs.remove(keyTown);
     await _prefs.remove(keyOnboardingComplete);
     await _prefs.remove(keyPlannerProfile);
+    await _prefs.remove(keyNotificationsAsked);
   }
 }

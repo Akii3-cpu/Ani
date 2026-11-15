@@ -1165,6 +1165,300 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Track a planting to see its stage and alerts here.'**
   String get homeTrackedHint;
+
+  /// My farm empty state title
+  ///
+  /// In en, this message translates to:
+  /// **'No plantings yet'**
+  String get myFarmEmptyTitle;
+
+  /// My farm empty state hint
+  ///
+  /// In en, this message translates to:
+  /// **'Add the crop you planted to follow its stages and get alerts.'**
+  String get myFarmEmptyHint;
+
+  /// My farm section: open plantings
+  ///
+  /// In en, this message translates to:
+  /// **'Growing now'**
+  String get myFarmGrowing;
+
+  /// My farm section: closed plantings
+  ///
+  /// In en, this message translates to:
+  /// **'Past seasons'**
+  String get myFarmPast;
+
+  /// Planting date line; date preformatted
+  ///
+  /// In en, this message translates to:
+  /// **'Planted {date}'**
+  String plantingPlantedOn(String date);
+
+  /// Tag on demo replay rows
+  ///
+  /// In en, this message translates to:
+  /// **'Demo'**
+  String get plantingDemoTag;
+
+  /// Season progress (growing degree days so far / needed)
+  ///
+  /// In en, this message translates to:
+  /// **'{percent}% of the season'**
+  String plantingProgress(int percent);
+
+  /// Last real POWER day replayed; date preformatted
+  ///
+  /// In en, this message translates to:
+  /// **'Weather data up to {date}'**
+  String plantingLastData(String date);
+
+  /// No POWER day replayed yet
+  ///
+  /// In en, this message translates to:
+  /// **'No weather data yet'**
+  String get plantingNoDataYet;
+
+  /// Explains the waiting-for-data lag
+  ///
+  /// In en, this message translates to:
+  /// **'NASA POWER publishes a few days late. The tracker moves on when the data arrives.'**
+  String get waitingForDataNote;
+
+  /// Stage timeline heading
+  ///
+  /// In en, this message translates to:
+  /// **'Stages'**
+  String get plantingStages;
+
+  /// Timeline: stage not reached
+  ///
+  /// In en, this message translates to:
+  /// **'Not yet'**
+  String get stageNotYet;
+
+  /// Timeline: current stage marker
+  ///
+  /// In en, this message translates to:
+  /// **'Now'**
+  String get stageNow;
+
+  /// Ready-to-harvest date; preformatted
+  ///
+  /// In en, this message translates to:
+  /// **'Ready since {date}'**
+  String plantingReadySince(String date);
+
+  /// Closed planting: harvest outcome; date preformatted
+  ///
+  /// In en, this message translates to:
+  /// **'Harvested on {date}'**
+  String outcomeHarvested(String date);
+
+  /// Closed planting: failed outcome; date preformatted
+  ///
+  /// In en, this message translates to:
+  /// **'Crop failed on {date}'**
+  String outcomeFailed(String date);
+
+  /// Button to delete a planting
+  ///
+  /// In en, this message translates to:
+  /// **'Remove planting'**
+  String get plantingRemove;
+
+  /// Confirm dialog for removing a planting
+  ///
+  /// In en, this message translates to:
+  /// **'Remove this planting and its alerts? Past harvest records stay.'**
+  String get plantingRemoveConfirm;
+
+  /// Destructive confirm button
+  ///
+  /// In en, this message translates to:
+  /// **'Remove'**
+  String get actionRemove;
+
+  /// Detail: no alerts yet
+  ///
+  /// In en, this message translates to:
+  /// **'No alerts for this crop.'**
+  String get plantingNoAlerts;
+
+  /// Add planting: method note
+  ///
+  /// In en, this message translates to:
+  /// **'Only matters for onion: its season is counted from transplanting.'**
+  String get plantingMethodHint;
+
+  /// Add planting: irrigation prefilled from profile
+  ///
+  /// In en, this message translates to:
+  /// **'Filled in from your last planner answers. Change it if needed.'**
+  String get plantingIrrigationHint;
+
+  /// Add planting: town field
+  ///
+  /// In en, this message translates to:
+  /// **'Town'**
+  String get plantingTownLabel;
+
+  /// Snackbar after adding a planting
+  ///
+  /// In en, this message translates to:
+  /// **'Planting saved'**
+  String get plantingSaved;
+
+  /// Snackbar on save error
+  ///
+  /// In en, this message translates to:
+  /// **'Could not save the planting.'**
+  String get plantingSaveError;
+
+  /// Planting detail screen title
+  ///
+  /// In en, this message translates to:
+  /// **'Planting'**
+  String get plantingDetailTitle;
+
+  /// Tracker status while syncing POWER
+  ///
+  /// In en, this message translates to:
+  /// **'Updating weather…'**
+  String get syncUpdating;
+
+  /// Badge on unseen alerts
+  ///
+  /// In en, this message translates to:
+  /// **'New'**
+  String get alertsNew;
+
+  /// Collapsed water-now alerts count
+  ///
+  /// In en, this message translates to:
+  /// **'{count, plural, =1{once} other{{count} times}}'**
+  String alertsTimes(int count);
+
+  /// Home: open the alerts list
+  ///
+  /// In en, this message translates to:
+  /// **'See all alerts'**
+  String get alertsSeeAll;
+
+  /// Bell semantics label
+  ///
+  /// In en, this message translates to:
+  /// **'{count, plural, =1{1 new alert} other{{count} new alerts}}'**
+  String alertsUnseenCount(int count);
+
+  /// Water-now alert body when the crop is already stressed
+  ///
+  /// In en, this message translates to:
+  /// **'The crop is short of water. Irrigate as soon as you can; if you cannot, cover the soil with straw.'**
+  String get alertWaterStressBody;
+
+  /// Demo: alerts note
+  ///
+  /// In en, this message translates to:
+  /// **'Alerts from the replay are not saved and do not notify you.'**
+  String get alertsDemoNote;
+
+  /// Home: go to the My farm tab
+  ///
+  /// In en, this message translates to:
+  /// **'Open My farm'**
+  String get homeOpenMyFarm;
+
+  /// Demo mode entry and title
+  ///
+  /// In en, this message translates to:
+  /// **'Season replay (demo)'**
+  String get demoTitle;
+
+  /// Persistent demo banner
+  ///
+  /// In en, this message translates to:
+  /// **'Replay of a past season – not live data'**
+  String get demoBanner;
+
+  /// Demo picker intro
+  ///
+  /// In en, this message translates to:
+  /// **'Pick a past dry season to watch a crop go from planting to harvest in a few taps. Nothing here is saved to your farm.'**
+  String get demoPickHint;
+
+  /// Demo season card title
+  ///
+  /// In en, this message translates to:
+  /// **'{crop} in {town}'**
+  String demoSeasonTitle(String crop, String town);
+
+  /// Demo season card subtitle
+  ///
+  /// In en, this message translates to:
+  /// **'Dry season {season} · {water}'**
+  String demoSeasonSubtitle(String season, String water);
+
+  /// Demo season: alert types it shows
+  ///
+  /// In en, this message translates to:
+  /// **'Shows: {alerts}'**
+  String demoShows(String alerts);
+
+  /// Demo progress
+  ///
+  /// In en, this message translates to:
+  /// **'Day {day} of {total}'**
+  String demoDayOf(int day, int total);
+
+  /// Simulated today; date preformatted
+  ///
+  /// In en, this message translates to:
+  /// **'Replay date: {date}'**
+  String demoDate(String date);
+
+  /// Demo control
+  ///
+  /// In en, this message translates to:
+  /// **'Next day'**
+  String get demoNextDay;
+
+  /// Demo control
+  ///
+  /// In en, this message translates to:
+  /// **'+7 days'**
+  String get demoNextWeek;
+
+  /// Demo control: run until harvest-ready or the season ends
+  ///
+  /// In en, this message translates to:
+  /// **'Run to end'**
+  String get demoRunToEnd;
+
+  /// Demo control
+  ///
+  /// In en, this message translates to:
+  /// **'Start over'**
+  String get demoRestart;
+
+  /// Demo: season closed
+  ///
+  /// In en, this message translates to:
+  /// **'Replay finished'**
+  String get demoEnded;
+
+  /// Demo: load error
+  ///
+  /// In en, this message translates to:
+  /// **'Could not load the replay.'**
+  String get demoLoadError;
+
+  /// Questionnaire: last two crops prefilled from outcomes
+  ///
+  /// In en, this message translates to:
+  /// **'Filled in from your harvest records.'**
+  String get questionLastCropsFromRecords;
 }
 
 class _AppLocalizationsDelegate

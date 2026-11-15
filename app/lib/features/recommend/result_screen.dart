@@ -4,6 +4,7 @@ import '../../core/planner.dart';
 import '../../data/planner_profile.dart';
 import '../../l10n/app_localizations.dart';
 import '../../theme/theme.dart';
+import '../farm/add_planting_screen.dart';
 import '../labels.dart';
 import 'questionnaire_screen.dart';
 import 'recommend_labels.dart';
@@ -212,6 +213,13 @@ class CropCardView extends StatelessWidget {
               action: l.consultMao,
             ),
           ],
+          const SizedBox(height: AniSpacing.xs),
+          TextButton.icon(
+            key: ValueKey('card-${card.crop}-track'),
+            onPressed: () => openAddPlanting(context, crop: card.crop),
+            icon: const Icon(Icons.agriculture_outlined, size: 20),
+            label: Text(l.resultTrackThis),
+          ),
         ],
       ),
     );
