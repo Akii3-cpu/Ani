@@ -4,6 +4,7 @@ import 'core/planner.dart';
 import 'data/alert_notifier.dart';
 import 'data/bundle.dart';
 import 'data/demo_seasons.dart';
+import 'data/live_outlook.dart';
 import 'data/planner_profile.dart';
 import 'data/settings_store.dart';
 import 'data/tracker_service.dart';
@@ -92,10 +93,51 @@ class AppState extends ChangeNotifier {
     } catch (e) {
       debugPrint('tracker refresh failed: $e');
     }
+    await refreshLive(sync: sync);
     _refreshing = null;
     _trackerLoaded = true;
     notifyListeners();
     return r;
+  }
+
+  LiveOutlook? _live;
+  Future<LiveOutlook?>? _liveRefreshing;
+
+  /// The live dekadal D and heat index for the current town from the POWER
+  /// cache, or null until [refreshLive] has produced one for this town.
+  LiveOutlook? get live => _live != null && _live!.town == _town ? _live : null;
+
+  /// Syncs POWER for the current town (unless [sync] is false, or offline:
+  /// the cache is used as it is), then recomputes [live]. Calls that overlap
+  /// share one run. Never throws; returns null when there is no town / bundle
+  /// or the tracker cannot open.
+  Future<LiveOutlook?> refreshLive({bool sync = true}) {
+    final running = _liveRefreshing;
+    if (running != null) return running;
+    final f = _liveRefreshing = _doRefreshLive(sync: sync).whenComplete(() => _liveRefreshing = null);
+    return f;
+  }
+
+  Future<LiveOutlook?> _doRefreshLive({required bool sync}) async {
+    try {
+      final town = _town, bundle = _bundle;
+      if (town == null || bundle == null) return null;
+      final t = await tracker();
+      final today = t.today;
+      if (sync) {
+        await t.weather.sync(town, bundle,
+            from: today.subtract(const Duration(days: LiveOutlook.lookbackDays)), today: today);
+      }
+      final live = LiveOutlook.compute(town: town, bundle: bundle, days: t.weather.daysFor(town), today: today);
+      if (town == _town) {
+        _live = live;
+        notifyListeners();
+      }
+      return live;
+    } catch (e) {
+      debugPrint('live outlook failed: $e');
+      return null;
+    }
   }
 
   AppLocalizations _notificationStrings() {
@@ -240,6 +282,7 @@ class AppState extends ChangeNotifier {
   Future<void> _switchTown(Town town) async {
     _town = town;
     await _loadBundle(town);
+    refreshLive(sync: false).ignore(); // cache only; the Outlook tab syncs
   }
 
   Future<void> _loadBundle(Town town) async {

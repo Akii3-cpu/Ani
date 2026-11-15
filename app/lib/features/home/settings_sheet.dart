@@ -4,6 +4,7 @@ import '../../app_state.dart';
 import '../../data/bundle.dart';
 import '../../l10n/app_localizations.dart';
 import '../../theme/theme.dart';
+import '../about/about_screen.dart';
 import '../farm/demo_screen.dart';
 import '../labels.dart';
 
@@ -75,6 +76,32 @@ class SettingsSheet extends StatelessWidget {
                   const Icon(Icons.replay_outlined, color: AniColors.gold),
                   const SizedBox(width: AniSpacing.md),
                   Expanded(child: Text(l.demoTitle, style: Theme.of(context).textTheme.titleSmall)),
+                  const Icon(Icons.chevron_right, color: AniColors.muted),
+                ],
+              ),
+            ),
+            const SizedBox(height: AniSpacing.sm),
+            AniCard(
+              key: const ValueKey('settings-about'),
+              padding: const EdgeInsets.all(AniSpacing.md),
+              onTap: () {
+                final navigator = Navigator.of(context);
+                navigator.pop();
+                navigator.push(MaterialPageRoute<void>(builder: (_) => const AboutScreen()));
+              },
+              child: Row(
+                children: [
+                  const Icon(Icons.info_outline, color: AniColors.gold),
+                  const SizedBox(width: AniSpacing.md),
+                  Expanded(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(l.aboutTitle, style: Theme.of(context).textTheme.titleSmall),
+                        Text(l.aboutLinkSubtitle, style: Theme.of(context).textTheme.bodySmall),
+                      ],
+                    ),
+                  ),
                   const Icon(Icons.chevron_right, color: AniColors.muted),
                 ],
               ),

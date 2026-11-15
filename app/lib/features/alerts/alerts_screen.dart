@@ -14,7 +14,10 @@ Future<void> openAlerts(BuildContext context) =>
 
 /// Bell with the number of unseen alerts; opens [AlertsScreen].
 class AlertsBell extends StatelessWidget {
-  const AlertsBell({super.key});
+  const AlertsBell({super.key, this.color = AniColors.olive});
+
+  /// Icon colour (cream on the olive Home hero).
+  final Color color;
 
   @override
   Widget build(BuildContext context) {
@@ -31,7 +34,7 @@ class AlertsBell extends StatelessWidget {
           backgroundColor: AniColors.statusDelikado,
           label: Text(n > 99 ? '99+' : '$n', key: const ValueKey('alerts-badge-count')),
           child: Icon(n > 0 ? Icons.notifications_active_outlined : Icons.notifications_none_outlined,
-              color: AniColors.olive),
+              color: color),
         ),
       );
     });

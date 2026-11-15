@@ -95,7 +95,7 @@ void main() {
     expect(find.text('Dry-season outlook · 2026-27'.toUpperCase()), findsOneWidget);
   });
 
-  testWidgets('tab switching shows placeholders, my farm, and keeps home', (tester) async {
+  testWidgets('tab switching shows outlook, crops, my farm, and keeps home', (tester) async {
     SharedPreferences.setMockInitialValues({
       SettingsStore.keyLocale: 'en',
       SettingsStore.keyTown: 'munoz',
@@ -107,12 +107,17 @@ void main() {
     const soon = 'This screen is coming soon.';
     expect(find.text(soon), findsNothing);
 
-    for (final (tab, title) in [('Outlook', 'Outlook'), ('Crops', 'Crop library')]) {
-      await tester.tap(find.text(tab).last);
-      await tester.pumpAndSettle();
-      expect(find.text(soon), findsOneWidget, reason: tab);
-      expect(find.text(title), findsWidgets);
-    }
+    // Outlook is the real season outlook.
+    await tester.tap(find.text('Outlook').last);
+    await pumpUntil(tester, find.byKey(const ValueKey('outlook-list')));
+    expect(find.text(soon), findsNothing);
+    expect(find.byKey(const ValueKey('outlook-enso')), findsOneWidget);
+
+    // Crops is the real crop library.
+    await tester.tap(find.text('Crops').last);
+    await tester.pumpAndSettle();
+    expect(find.byKey(const ValueKey('library-list')), findsOneWidget);
+    expect(find.text(soon), findsNothing);
 
     // My farm is the real tracker screen (empty state on a fresh install).
     await tester.tap(find.text('My farm').last);

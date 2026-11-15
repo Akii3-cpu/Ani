@@ -224,6 +224,102 @@ abstract class AppLocalizations {
   /// **'Change language'**
   String get settingsChangeLanguage;
 
+  /// About page title
+  ///
+  /// In en, this message translates to:
+  /// **'About and limits'**
+  String get aboutTitle;
+
+  /// Settings row subtitle
+  ///
+  /// In en, this message translates to:
+  /// **'What Ani can and cannot tell you'**
+  String get aboutLinkSubtitle;
+
+  /// About: limits section eyebrow
+  ///
+  /// In en, this message translates to:
+  /// **'Limits'**
+  String get aboutLimitsHeading;
+
+  /// About limit 1
+  ///
+  /// In en, this message translates to:
+  /// **'One point per town: advice uses a single weather and soil point for the whole municipality, not your own field.'**
+  String get aboutLimitPoint;
+
+  /// About limit 2
+  ///
+  /// In en, this message translates to:
+  /// **'Advisory only: Ani suggests, it does not decide. Check with your Municipal Agriculture Office (MAO) before acting.'**
+  String get aboutLimitAdvisory;
+
+  /// About limit 3
+  ///
+  /// In en, this message translates to:
+  /// **'The rice water need shown is a lower bound: real fields lose more to seepage, percolation and land preparation.'**
+  String get aboutLimitRice;
+
+  /// About limit 4
+  ///
+  /// In en, this message translates to:
+  /// **'Not tested in field trials: results come from models and records, and have not been checked on farms.'**
+  String get aboutLimitTrials;
+
+  /// About limit 5
+  ///
+  /// In en, this message translates to:
+  /// **'Heat safety is advice for people only; it is never used in crop decisions.'**
+  String get aboutLimitHeat;
+
+  /// About: sources eyebrow
+  ///
+  /// In en, this message translates to:
+  /// **'Data sources'**
+  String get aboutSourcesHeading;
+
+  /// About source
+  ///
+  /// In en, this message translates to:
+  /// **'NASA POWER: daily weather for each town, synced when you are online.'**
+  String get aboutSourcePower;
+
+  /// About source
+  ///
+  /// In en, this message translates to:
+  /// **'ISRIC SoilGrids 2.0: soil properties for each town.'**
+  String get aboutSourceSoil;
+
+  /// About source
+  ///
+  /// In en, this message translates to:
+  /// **'NOAA CPC RONI: El Niño and La Niña tag for each dry season.'**
+  String get aboutSourceEnso;
+
+  /// About source
+  ///
+  /// In en, this message translates to:
+  /// **'FAO-56: crop water use and growth stages.'**
+  String get aboutSourceFao;
+
+  /// About source
+  ///
+  /// In en, this message translates to:
+  /// **'PSA OpenSTAT and PSA costs and returns: past yields and prices.'**
+  String get aboutSourcePsa;
+
+  /// About source
+  ///
+  /// In en, this message translates to:
+  /// **'PAGASA: heat index categories for the heat safety advice.'**
+  String get aboutSourcePagasa;
+
+  /// About source
+  ///
+  /// In en, this message translates to:
+  /// **'MAO referral: for low-confidence results, Ani points you to your Municipal Agriculture Office.'**
+  String get aboutSourceMao;
+
   /// Crop name (rice); Filipino name used in both locales, from planner.NAME
   ///
   /// In en, this message translates to:
@@ -908,11 +1004,83 @@ abstract class AppLocalizations {
   /// **'Failed seasons by irrigation'**
   String get cropRiskByIrrigation;
 
-  /// About page title
+  /// Library header under the title
   ///
   /// In en, this message translates to:
-  /// **'About and limits'**
-  String get aboutTitle;
+  /// **'Five dry-season crops for {town}'**
+  String cropLibrarySubtitle(String town);
+
+  /// Sowing window as two short dates
+  ///
+  /// In en, this message translates to:
+  /// **'{start} to {end}'**
+  String cropSowWindowRange(String start, String end);
+
+  /// Library water need level
+  ///
+  /// In en, this message translates to:
+  /// **'High'**
+  String get cropWaterNeedHigh;
+
+  /// Library water need level
+  ///
+  /// In en, this message translates to:
+  /// **'Medium'**
+  String get cropWaterNeedMedium;
+
+  /// Library water need level
+  ///
+  /// In en, this message translates to:
+  /// **'Low'**
+  String get cropWaterNeedLow;
+
+  /// Library detail note on rice water need
+  ///
+  /// In en, this message translates to:
+  /// **'For rice this is a lower bound; real need is higher.'**
+  String get cropWaterNeedRiceNote;
+
+  /// Library detail chip
+  ///
+  /// In en, this message translates to:
+  /// **'A legume: it adds nitrogen to the soil.'**
+  String get cropLegumeNote;
+
+  /// Library detail chip
+  ///
+  /// In en, this message translates to:
+  /// **'Small local market: check buyers before planting.'**
+  String get cropSmallMarketNote;
+
+  /// Failed seasons out of the baseline seasons
+  ///
+  /// In en, this message translates to:
+  /// **'Failed {x} of {n}'**
+  String cropFailedOf(int x, int n);
+
+  /// Library table column
+  ///
+  /// In en, this message translates to:
+  /// **'El Niño seasons'**
+  String get cropRiskElNinoSeasons;
+
+  /// Library table column
+  ///
+  /// In en, this message translates to:
+  /// **'Other seasons'**
+  String get cropRiskOtherSeasons;
+
+  /// Library table first column
+  ///
+  /// In en, this message translates to:
+  /// **'Irrigation'**
+  String get cropRiskIrrigationColumn;
+
+  /// Library table footnote
+  ///
+  /// In en, this message translates to:
+  /// **'Counted over past dry seasons (2001 to 2025) at one point in {town}. This is a guide, not a promise.'**
+  String cropRiskNote(String town);
 
   /// About page limits paragraph
   ///
@@ -1459,6 +1627,102 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Filled in from your harvest records.'**
   String get questionLastCropsFromRecords;
+
+  /// Screen title for the Outlook tab
+  ///
+  /// In en, this message translates to:
+  /// **'Season outlook'**
+  String get outlookTitle;
+
+  /// Heading above the list of past dry seasons with their El Niño / La Niña tag
+  ///
+  /// In en, this message translates to:
+  /// **'Past dry seasons'**
+  String get outlookPastSeasons;
+
+  /// Heading of the live dryness card on the Outlook tab
+  ///
+  /// In en, this message translates to:
+  /// **'Dryness now'**
+  String get outlookLiveTitle;
+
+  /// Source line for live dekadal D; date preformatted
+  ///
+  /// In en, this message translates to:
+  /// **'Live from NASA POWER, as of {date}'**
+  String outlookLiveLive(String date);
+
+  /// Source line when only the bundled dryness.latest is available; month like 2025-12
+  ///
+  /// In en, this message translates to:
+  /// **'Saved reading for {month}. Go online for live data.'**
+  String outlookLiveBundled(String month);
+
+  /// Heading of the dekad list
+  ///
+  /// In en, this message translates to:
+  /// **'Last 10-day periods'**
+  String get outlookDekadsTitle;
+
+  /// 10-day period label, e.g. '11–20 Nov'; month preformatted
+  ///
+  /// In en, this message translates to:
+  /// **'{from}–{to} {month}'**
+  String outlookDekadRange(int from, int to, String month);
+
+  /// Marks a 10-day period that is not over yet
+  ///
+  /// In en, this message translates to:
+  /// **'so far'**
+  String get outlookDekadPartial;
+
+  /// A 10-day period without enough weather data to score
+  ///
+  /// In en, this message translates to:
+  /// **'not enough data'**
+  String get outlookDekadNoData;
+
+  /// Caption under the monthly dryness chart
+  ///
+  /// In en, this message translates to:
+  /// **'Higher means drier. Shaded bands are El Niño dry seasons (Nov–Apr).'**
+  String get outlookChartNote;
+
+  /// Chart range label
+  ///
+  /// In en, this message translates to:
+  /// **'Last {n} years'**
+  String outlookChartYears(int n);
+
+  /// Date of the latest heat reading; date preformatted
+  ///
+  /// In en, this message translates to:
+  /// **'As of {date}'**
+  String heatAsOf(String date);
+
+  /// Heat strip when there is no synced weather
+  ///
+  /// In en, this message translates to:
+  /// **'No live heat reading yet. Connect once to load it.'**
+  String get heatNoLive;
+
+  /// Count of PAGASA danger days among the recent readings
+  ///
+  /// In en, this message translates to:
+  /// **'{count, plural, =1{1 danger day} other{{count} danger days}} in the last week'**
+  String heatDangerDays(int count);
+
+  /// Heading of the recent daily heat readings
+  ///
+  /// In en, this message translates to:
+  /// **'Recent days'**
+  String get heatRecentTitle;
+
+  /// Shown with the work-early advice when the latest reading is a danger day
+  ///
+  /// In en, this message translates to:
+  /// **'Danger-level heat. Stay safe.'**
+  String get heatDangerToday;
 }
 
 class _AppLocalizationsDelegate

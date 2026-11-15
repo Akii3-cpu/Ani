@@ -77,6 +77,65 @@ class AppLocalizationsEn extends AppLocalizations {
   String get settingsChangeLanguage => 'Change language';
 
   @override
+  String get aboutTitle => 'About and limits';
+
+  @override
+  String get aboutLinkSubtitle => 'What Ani can and cannot tell you';
+
+  @override
+  String get aboutLimitsHeading => 'Limits';
+
+  @override
+  String get aboutLimitPoint =>
+      'One point per town: advice uses a single weather and soil point for the whole municipality, not your own field.';
+
+  @override
+  String get aboutLimitAdvisory =>
+      'Advisory only: Ani suggests, it does not decide. Check with your Municipal Agriculture Office (MAO) before acting.';
+
+  @override
+  String get aboutLimitRice =>
+      'The rice water need shown is a lower bound: real fields lose more to seepage, percolation and land preparation.';
+
+  @override
+  String get aboutLimitTrials =>
+      'Not tested in field trials: results come from models and records, and have not been checked on farms.';
+
+  @override
+  String get aboutLimitHeat =>
+      'Heat safety is advice for people only; it is never used in crop decisions.';
+
+  @override
+  String get aboutSourcesHeading => 'Data sources';
+
+  @override
+  String get aboutSourcePower =>
+      'NASA POWER: daily weather for each town, synced when you are online.';
+
+  @override
+  String get aboutSourceSoil =>
+      'ISRIC SoilGrids 2.0: soil properties for each town.';
+
+  @override
+  String get aboutSourceEnso =>
+      'NOAA CPC RONI: El Niño and La Niña tag for each dry season.';
+
+  @override
+  String get aboutSourceFao => 'FAO-56: crop water use and growth stages.';
+
+  @override
+  String get aboutSourcePsa =>
+      'PSA OpenSTAT and PSA costs and returns: past yields and prices.';
+
+  @override
+  String get aboutSourcePagasa =>
+      'PAGASA: heat index categories for the heat safety advice.';
+
+  @override
+  String get aboutSourceMao =>
+      'MAO referral: for low-confidence results, Ani points you to your Municipal Agriculture Office.';
+
+  @override
   String get cropPalay => 'Palay';
 
   @override
@@ -483,7 +542,53 @@ class AppLocalizationsEn extends AppLocalizations {
   String get cropRiskByIrrigation => 'Failed seasons by irrigation';
 
   @override
-  String get aboutTitle => 'About and limits';
+  String cropLibrarySubtitle(String town) {
+    return 'Five dry-season crops for $town';
+  }
+
+  @override
+  String cropSowWindowRange(String start, String end) {
+    return '$start to $end';
+  }
+
+  @override
+  String get cropWaterNeedHigh => 'High';
+
+  @override
+  String get cropWaterNeedMedium => 'Medium';
+
+  @override
+  String get cropWaterNeedLow => 'Low';
+
+  @override
+  String get cropWaterNeedRiceNote =>
+      'For rice this is a lower bound; real need is higher.';
+
+  @override
+  String get cropLegumeNote => 'A legume: it adds nitrogen to the soil.';
+
+  @override
+  String get cropSmallMarketNote =>
+      'Small local market: check buyers before planting.';
+
+  @override
+  String cropFailedOf(int x, int n) {
+    return 'Failed $x of $n';
+  }
+
+  @override
+  String get cropRiskElNinoSeasons => 'El Niño seasons';
+
+  @override
+  String get cropRiskOtherSeasons => 'Other seasons';
+
+  @override
+  String get cropRiskIrrigationColumn => 'Irrigation';
+
+  @override
+  String cropRiskNote(String town) {
+    return 'Counted over past dry seasons (2001 to 2025) at one point in $town. This is a guide, not a promise.';
+  }
 
   @override
   String get aboutAdvisory =>
@@ -850,4 +955,71 @@ class AppLocalizationsEn extends AppLocalizations {
   @override
   String get questionLastCropsFromRecords =>
       'Filled in from your harvest records.';
+
+  @override
+  String get outlookTitle => 'Season outlook';
+
+  @override
+  String get outlookPastSeasons => 'Past dry seasons';
+
+  @override
+  String get outlookLiveTitle => 'Dryness now';
+
+  @override
+  String outlookLiveLive(String date) {
+    return 'Live from NASA POWER, as of $date';
+  }
+
+  @override
+  String outlookLiveBundled(String month) {
+    return 'Saved reading for $month. Go online for live data.';
+  }
+
+  @override
+  String get outlookDekadsTitle => 'Last 10-day periods';
+
+  @override
+  String outlookDekadRange(int from, int to, String month) {
+    return '$from–$to $month';
+  }
+
+  @override
+  String get outlookDekadPartial => 'so far';
+
+  @override
+  String get outlookDekadNoData => 'not enough data';
+
+  @override
+  String get outlookChartNote =>
+      'Higher means drier. Shaded bands are El Niño dry seasons (Nov–Apr).';
+
+  @override
+  String outlookChartYears(int n) {
+    return 'Last $n years';
+  }
+
+  @override
+  String heatAsOf(String date) {
+    return 'As of $date';
+  }
+
+  @override
+  String get heatNoLive => 'No live heat reading yet. Connect once to load it.';
+
+  @override
+  String heatDangerDays(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count danger days',
+      one: '1 danger day',
+    );
+    return '$_temp0 in the last week';
+  }
+
+  @override
+  String get heatRecentTitle => 'Recent days';
+
+  @override
+  String get heatDangerToday => 'Danger-level heat. Stay safe.';
 }

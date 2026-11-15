@@ -136,6 +136,8 @@ _Status: met on Flutter web on 2026-11-15. POWER client + per-town day cache (`p
 3. **Crop library**: five crops with duration, sowing window, family, water need and a failed-X-of-9 table by irrigation level for the selected town; detail sheet in the Make modal style.
 4. "About / limits" page stating the delimitations (one point per town, advisory only, rice water need is a lower bound, no field trials) and data sources.
 
+_Status: met on 2026-11-15 (widget-tested only; not run in a browser or on a device). Outlook tab with live dekadal D from POWER (trailing-window scoring is our own choice; the pipeline scores whole months) and bundled fallback, monthly chart with El Niño seasons, heat safety card + Home strip (people-safety only), crop library with failed-X-of-N table and detail sheet, About / limits page from Settings. `flutter analyze` clean, 930 tests pass. Water-need levels per crop in the library are hand-assigned (bundle has none) and need review; Filipino strings need a native-speaker check._
+
 ## Phase 6 — Hardening and submission
 
 1. Widget tests for questionnaire, cards, Hold, tracker; airplane-mode run-through of every screen.

@@ -5,6 +5,7 @@ import '../../app_state.dart';
 import '../../core/dryness.dart' show dryRank;
 import '../../data/bundle.dart';
 import '../../data/farm_store.dart';
+import '../../data/live_outlook.dart';
 import '../../data/planner_profile.dart';
 import '../../data/tracker_service.dart';
 import '../../l10n/app_localizations.dart';
@@ -15,6 +16,7 @@ import '../farm/planting_detail_screen.dart';
 import '../farm/planting_widgets.dart';
 import '../farm/tracker_builder.dart';
 import '../labels.dart';
+import '../outlook/heat_safety.dart';
 import '../recommend/recommend_flow.dart';
 import '../recommend/recommend_labels.dart';
 import 'settings_sheet.dart';
@@ -38,22 +40,43 @@ class HomeScreen extends StatelessWidget {
         key: const ValueKey('home-list'),
         padding: const EdgeInsets.fromLTRB(AniSpacing.screen, AniSpacing.sm, AniSpacing.screen, AniSpacing.xxl),
         children: [
-          Row(
-            children: [
-              Expanded(child: Eyebrow(l.appTitle)),
-              const AlertsBell(),
-              IconButton(
-                key: const ValueKey('home-settings'),
-                tooltip: l.settingsTitle,
-                icon: const Icon(Icons.settings_outlined, color: AniColors.olive),
-                onPressed: () => showSettingsSheet(context),
-              ),
-            ],
-          ),
-          Text(
-            town == null ? '' : l.townName(town),
-            key: const ValueKey('home-town'),
-            style: theme.textTheme.headlineMedium,
+          // Olive hero panel, as in the Make prototype's "today" card.
+          Container(
+            decoration: const BoxDecoration(
+              color: AniColors.olive,
+              borderRadius: BorderRadius.all(Radius.circular(AniRadius.xl)),
+            ),
+            padding: const EdgeInsets.fromLTRB(AniSpacing.xl, AniSpacing.md, AniSpacing.sm, AniSpacing.xl),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Row(
+                  children: [
+                    Container(
+                      width: 28,
+                      height: 28,
+                      decoration: const BoxDecoration(color: AniColors.gold, shape: BoxShape.circle),
+                      child: const Icon(Icons.eco, size: 16, color: AniColors.paper),
+                    ),
+                    const SizedBox(width: AniSpacing.sm),
+                    Expanded(child: Eyebrow(l.appTitle, color: AniColors.sand)),
+                    const AlertsBell(color: AniColors.cream),
+                    IconButton(
+                      key: const ValueKey('home-settings'),
+                      tooltip: l.settingsTitle,
+                      icon: const Icon(Icons.settings_outlined, color: AniColors.cream),
+                      onPressed: () => showSettingsSheet(context),
+                    ),
+                  ],
+                ),
+                const SizedBox(height: AniSpacing.sm),
+                Text(
+                  town == null ? '' : l.townName(town),
+                  key: const ValueKey('home-town'),
+                  style: theme.textTheme.headlineMedium?.copyWith(color: AniColors.paper),
+                ),
+              ],
+            ),
           ),
           const SizedBox(height: AniSpacing.lg),
           if (bundle != null) ...[
@@ -61,7 +84,7 @@ class HomeScreen extends StatelessWidget {
             const SizedBox(height: AniSpacing.md),
             _DrynessBanner(dryness: bundle.dryness),
             const SizedBox(height: AniSpacing.md),
-            _HeatStrip(heat: bundle.heat),
+            _HeatStrip(heat: bundle.heat, live: state.live),
             const SizedBox(height: AniSpacing.xl),
           ],
           PrimaryButton(
@@ -240,9 +263,12 @@ class _DrynessBanner extends StatelessWidget {
 
 /// People-safety advice only; never feeds the planner (doc requirement).
 class _HeatStrip extends StatelessWidget {
-  const _HeatStrip({required this.heat});
+  const _HeatStrip({required this.heat, this.live});
 
   final HeatInfo heat;
+
+  /// Live reading from the POWER cache, or null before the first sync.
+  final LiveOutlook? live;
 
   static const _dangerLabels = {'danger', 'extreme danger'};
 
@@ -263,13 +289,20 @@ class _HeatStrip extends StatelessWidget {
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          const Icon(Icons.thermostat_outlined, color: AniColors.gold),
+          Container(
+            width: 44,
+            height: 44,
+            decoration: const BoxDecoration(color: AniColors.statusBantayBg, shape: BoxShape.circle),
+            child: const Icon(Icons.thermostat_outlined, color: AniColors.gold),
+          ),
           const SizedBox(width: AniSpacing.md),
           Expanded(
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Eyebrow(l.heatSafetyTitle),
+                const SizedBox(height: AniSpacing.xs),
+                LiveHeatReading(live: live),
                 const SizedBox(height: AniSpacing.xs),
                 if (danger != null)
                   Text(

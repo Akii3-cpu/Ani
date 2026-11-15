@@ -77,6 +77,66 @@ class AppLocalizationsFil extends AppLocalizations {
   String get settingsChangeLanguage => 'Palitan ang wika';
 
   @override
+  String get aboutTitle => 'Tungkol at mga limitasyon';
+
+  @override
+  String get aboutLinkSubtitle => 'Ano ang masasabi at hindi masasabi ng Ani';
+
+  @override
+  String get aboutLimitsHeading => 'Mga limitasyon';
+
+  @override
+  String get aboutLimitPoint =>
+      'Isang punto bawat bayan: iisang punto ng panahon at lupa ang gamit para sa buong munisipyo, hindi ang mismong bukid ninyo.';
+
+  @override
+  String get aboutLimitAdvisory =>
+      'Payo lamang: nagmumungkahi ang Ani, hindi ito ang magpapasya. Kumonsulta sa inyong Municipal Agriculture Office (MAO) bago kumilos.';
+
+  @override
+  String get aboutLimitRice =>
+      'Ang ipinapakitang pangangailangan ng tubig ng palay ay pinakamababang tantiya: mas marami ang aktwal na nawawala sa bukid dahil sa seepage, percolation at paghahanda ng lupa.';
+
+  @override
+  String get aboutLimitTrials =>
+      'Hindi pa nasubok sa field trials: galing sa modelo at mga tala ang resulta at hindi pa napatunayan sa mga bukid.';
+
+  @override
+  String get aboutLimitHeat =>
+      'Payo para sa kaligtasan ng tao lamang ang heat safety; hindi ito ginagamit sa pagpili ng pananim.';
+
+  @override
+  String get aboutSourcesHeading => 'Pinagmulan ng datos';
+
+  @override
+  String get aboutSourcePower =>
+      'NASA POWER: arawang panahon sa bawat bayan, na-sync kapag may internet.';
+
+  @override
+  String get aboutSourceSoil =>
+      'ISRIC SoilGrids 2.0: katangian ng lupa sa bawat bayan.';
+
+  @override
+  String get aboutSourceEnso =>
+      'NOAA CPC RONI: tag ng El Niño at La Niña sa bawat tag-init.';
+
+  @override
+  String get aboutSourceFao =>
+      'FAO-56: gamit ng tubig ng pananim at mga yugto ng paglaki.';
+
+  @override
+  String get aboutSourcePsa =>
+      'PSA OpenSTAT at PSA costs and returns: nakaraang ani at presyo.';
+
+  @override
+  String get aboutSourcePagasa =>
+      'PAGASA: mga kategorya ng heat index para sa payo sa init.';
+
+  @override
+  String get aboutSourceMao =>
+      'MAO referral: kapag mababa ang tiwala sa resulta, itinuturo kayo ng Ani sa inyong Municipal Agriculture Office.';
+
+  @override
   String get cropPalay => 'Palay';
 
   @override
@@ -456,7 +516,54 @@ class AppLocalizationsFil extends AppLocalizations {
   String get cropRiskByIrrigation => 'Nasirang panahon ayon sa patubig';
 
   @override
-  String get aboutTitle => 'Tungkol at mga limitasyon';
+  String cropLibrarySubtitle(String town) {
+    return 'Limang pananim sa tag-araw para sa $town';
+  }
+
+  @override
+  String cropSowWindowRange(String start, String end) {
+    return '$start hanggang $end';
+  }
+
+  @override
+  String get cropWaterNeedHigh => 'Mataas';
+
+  @override
+  String get cropWaterNeedMedium => 'Katamtaman';
+
+  @override
+  String get cropWaterNeedLow => 'Mababa';
+
+  @override
+  String get cropWaterNeedRiceNote =>
+      'Pinakamababang tantya ito para sa palay; mas mataas ang totoong kailangan.';
+
+  @override
+  String get cropLegumeNote =>
+      'Legume ito, tulad ng munggo: nagdaragdag ito ng nitroheno sa lupa.';
+
+  @override
+  String get cropSmallMarketNote =>
+      'Maliit ang lokal na bilihan: alamin muna ang mga bumibili bago magtanim.';
+
+  @override
+  String cropFailedOf(int x, int n) {
+    return 'Nasira ang $x sa $n';
+  }
+
+  @override
+  String get cropRiskElNinoSeasons => 'Mga panahong El Niño';
+
+  @override
+  String get cropRiskOtherSeasons => 'Ibang mga panahon';
+
+  @override
+  String get cropRiskIrrigationColumn => 'Patubig';
+
+  @override
+  String cropRiskNote(String town) {
+    return 'Binilang sa mga nakaraang tag-araw (2001 hanggang 2025) sa isang punto sa $town. Gabay ito, hindi pangako.';
+  }
 
   @override
   String get aboutAdvisory =>
@@ -794,4 +901,72 @@ class AppLocalizationsFil extends AppLocalizations {
 
   @override
   String get questionLastCropsFromRecords => 'Mula sa tala ng inyong ani.';
+
+  @override
+  String get outlookTitle => 'Tanaw sa panahon';
+
+  @override
+  String get outlookPastSeasons => 'Mga nakaraang tag-araw';
+
+  @override
+  String get outlookLiveTitle => 'Tuyot ngayon';
+
+  @override
+  String outlookLiveLive(String date) {
+    return 'Live mula sa NASA POWER, hanggang $date';
+  }
+
+  @override
+  String outlookLiveBundled(String month) {
+    return 'Naka-save na basa para sa $month. Mag-online para sa live na datos.';
+  }
+
+  @override
+  String get outlookDekadsTitle => 'Mga huling 10-araw na yugto';
+
+  @override
+  String outlookDekadRange(int from, int to, String month) {
+    return '$from–$to $month';
+  }
+
+  @override
+  String get outlookDekadPartial => 'sa ngayon';
+
+  @override
+  String get outlookDekadNoData => 'kulang ang datos';
+
+  @override
+  String get outlookChartNote =>
+      'Mas mataas, mas tuyot. Ang may kulay ay mga tag-araw na El Niño (Nob–Abr).';
+
+  @override
+  String outlookChartYears(int n) {
+    return 'Huling $n taon';
+  }
+
+  @override
+  String heatAsOf(String date) {
+    return 'Hanggang $date';
+  }
+
+  @override
+  String get heatNoLive =>
+      'Wala pang live na init. Mag-online nang isang beses para ma-load.';
+
+  @override
+  String heatDangerDays(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count araw',
+      one: '1 araw',
+    );
+    return '$_temp0 na delikado nitong nakaraang linggo';
+  }
+
+  @override
+  String get heatRecentTitle => 'Mga nakaraang araw';
+
+  @override
+  String get heatDangerToday => 'Delikadong init. Mag-ingat.';
 }
