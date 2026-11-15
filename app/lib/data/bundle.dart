@@ -9,6 +9,8 @@ import 'dart:convert';
 
 import 'package:flutter/services.dart';
 
+import '../core/field_machine.dart';
+
 /// The bundle schema this app understands (`SCHEMA` in export_json.py).
 const int kBundleSchema = 2;
 
@@ -834,6 +836,37 @@ class Tracker {
           if (e.key != s0Key) e.key: TrackerParams.fromJson(e.key, _map(e.value, '$p.${e.key}'), '$p.${e.key}'),
       }),
       s0FracByDoy: j[s0Key] == null ? const [] : _dblNList(j[s0Key], '$p.$s0Key'),
+    );
+  }
+}
+
+/// Bridge from the typed `tracker[crop]` block to the field machine's [Params].
+extension TrackerParamsFieldMachine on TrackerParams {
+  /// fsm.Params for this crop under water scenario [water] (see [kWater]).
+  Params toFieldParams(String water) {
+    final w = kWater[water];
+    if (w == null) throw ArgumentError.value(water, 'water', 'unknown water scenario');
+    return Params(
+      crop: crop,
+      taw: taw,
+      p: p,
+      kcIni: kcIni,
+      kcMid: kcMid,
+      kcEnd: kcEnd,
+      tBase: tBase,
+      gMat: gMat,
+      fE: fE,
+      fV: fV,
+      fR: fR,
+      tCrit: tCrit,
+      tUp: tUp,
+      irrigated: w.irrigated,
+      maxIrr: w.maxIrr,
+      rotP98: rotP98,
+      dPrep: dPrep,
+      ksFail: ksFail,
+      kFail: kFail,
+      sensitive: sensitive,
     );
   }
 }
