@@ -13,12 +13,23 @@ One file per town holds everything the app needs offline:
   dryness   latest D, label (Normal / Bantay / Delikado) and a plain rank sentence, plus the
             monthly series for the El Nino page. Rank wording follows the sign of D:
             "driest r of n" when D >= 0, "wettest r of n" when D < 0.
+            reference (schema 2): per calendar month "1".."12" the baseline the phone needs to
+            score a new month on device: {years, bal1, bal3, gwet} aligned by year, where bal1 =
+            1-month P - ET0 (mm), bal3 = 3-month accumulated P - ET0 ending in that month (the
+            Nov-Apr season accumulation), gwet = monthly mean GWETROOT. null = month incomplete.
   crops     names, family, legume, small-market flag, duration, sowing window
   risk      per water scenario x crop: the card numbers (failed X/n with Wilson range, Monte
             Carlo failure, irrigation, net income p10/p50/p90, heat share)
   planner   the constants M_P uses (thresholds, beta, ranked share, criteria)
   tracker   per crop: the M_F parameters for this town (TAW, p, Kc, T_base, G_mat, stage
-            fractions, T_crit, rot P98, failure thresholds), so the phone runs the same machine
+            fractions, T_crit, rot P98, failure thresholds), so the phone runs the same machine.
+            s0_frac_by_doy (schema 2, sits beside the crop keys): 366 values, index = calendar
+            day-of-year - 1 (leap-year numbering, Feb 29 = index 59), median bucket S_frac over
+            the baseline: the starting soil-water fraction for seasons with no observed start.
+  meta.power (schema 2) the NASA POWER daily-point request the app must make (parameters,
+            community, endpoint). Rain is the PRECTOTCORR column of power_<town>.csv (MERRA-2
+            corrected rain), as used by power_prep.py / zscores.py; IMERG_PRECTOT is only an
+            optional cross-check (used as PRECTOTCORR only if a file has no PRECTOTCORR).
   heat      PAGASA heat-index categories for the safety channel
 
 Values are rounded for size; the planner gives the same cards from this file as from the CSVs
@@ -38,10 +49,11 @@ if __package__ in (None, ""):
 from pipeline import planner as P                                        # noqa: E402
 from pipeline.fsm import K_FAIL, KS_FAIL, WATER, params_for              # noqa: E402
 from pipeline.soil_water import load_crops                               # noqa: E402
+from pipeline.zscores import accumulate, monthly as zmonthly             # noqa: E402
 
 PROC = Path("pipeline/data/processed")
 OUT = Path("pipeline/data/export")
-SCHEMA = 1
+SCHEMA = 2
 RISK_COLS = ["fail_en_x", "fail_en_n", "fail_en_lo", "fail_en_hi",
              "fail_other_x", "fail_other_n", "fail_other_lo", "fail_other_hi",
              "mc_fail_en_p10", "mc_fail_en_p50", "mc_fail_en_p90",
@@ -67,6 +79,40 @@ def rank_text(d, rank, n):
     return f"pinakatuyo: ika-{r} sa {n} na taon" if d >= 0 else f"pinakabasa: ika-{n - r + 1} sa {n} na taon"
 
 
+POWER = {"endpoint": "https://power.larc.nasa.gov/api/temporal/daily/point", "community": "AG",
+         "time_standard": "UTC", "format": "JSON", "fill_value": -999,
+         "parameters": ["T2M_MAX", "T2M_MIN", "T2MDEW", "RH2M", "WS2M", "ALLSKY_SFC_SW_DWN",
+                        "PRECTOTCORR", "GWETROOT"],
+         "rain_parameter": "PRECTOTCORR",
+         "notes": "AG community gives solar in MJ/m2/day (not kWh). ET0 and heat index are computed on "
+                  "device as in power_prep.py. Rain is PRECTOTCORR; IMERG_PRECTOT is not requested."}
+
+
+def dryness_reference(daily):
+    """Per calendar month: years + 1-month / 3-month P-ET0 balances + mean GWETROOT (null if incomplete)."""
+    m = zmonthly(daily)
+    m["bal3"] = accumulate(m["wb_mm"], 3)
+    if "gwetroot" not in m:
+        m["gwetroot"] = np.nan
+    out = {}
+    for mm in range(1, 13):
+        g = m[m.index.month == mm]
+        g = g[g.wb_mm.notna() | g.gwetroot.notna()]
+        out[str(mm)] = {"years": [int(i.year) for i in g.index],
+                        "bal1": [num(v, 1) for v in g.wb_mm], "bal3": [num(v, 1) for v in g.bal3],
+                        "gwet": [num(v, 3) for v in g.gwetroot]}
+    return out
+
+
+def s0_frac_by_doy(ref):
+    """Median bucket S_frac by calendar day of year (366 entries, leap-year numbering)."""
+    if ref is None:
+        return []
+    f = ref["S_frac"].dropna()
+    med = f.groupby(f.index.month * 100 + f.index.day).median()
+    return [num(med.get(d.month * 100 + d.day), 2) for d in pd.date_range("2000-01-01", "2000-12-31")]
+
+
 def build(muni, daily, monthly, soil_row, ref, risk, outcomes, enso, crops, soil_all):
     # enso
     e = enso.dropna(subset=["jas"])
@@ -82,7 +128,8 @@ def build(muni, daily, monthly, soil_row, ref, risk, outcomes, enso, crops, soil
                       "rank": rank_text(last.D, last.get("dry_rank"), last.get("dry_n"))},
            "thresholds": {"bantay": 1.0, "delikado": 2.0, "down_bantay": 1.5, "down_normal": 0.5,
                           "calm_dekads": 2},
-           "monthly": [[i.strftime("%Y-%m"), num(r.D, 2)] for i, r in m.iterrows()]}
+           "monthly": [[i.strftime("%Y-%m"), num(r.D, 2)] for i, r in m.iterrows()],
+           "reference": dryness_reference(daily)}
     # crops and tracker
     d = daily[["T2M_MAX", "T2M_MIN", "PRECTOTCORR", "ET0"]].dropna()
     years = list(range(d.index.year.min(), d.index.year.max()))
@@ -111,6 +158,7 @@ def build(muni, daily, monthly, soil_row, ref, risk, outcomes, enso, crops, soil
     return {
         "meta": {"schema": SCHEMA, "generated": date.today().isoformat(), "muni": muni,
                  "point": {"lat": num(soil_row.town_lat, 4), "lon": num(soil_row.town_lon, 4)},
+                 "power": POWER,
                  "baseline": f"{d.index.year.min()}-{d.index.year.max()}",
                  "water_scenarios": {"rainfed": 0, "limited_2": 2, "limited_4": 4, "full": None},
                  "sources": ["NASA POWER", "ISRIC SoilGrids 2.0", "NOAA CPC RONI", "FAO-56",
@@ -119,7 +167,7 @@ def build(muni, daily, monthly, soil_row, ref, risk, outcomes, enso, crops, soil
         "planner": {"theta_f": P.THETA_F, "theta_h": P.THETA_H, "beta": P.BETA,
                     "ranked_share": P.RANKED_SHARE, "criteria": list(P.CRITERIA),
                     "benefit": P.BENEFIT, "water_label": P.WATER_LABEL},
-        "tracker": tracker, "heat": {"index_categories_c": PAGASA}}
+        "tracker": {**tracker, "s0_frac_by_doy": s0_frac_by_doy(ref)}, "heat": {"index_categories_c": PAGASA}}
 
 
 def risk_frame(doc):
